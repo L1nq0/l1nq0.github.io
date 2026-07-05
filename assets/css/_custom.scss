@@ -144,6 +144,11 @@ table {
   }
 }
 
+// Override FixIt's padding-block: 1rem on homepage summaries
+.home.posts .summary {
+  padding: 0;
+}
+
 // Remove FixIt dashed separator between posts
 .home.posts .summary:not(:last-of-type)::after {
   display: none;
