@@ -23,7 +23,7 @@
       <path d="M7.01 17h.005"/>
       <path d="M10.01 17h.005"/>
     </svg>
-    {{- with .PublishDate | dateFormat "2 Jan, 2006" -}}
+    {{- with .PublishDate | dateFormat (.Site.Params.dateFormat | default "2006-01-02") -}}
       <time datetime="{{ $.PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ . }}</time>
     {{- end -}}
   </div>
