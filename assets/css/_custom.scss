@@ -9,11 +9,17 @@
 :root {
   --fi-global-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+  --fi-primary: #161209;
+  --fi-global-link-hover-color: #161209;
+  --fi-single-link-hover-color: #161209;
 }
 
 [data-theme="dark"] {
   --fi-global-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+  --fi-primary: #b1b1ba;
+  --fi-global-link-hover-color: #b1b1ba;
+  --fi-single-link-hover-color: #b1b1ba;
 }
 
 body {
