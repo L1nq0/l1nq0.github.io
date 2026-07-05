@@ -8,6 +8,10 @@ hugo --cleanDestinationDir
 if ($LASTEXITCODE -ne 0) { throw "Hugo build failed" }
 
 Write-Host "[2/3] Preparing deployment..." -ForegroundColor Cyan
+
+# Clean leftover .git from previous deployment (hugo does not remove it)
+Remove-Item -Recurse -Force public/.git -ErrorAction SilentlyContinue
+
 Push-Location public
 
 git init

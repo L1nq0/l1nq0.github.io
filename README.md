@@ -1,77 +1,44 @@
 # L1nq Blog
 
-A Hugo + FixIt cybersecurity blog focused on CTF writeups, pentest labs, code audit notes, and web security research.
+Hugo + FixIt cybersecurity blog. CTF writeups, pentest labs, code audit, web security research.
 
-Site: [https://sw1mblu3.fun/](https://sw1mblu3.fun/)
+Site: [sw1mblu3.fun](https://sw1mblu3.fun/)
 
-## Documentation
+## Quick Start
 
-- [PROJECT_STATUS.md](PROJECT_STATUS.md) - current project snapshot, completed work, risks, and next steps.
-- [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) - finalized phased roadmap for launch validation, UX polish, deployment hygiene, and optional features.
-- [CUSTOMIZATION_PLAN.md](CUSTOMIZATION_PLAN.md) - customization roadmap inspired by `exp10it.io`.
-- [PHASE1_COMPLETED.md](PHASE1_COMPLETED.md) and [PHASE1.3_COMPLETED.md](PHASE1.3_COMPLETED.md) - historical phase completion notes.
-- [LINK_STYLE_OPTIMIZATION.md](LINK_STYLE_OPTIMIZATION.md) - link styling change record.
-
-## Common Commands
-
-```bash
-# Preview locally with live reload
+```powershell
+# Preview locally
 hugo server -D
 
-# Build static output (generates public/)
+# Build
 hugo --cleanDestinationDir
 
-# Verify migrated post image references
+# Verify images
 python check_images.py
+
+# Deploy to GitHub Pages
+.\deploy.ps1
 ```
 
-Hugo `v0.160.1+extended` is available in the current PowerShell environment.
+## Project Structure
 
-## Branch Structure
+| Directory | Purpose |
+|-----------|---------|
+| `content/posts/` | Blog posts (page bundles: one directory per post) |
+| `assets/css/` | Custom styles (`_custom.scss`) |
+| `layouts/` | Template overrides |
+| `themes/FixIt/` | Theme (do not edit) |
+| `public/` | Build output (ignored, deployed by script) |
+
+## Branch Strategy
 
 | Branch | Purpose |
 |--------|---------|
-| `source` | Hugo project source (content, themes, config, etc.). This is the **working branch**. |
-| `main` | Deployed static site files. Managed automatically by `deploy.sh`. |
-
-`public/` and `resources/` are not tracked in `source` branch (see `.gitignore`).
+| `source` | Working branch — all source files live here |
+| `main` | Deploy target — only static site files, served by GitHub Pages |
 
 ## Deployment
 
-The `deploy.sh` script builds the Hugo site and pushes the generated `public/` output to the `main` branch, which is served by GitHub Pages.
+`deploy.ps1` builds the site and pushes `public/` contents to the `main` branch. GitHub Pages serves `main` at sw1mblu3.fun.
 
-```bash
-# Deploy to GitHub Pages
-bash deploy.sh
-```
-
-### How it works
-
-1. `hugo --cleanDestinationDir` regenerates `public/` from scratch
-2. A temporary git repository is created inside `public/`
-3. Contents are force-pushed to the `main` branch of `L1nq0.github.io`
-4. GitHub Pages serves the `main` branch at [sw1mblu3.fun](https://sw1mblu3.fun/)
-
-The git repository inside `public/` is disposable — it is created fresh each deployment and destroyed when Hugo rebuilds. This is the standard Hugo deployment pattern for `username.github.io` repositories.
-
-### Daily workflow
-
-```bash
-# 1. Ensure you are on source branch
-git branch                    # should show * source
-
-# 2. Write or edit posts under content/posts/
-
-# 3. Preview locally
-hugo server -D
-
-# 4. Commit source changes
-git add content/
-git commit -m "Add new post: post-title"
-
-# 5. Deploy site
-bash deploy.sh
-
-# 6. Push source branch
-git push origin source
-```
+For detailed guidance, see [CLAUDE.md](CLAUDE.md).

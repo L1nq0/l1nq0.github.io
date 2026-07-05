@@ -5,6 +5,8 @@ echo "[1/3] Building Hugo site..."
 hugo --cleanDestinationDir
 
 echo "[2/3] Preparing deployment..."
+# Clean leftover .git from previous deployment (hugo does not remove it)
+rm -rf public/.git
 cd public
 
 git init
