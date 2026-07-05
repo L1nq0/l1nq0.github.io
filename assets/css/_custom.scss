@@ -134,32 +134,8 @@ table {
 }
 
 // ==========================================================================
-// 7. Content Width — centered, consistent across header + content + footer
+// 7. Content Width — keep FixIt defaults, do not constrain
 // ==========================================================================
-
-// Constrain entire page layout to match exp10it.io max-w-app (48rem = 768px)
-#header-desktop .header-wrapper,
-#header-mobile .header-container,
-.wrapper main.fi-container,
-.footer .footer-container {
-  max-width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-// Full-width background on header/footer, but content constrained
-#header-desktop,
-#header-mobile,
-.footer {
-  width: 100%;
-}
-
-// Single post content also constrained
-.page.single,
-.single .single-content {
-  max-width: 768px;
-  margin: 0 auto;
-}
 
 // ==========================================================================
 // 8. Home Page — Summary Cards (exp10it.io style)
