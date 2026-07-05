@@ -142,9 +142,10 @@ table {
 // ==========================================================================
 
 .summary {
-  // Spacing: 24px between items, no decoration
+  // Spacing: 24px between items, no border
   padding: 0;
   margin: 1.5rem 0;
+  border-bottom: none;
 
   // Title — accent color, dashed underline on hover
   .single-title {

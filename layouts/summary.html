@@ -28,9 +28,15 @@
     {{- end -}}
   </div>
 
-  {{- /* Description */ -}}
+  {{- /* Description — use summary or description front matter */ -}}
   <div class="content">
-    {{- .Description | safeHTML -}}
+    {{- if .Description -}}
+      {{- .Description | safeHTML -}}
+    {{- else if .Params.summary -}}
+      {{- .Params.summary | safeHTML -}}
+    {{- else -}}
+      {{- .Summary | plainify | truncate 120 -}}
+    {{- end -}}
   </div>
 </article>
 {{- /* EOF */ -}}
