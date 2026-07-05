@@ -241,6 +241,9 @@ table {
     border: none;
     border-top: 1px solid var(--fi-global-border-color);
     margin-bottom: 1rem;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .footer-line {
