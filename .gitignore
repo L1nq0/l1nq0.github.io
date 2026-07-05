@@ -1,0 +1,8 @@
+.hugo_build.lock
+tmpclaude-*-cwd
+.claude/
+
+# Hugo generated cache and build output
+# public/ is deployed via deploy.sh to the main branch
+resources/
+public/

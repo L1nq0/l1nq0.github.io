@@ -1,0 +1,239 @@
+// =====================================================================================
+// Custom style
+// 自定义样式
+// =====================================================================================
+
+// 隐藏文章列表中的特色图片预览
+.summary .featured-image-preview {
+  display: none !important;
+}
+
+// 调整文章卡片样式（参考 exp10it.io 极简风格）
+.summary {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// 优化文章标题样式
+.summary .single-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 4px;
+    }
+  }
+}
+
+// 优化元信息样式
+.summary .post-meta {
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+// 优化摘要内容样式
+.summary .content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+}
+
+// 优化 footer 样式
+.summary .post-footer {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+// 优化标签样式
+.summary .post-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  .post-tag {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+  }
+}
+
+// 优化主页 profile 部分
+.home-profile {
+  text-align: center;
+  padding: 2rem 0 3rem;
+
+  .home-avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .home-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .home-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// 优化社交链接样式
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  a {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// 优化页面整体留白（参考 exp10it.io）
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// 响应式优化
+@media (max-width: 768px) {
+  .home-profile {
+    padding: 1.5rem 0 2rem;
+
+    .home-avatar {
+      width: 100px;
+      height: 100px;
+    }
+
+    .home-title {
+      font-size: 1.75rem;
+    }
+
+    .home-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .summary .single-title {
+    font-size: 1.1rem;
+  }
+}
+
+// Universal link style (exp10it.io style)
+// Applied to: Home page, Posts, About, Links, etc.
+// Mixin-like approach: define once, apply everywhere
+.content,
+.single-content,
+article.page.single .content,
+.post-content,
+#content {
+  // All links in paragraphs and lists
+  p a,
+  li a {
+    color: inherit !important; // Inherit text color
+    text-decoration: none !important; // Remove default underline
+    border-bottom: 2px dashed currentColor; // Dashed underline
+    padding-bottom: 2px;
+    transition: all 0.25s ease;
+
+    &:hover {
+      // FixIt theme blue accent color
+      color: #2d96bd !important; // Hover: blue
+      border-bottom-width: 2px !important;
+      border-bottom-style: solid !important; // Hover: solid line
+      border-bottom-color: #2d96bd !important;
+    }
+  }
+}
+
+// Navigation menu customization (exp10it.io style)
+// Text only menus: Categories, Tags, Links, About
+// Icon only menu: Archives
+.menu {
+  gap: 1rem !important; // Moderate spacing between menu items
+
+  // Hide icons for text-only menus
+  .menu-item {
+    a.menu-link[href="/categories/"],
+    a.menu-link[href="/tags/"],
+    a.menu-link[href="/links/"],
+    a.menu-link[href="/about/"] {
+      i {
+        display: none !important; // Hide icons
+      }
+    }
+  }
+
+  // Archives: Icon only (hide text, keep icon)
+  .menu-item {
+    a.menu-link[href="/archives/"] {
+      // Hide text but keep layout
+      font-size: 0 !important;
+      line-height: 0 !important;
+
+      i {
+        font-size: 1rem !important; // Restore icon size
+        line-height: normal !important;
+        display: inline-block !important;
+      }
+    }
+  }
+}
+
+// Desktop header menu alignment
+#header-desktop .menu {
+  margin-left: auto !important; // Push menu to the right
+  margin-right: 1.5rem !important; // Moderate right margin
+}
+
+// GitHub icon - force transparent background
+.social-links a,
+.links a {
+  .fa-github,
+  .fa-brands.fa-github {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+}
