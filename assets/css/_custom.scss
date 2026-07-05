@@ -87,12 +87,12 @@ table {
 }
 
 // ==========================================================================
-// 6. Home Page — Summary Cards
+// 6. Home Page — Summary Cards (exp10it.io minimal style)
 // ==========================================================================
 
 .summary {
   padding: 0;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0;
 
   // Accent-colored title with dashed hover
   .single-title {
@@ -144,7 +144,7 @@ table {
   }
 }
 
-// Remove FixIt's dashed separator line between posts
+// Remove FixIt dashed separator between posts
 .home.posts .summary:not(:last-of-type)::after {
   display: none;
 }
