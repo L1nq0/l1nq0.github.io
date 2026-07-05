@@ -1,86 +1,317 @@
-// =====================================================================================
-// Custom style
-// 自定义样式
-// =====================================================================================
+// ==========================================================================
+// exp10it.io inspired custom styles for FixIt theme
+// ==========================================================================
 
-// 隐藏文章列表中的特色图片预览
-.summary .featured-image-preview {
-  display: none !important;
+// ==========================================================================
+// 1. Design Tokens — exp10it.io color scheme
+// ==========================================================================
+
+:root {
+  // Override FixIt core variables — light theme
+  --fi-global-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --fi-global-background-color: #fdfdfd;
+  --fi-global-font-color: #282728;
+  --fi-global-font-secondary-color: #697681;
+  --fi-global-link-color: #282728;
+  --fi-global-link-hover-color: #006cac;
+  --fi-global-border-color: #ece9e9;
+  --fi-header-background-color: #fdfdfd;
+  --fi-primary: #006cac;
+  --fi-single-link-color: #282728;
+  --fi-single-link-hover-color: #006cac;
+  --fi-blockquote-color: #697681;
+  --fi-code-color: #282728;
+  --fi-code-inline-background-color: #e6e6e6;
+  --fi-code-block-background-color: #f4f6f8;
+  --fi-selection-color: rgba(0, 108, 172, 0.2);
 }
 
-// 调整文章卡片样式（参考 exp10it.io 极简风格）
-.summary {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border-color);
-
-  &:last-child {
-    border-bottom: none;
-  }
+[data-theme="dark"] {
+  --fi-global-background-color: #212737;
+  --fi-global-font-color: #eaedf3;
+  --fi-global-font-secondary-color: #7d8792;
+  --fi-global-link-color: #eaedf3;
+  --fi-global-link-hover-color: #8fcef2;
+  --fi-global-border-color: #343f60;
+  --fi-header-background-color: #212737;
+  --fi-primary: #8fcef2;
+  --fi-single-link-color: #eaedf3;
+  --fi-single-link-hover-color: #8fcef2;
+  --fi-blockquote-color: #9ba3aa;
+  --fi-code-color: #eaedf3;
+  --fi-code-inline-background-color: #343f60;
+  --fi-code-block-background-color: #2d333b;
+  --fi-selection-color: rgba(143, 206, 242, 0.2);
 }
 
-// 优化文章标题样式
-.summary .single-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+// ==========================================================================
+// 2. Global Typography
+// ==========================================================================
 
-  a {
-    text-decoration: none;
+body {
+  font-family: var(--fi-global-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Code font matching
+code, pre, kbd, samp {
+  font-family: var(--fi-code-font-family);
+}
+
+// ==========================================================================
+// 3. Link Styles — dashed underline like exp10it.io
+// ==========================================================================
+
+// Content area links
+.single-content,
+.content,
+.page.single .content {
+  p a,
+  li a,
+  td a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
 
     &:hover {
-      text-decoration: underline;
-      text-decoration-style: dashed;
-      text-underline-offset: 4px;
+      color: var(--fi-primary);
+      text-decoration-style: solid;
     }
   }
 }
 
-// 优化元信息样式
-.summary .post-meta {
-  font-size: 0.875rem;
-  opacity: 0.8;
-  margin-bottom: 0.5rem;
+// ==========================================================================
+// 4. Blockquote — accent left border
+// ==========================================================================
+
+blockquote {
+  border-left: 3px solid var(--fi-primary);
+  color: var(--fi-blockquote-color);
+  background: transparent;
+  padding: 0.5rem 1rem;
+  margin: 1.25rem 0;
 }
 
-// 优化摘要内容样式
-.summary .content {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-color);
-  margin-top: 0.5rem;
+// ==========================================================================
+// 5. Code Blocks — muted background, rounded
+// ==========================================================================
+
+// Inline code
+:not(pre) > code {
+  background-color: var(--fi-code-inline-background-color);
+  color: var(--fi-code-color);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
 }
 
-// 优化 footer 样式
-.summary .post-footer {
-  margin-top: 0.75rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+// Fenced code blocks
+pre, .highlight {
+  border: 1px solid var(--fi-global-border-color);
+  border-radius: 6px;
 }
 
-// 优化标签样式
-.summary .post-tags {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+// ==========================================================================
+// 6. Tables — bordered cells
+// ==========================================================================
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th, td {
+    border: 1px solid var(--fi-global-border-color);
+    padding: 0.5rem 0.75rem;
+  }
+
+  th {
+    font-weight: 600;
+  }
+}
+
+// ==========================================================================
+// 7. Content Width — centered, max 768px
+// ==========================================================================
+
+.page.single,
+.single .single-content {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+// ==========================================================================
+// 8. Home Page — Summary Cards
+// ==========================================================================
+
+.summary {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--fi-global-border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .featured-image-preview {
+    display: none;
+  }
+
+  .single-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        text-underline-offset: 4px;
+      }
+    }
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+
+    // Hide avatar in summary meta (prevent duplicate author name)
+    .post-author img,
+    .post-author .avatar {
+      display: none;
+    }
+  }
+
+  .content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+  }
+
+  .post-footer {
+    margin-top: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .post-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
 
   .post-tag {
     font-size: 0.85rem;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--fi-global-border-color);
 
     &:hover {
-      border-color: var(--accent-color);
+      border-color: var(--fi-primary);
     }
   }
 }
 
-// 优化主页 profile 部分
+// ==========================================================================
+// 9. Single Post — TOC and content styling
+// ==========================================================================
+
+// Post meta info
+.single .post-meta {
+  font-size: 0.875rem;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+
+  // Hide author avatar to prevent duplicate name display
+  .post-author img,
+  .post-author .avatar {
+    display: none;
+  }
+
+  // Simplify author display
+  .post-author {
+    font-weight: 500;
+  }
+
+  // Cleaner "included in" label
+  .post-meta-included-in {
+    opacity: 0.7;
+    font-size: 0.85rem;
+  }
+}
+
+// Post footer
+.post-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--fi-global-border-color);
+}
+
+// ==========================================================================
+// 10. TOC (Table of Contents) Sidebar
+// ==========================================================================
+
+.toc .toc-content {
+  font-family: var(--fi-global-font-family);
+  font-size: 0.85rem;
+
+  a {
+    color: var(--fi-global-font-secondary-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--fi-primary);
+    }
+  }
+}
+
+// ==========================================================================
+// 11. Navigation — text-only + icon-only
+// ==========================================================================
+
+.menu {
+  gap: 1rem;
+
+  // Hide icons for text-only menu items
+  .menu-item {
+    a.menu-link[href="/categories/"],
+    a.menu-link[href="/tags/"],
+    a.menu-link[href="/links/"],
+    a.menu-link[href="/about/"] {
+      i { display: none; }
+    }
+  }
+
+  // Archives: icon only
+  .menu-item a.menu-link[href="/archives/"] {
+    font-size: 0;
+    line-height: 0;
+    i {
+      font-size: 1rem;
+      line-height: normal;
+      display: inline-block;
+    }
+  }
+}
+
+#header-desktop .menu {
+  margin-left: auto;
+  margin-right: 1.5rem;
+}
+
+// ==========================================================================
+// 12. Home Profile
+// ==========================================================================
+
 .home-profile {
   text-align: center;
   padding: 2rem 0 3rem;
@@ -112,7 +343,7 @@
   }
 }
 
-// 优化社交链接样式
+// Social links
 .social-links {
   display: flex;
   justify-content: center;
@@ -121,39 +352,27 @@
 
   a {
     font-size: 1.25rem;
-    color: var(--text-color);
+    color: var(--fi-global-font-color);
     transition: all 0.2s ease;
 
     &:hover {
-      color: var(--accent-color);
+      color: var(--fi-primary);
       transform: translateY(-2px);
     }
   }
 }
 
-// 优化页面整体留白（参考 exp10it.io）
-.page {
-  max-width: 800px;
-  margin: 0 auto;
-}
+// ==========================================================================
+// 13. Responsive
+// ==========================================================================
 
-// 响应式优化
 @media (max-width: 768px) {
   .home-profile {
     padding: 1.5rem 0 2rem;
 
-    .home-avatar {
-      width: 100px;
-      height: 100px;
-    }
-
-    .home-title {
-      font-size: 1.75rem;
-    }
-
-    .home-subtitle {
-      font-size: 1rem;
-    }
+    .home-avatar { width: 100px; height: 100px; }
+    .home-title { font-size: 1.75rem; }
+    .home-subtitle { font-size: 1rem; }
   }
 
   .summary .single-title {
@@ -161,79 +380,17 @@
   }
 }
 
-// Universal link style (exp10it.io style)
-// Applied to: Home page, Posts, About, Links, etc.
-// Mixin-like approach: define once, apply everywhere
-.content,
-.single-content,
-article.page.single .content,
-.post-content,
-#content {
-  // All links in paragraphs and lists
-  p a,
-  li a {
-    color: inherit !important; // Inherit text color
-    text-decoration: none !important; // Remove default underline
-    border-bottom: 2px dashed currentColor; // Dashed underline
-    padding-bottom: 2px;
-    transition: all 0.25s ease;
+// ==========================================================================
+// 14. Misc — clean up extra elements
+// ==========================================================================
 
-    &:hover {
-      // FixIt theme blue accent color
-      color: #2d96bd !important; // Hover: blue
-      border-bottom-width: 2px !important;
-      border-bottom-style: solid !important; // Hover: solid line
-      border-bottom-color: #2d96bd !important;
-    }
-  }
+// Hide theme inject metadata
+[data-theme-inject] {
+  display: none;
 }
 
-// Navigation menu customization (exp10it.io style)
-// Text only menus: Categories, Tags, Links, About
-// Icon only menu: Archives
-.menu {
-  gap: 1rem !important; // Moderate spacing between menu items
-
-  // Hide icons for text-only menus
-  .menu-item {
-    a.menu-link[href="/categories/"],
-    a.menu-link[href="/tags/"],
-    a.menu-link[href="/links/"],
-    a.menu-link[href="/about/"] {
-      i {
-        display: none !important; // Hide icons
-      }
-    }
-  }
-
-  // Archives: Icon only (hide text, keep icon)
-  .menu-item {
-    a.menu-link[href="/archives/"] {
-      // Hide text but keep layout
-      font-size: 0 !important;
-      line-height: 0 !important;
-
-      i {
-        font-size: 1rem !important; // Restore icon size
-        line-height: normal !important;
-        display: inline-block !important;
-      }
-    }
-  }
-}
-
-// Desktop header menu alignment
-#header-desktop .menu {
-  margin-left: auto !important; // Push menu to the right
-  margin-right: 1.5rem !important; // Moderate right margin
-}
-
-// GitHub icon - force transparent background
-.social-links a,
-.links a {
-  .fa-github,
-  .fa-brands.fa-github {
-    background-color: transparent !important;
-    background: transparent !important;
-  }
+// Ensure GitHub icon doesn't get colored background
+.social-links a .fa-github,
+.links a .fa-github {
+  background: transparent !important;
 }

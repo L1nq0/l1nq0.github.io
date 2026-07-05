@@ -2,7 +2,7 @@
 set -e
 
 echo "[1/3] Building Hugo site..."
-hugo --cleanDestinationDir
+hugo --cleanDestinationDir --buildFuture
 
 echo "[2/3] Preparing deployment..."
 # Clean leftover .git from previous deployment (hugo does not remove it)

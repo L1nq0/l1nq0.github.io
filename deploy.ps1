@@ -4,7 +4,7 @@
 $ErrorActionPreference = "Stop"
 
 Write-Host "[1/3] Building Hugo site..." -ForegroundColor Cyan
-hugo --cleanDestinationDir
+hugo --cleanDestinationDir --buildFuture
 if ($LASTEXITCODE -ne 0) { throw "Hugo build failed" }
 
 Write-Host "[2/3] Preparing deployment..." -ForegroundColor Cyan

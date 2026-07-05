@@ -1,12 +1,12 @@
 ---
 title: AI x Cybersecurity Challenge 2026 Web Writeup
-date: 2026-07-05 10:05:59
+date: 2026-07-05
 tags:
   - CTF
 categories:
   - CTF
 summary: "AI x Cybersecurity Challenge 2026 Web Writeup"
-slug: AI x Cybersecurity Challenge
+slug: ai-cybersecurity-challenge-2026-web-writeup
 draft: false
 author:
   name: L1nq

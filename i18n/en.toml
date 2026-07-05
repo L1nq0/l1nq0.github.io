@@ -1,0 +1,4 @@
+[single.includedIn]
+categories = "{{ .Categories }}"
+collections = "{{ .Collections }}"
+both = "{{ .Categories }} / {{ .Collections }}"

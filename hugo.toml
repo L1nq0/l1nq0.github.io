@@ -1301,7 +1301,7 @@ auto = true
 position = "right"
 # FixIt 0.3.12 | NEW supersede `markup.tableOfContents` settings
 ordered = false
-startLevel = 2
+startLevel = 1
 endLevel = 6
 # FixIt 0.4.0 | NEW whether to decrease the H1 heading level in content
 decreaseH1 = false
