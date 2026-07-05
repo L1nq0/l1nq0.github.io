@@ -144,80 +144,57 @@ table {
 }
 
 // ==========================================================================
-// 8. Home Page — Summary Cards
+// 8. Home Page — Summary Cards (exp10it.io style)
 // ==========================================================================
 
 .summary {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--fi-global-border-color);
+  // Spacing: 24px between items, no decoration
+  padding: 0;
+  margin: 1.5rem 0;
 
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .featured-image-preview {
-    display: none;
-  }
-
+  // Title — accent color, dashed underline on hover
   .single-title {
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.125rem;  // text-lg
+    font-weight: 500;      // font-medium
+    line-height: 1.5;
     margin-bottom: 0.25rem;
 
     a {
+      color: var(--fi-primary);       // accent color
       text-decoration: none;
+      text-decoration-style: dashed;
+      text-underline-offset: 4px;
 
       &:hover {
         text-decoration: underline;
-        text-decoration-style: dashed;
-        text-underline-offset: 4px;
+        text-decoration-style: solid;
       }
     }
   }
 
+  // Meta line — calendar icon + date, muted
   .post-meta {
-    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;  // text-sm
     opacity: 0.8;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 
-    // Hide avatar in summary meta (prevent duplicate author name)
-    .post-author img,
-    .post-author .avatar {
-      display: none;
+    .calendar-icon {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      scale: 0.9;
     }
   }
 
+  // Description — same as title text, compact
   .content {
     font-size: 0.95rem;
     line-height: 1.6;
-    margin-top: 0.5rem;
-  }
 
-  .post-footer {
-    margin-top: 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .post-tags {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .post-tag {
-    font-size: 0.85rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    border: 1px solid var(--fi-global-border-color);
-
-    &:hover {
-      border-color: var(--fi-primary);
-    }
+    p { margin: 0; }
   }
 }
 
