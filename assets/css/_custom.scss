@@ -181,36 +181,6 @@ html {
   text-underline-offset: 4px;
 }
 
-// Back button wrapper — outside flex, matches content padding
-.back-button-wrapper {
-  padding: 0 1rem;
-}
-
-// Back button on single posts — exp10it.io style
-.back-button {
-  margin: 2rem 0 0;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 1rem;
-    opacity: 0.8;
-    color: var(--fi-primary);
-    text-decoration: none;
-
-    &:hover {
-      opacity: 0.6;
-      color: var(--fi-primary);
-    }
-
-    svg {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-  }
-}
 
 // All Posts link on homepage
 .all-posts-link {
