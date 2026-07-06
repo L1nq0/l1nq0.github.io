@@ -328,6 +328,12 @@ table {
 // 8. Single Post Page — exp10it.io style
 // ==========================================================================
 
+// Archive pages (/categories, /tags) — left-align
+.archive .single-title,
+.archive .single-subtitle {
+  text-align: left;
+}
+
 // Standalone pages (/about, /links) — left-align + smaller content headings
 .special .single-title,
 .special .single-subtitle {

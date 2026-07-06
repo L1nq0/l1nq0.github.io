@@ -1,0 +1,26 @@
+{{- define "title" -}}
+  {{- .Params.Title | default (T .Data.Plural) | default .Data.Plural | dict "Some" | T "allSome" -}}
+  {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $taxonomies := .Data.Plural -}}
+  {{- $subtitle := "" -}}
+  {{- if eq $taxonomies "categories" -}}
+    {{- $subtitle = "Browse articles by category" -}}
+  {{- else if eq $taxonomies "tags" -}}
+    {{- $subtitle = "Browse articles by tag" -}}
+  {{- end -}}
+
+  <div class="page archive">
+    {{- /* Title — clean, exp10it.io style */ -}}
+    <h1 class="single-title">{{- .Params.Title | default (T $taxonomies) | default $taxonomies | dict "Some" | T "allSome" -}}</h1>
+
+    {{- /* Subtitle */ -}}
+    {{- with $subtitle -}}<p class="single-subtitle">{{ . }}</p>{{- end -}}
+
+    {{- /* Render different taxonomies */ -}}
+    {{- $template := cond ( eq $taxonomies "tags") "tags" "taxonomies" -}}
+    {{- .Render $template -}}
+  </div>
+{{- end -}}
