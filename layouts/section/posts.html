@@ -1,0 +1,26 @@
+{{- define "title" -}}
+  {{- $title := "Posts" -}}
+  {{- title $title -}}
+  {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  <div class="page posts-section">
+    {{- /* Header — exp10it.io style */ -}}
+    <div class="header">
+      <h1 class="single-title">Posts</h1>
+      <p class="single-subtitle">All the articles I&#39;ve posted.</p>
+    </div>
+
+    {{- /* Post cards — same style as homepage */ -}}
+    {{- $paginate := .Site.Params.section.paginate | default .Site.Params.paginate -}}
+    {{- $pages := .Paginate .Pages $paginate -}}
+
+    {{- range $pages.Pages -}}
+      {{- .Render "summary" -}}
+    {{- end -}}
+
+    {{- /* Paginator */ -}}
+    {{- template "_internal/pagination.html" . -}}
+  </div>
+{{- end -}}

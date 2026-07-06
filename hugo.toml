@@ -636,7 +636,7 @@ dateFormat = "01-02"
 # Section page config (all pages in section)
 [params.section]
 # special amount of pages in each section page
-paginate = 20
+paginate = 6
 # date format (month and day)
 dateFormat = "01-02"
 
