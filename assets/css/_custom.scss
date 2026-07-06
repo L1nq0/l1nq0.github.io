@@ -77,20 +77,36 @@ pre, .highlight {
 }
 
 // ==========================================================================
-// 5. Tables — bordered cells
+// 5. Tables — horizontal borders only
 // ==========================================================================
 
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: 2em 0;
+  font-size: 0.875em;
 
-  th, td {
-    border: 1px solid var(--fi-global-border-color);
-    padding: 0.5rem 0.75rem;
+  thead {
+    border-bottom: 2px solid var(--fi-global-border-color);
   }
 
   th {
     font-weight: 600;
+    text-align: start;
+    padding: 0.5rem 0.75rem;
+  }
+
+  td {
+    text-align: start;
+    padding: 0.5rem 0.75rem;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--fi-global-border-color);
+
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 }
 
