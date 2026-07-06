@@ -57,8 +57,16 @@ blockquote {
 }
 
 // ==========================================================================
-// 4. Code — rounded
+// 4. Code — white background, rounded
 // ==========================================================================
+
+:root {
+  --fi-code-block-background-color: #ffffff;
+}
+
+[data-theme="dark"] {
+  --fi-code-block-background-color: #1a1d2e;
+}
 
 :not(pre) > code {
   border-radius: 4px;
