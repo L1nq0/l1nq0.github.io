@@ -328,6 +328,23 @@ table {
 // 8. Single Post Page — exp10it.io style
 // ==========================================================================
 
+// Standalone pages (/about, /links) — left-align + smaller content headings
+.special .single-title,
+.special .single-subtitle {
+  text-align: left;
+}
+
+.special .content h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-bottom: 0.3em;
+}
+
+.special .content h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
 // Title — accent color, large bold
 article.page.single:not(.special) .single-title {
   font-size: 1.5rem;

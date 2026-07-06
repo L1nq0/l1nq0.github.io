@@ -3,6 +3,7 @@ title: "About"
 date: 2026-04-28
 draft: false
 comment: false
+subtitle: "Who I am and what I do"
 ---
 
 ## Introduction

@@ -3,6 +3,7 @@ title: "Links"
 date: 2026-04-28
 draft: false
 comment: false
+subtitle: "Friends, blogs and resources"
 ---
 
 ## Friends
