@@ -1145,7 +1145,7 @@ wrapper = true
 # code block mode
 # available modes: ["classic", "mac", "simple", ...]
 # if you set to custom value, you need to create a custom CSS for data-mode attribute
-mode = "classic"
+mode = "mac"
 # additional classes for the code block wrapper
 # e.g. "is-collapsed is-expanded line-nos-hidden line-wrapping"
 wrapperClass = ""
