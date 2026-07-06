@@ -1200,7 +1200,7 @@ expand_file_tree = false
 # Custom partials must be stored in the /layouts/_partials/ directory.
 # Depends on open custom blocks https://fixit.lruihao.cn/references/blocks/
 [params.customPartials]
-head = []
+head = ["head/view-transition.html", "head/view-transition-polyfill.html"]
 menuDesktop = []
 menuMobile = []
 profile = []

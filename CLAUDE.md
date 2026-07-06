@@ -149,6 +149,16 @@ git commit -m "Add post: title"
 git push origin source
 ```
 
+## Project Memory
+
+The `memory/` directory stores key project context across sessions. When starting work, read:
+- `memory/MEMORY.md` — index of all memory files
+- `memory/project-state.md` — current phase, completed/pending tasks
+- `memory/design-decisions.md` — design rationale
+- `memory/user-prefs.md` — user style preferences and constraints
+
+**After each session**: update `memory/project-state.md` with current status and next steps.
+
 ## Troubleshooting
 
 | Problem | Solution |

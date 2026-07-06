@@ -1,0 +1,45 @@
+<script>
+(function() {
+  // Only apply fallback if cross-document View Transitions are NOT supported
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  // === Exit: fade out before navigation ===
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  // === Entry: fade in on arrival ===
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
