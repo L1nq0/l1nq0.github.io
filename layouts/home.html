@@ -49,8 +49,6 @@
       {{- range $pages.Pages -}}
         {{- .Render "summary" -}}
       {{- end -}}
-      {{- partial "paginator.html" . -}}
-
       {{- /* All Posts link — exp10it.io style */ -}}
       <div class="all-posts-link">
         <a href="/posts/">

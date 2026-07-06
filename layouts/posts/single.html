@@ -57,95 +57,25 @@
       {{- with $params.subtitle -}}<p class="single-subtitle animate__animated animate__fadeIn">{{ . | $.RenderString }}</p>{{- end -}}
     </div>
 
-    {{- /* Meta */ -}}
+    {{- /* Meta — exp10it.io style: calendar + date + edit link */ -}}
     <div class="post-meta">
-      <div class="post-meta-line">
-        {{- partial "single/post-author.html" . -}}
-        {{- partial "single/post-included-in.html" . -}}
-      </div>
-      {{- /* TODO add disclaimer or space between meta and content */ -}}
-      <div class="post-meta-line">
-        {{- with .PublishDate | dateFormat (.Site.Params.dateformat | default "2006-01-02") -}}
-          <span title="{{ dict "Date" ("2006-01-02 15:04:05" | $.PublishDate.Format) | T "single.publishedOnDate" }}">
-            {{- dict "Class" "fa-solid fa-calendar-days me-1" | partial "plugin/icon.html" -}}
-            {{- printf `<time datetime="%v">%v</time>` . . | safeHTML -}}
-          </span>&nbsp;
-        {{- end -}}
-        {{- if (ne .Lastmod.Unix .PublishDate.Unix) | and $params.showLastmod -}}
-          {{- with .Lastmod | dateFormat (.Site.Params.dateformat | default "2006-01-02") -}}
-            <span title="{{ dict "Date" ("2006-01-02 15:04:05" | $.Lastmod.Format) | T "single.updatedOnDate" }}">
-              {{- dict "Class" "fa-regular fa-calendar-check me-1" | partial "plugin/icon.html" -}}
-              {{- printf `<time datetime="%v">%v</time>` . . | safeHTML -}}
-            </span>&nbsp;
-          {{- end -}}
-        {{- end -}}
-        {{- if $params.wordCount -}}
-          <span title="{{ T "single.wordCount" .WordCount }}">
-            {{- dict "Class" "fa-solid fa-pencil-alt me-1" | partial "plugin/icon.html" -}}
-            {{- T "single.fuzzyWordCount" .FuzzyWordCount -}}
-          </span>&nbsp;
-        {{- end -}}
-        {{- if $params.readingTime -}}
-          <span>
-            {{- dict "Class" "fa-regular fa-clock me-1" | partial "plugin/icon.html" -}}
-            {{- T "single.readingTime" .ReadingTime -}}
-          </span>&nbsp;
-        {{- end -}}
-
-        {{- /* If the article expires, close the comment or not */ -}}
-        {{- $expirationReminder := $params.expirationReminder | default dict -}}
-        {{- if
-          $expirationReminder.enable
-          | and (gt (div (sub now.Unix .Lastmod.Unix) 86400) ($expirationReminder.warning | default 180))
-          | and $expirationReminder.closeComment -}}
-          {{- .Store.Set "commentExpired" true -}}
-        {{- end -}}
-        {{- $comment := .Store.Get "comment" | default dict -}}
-        {{- $visitorIcon := dict "Class" "fa-regular fa-eye me-1" | partial "plugin/icon.html" -}}
-        {{- $commentIcon := dict "Class" "fa-regular fa-comments me-1" | partial "plugin/icon.html" -}}
-        {{- /* Visitor Count */ -}}
-        {{- if $comment.enable | and $comment.artalk.enable -}}
-          <span class="comment-visitors" data-flag-title="{{ $title }}">
-            {{- $visitorIcon }}<span class="artalk-visitor-count" data-page-key="{{ .RelPermalink }}">-</span>&nbsp;{{ T "single.views" }}
-          </span>&nbsp;
-        {{- else if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
-          <span id="{{ .RelPermalink }}" class="leancloud_visitors comment-visitors" data-flag-title="{{ $title }}">
-            {{- $visitorIcon }}<span class="leancloud-visitors-count">-</span>&nbsp;{{ T "single.views" }}
-          </span>&nbsp;
-        {{- else if $comment.enable | and $comment.waline.enable | and $comment.waline.pageview -}}
-          <span class="comment-visitors" data-flag-title="{{ $title }}">
-            {{- $visitorIcon }}<span data-path="{{ .RelPermalink }}" class="waline-pageview-count">-</span>&nbsp;{{ T "single.views" }}
-          </span>&nbsp;
-        {{- else if $comment.enable | and $comment.twikoo.enable | and $comment.twikoo.visitor -}}
-          <span id="{{ .RelPermalink }}" class="comment-visitors" data-flag-title="{{ $title }}">
-            {{- $visitorIcon }}<span id="twikoo_visitors">-</span>&nbsp;{{ T "single.views" }}
-          </span>&nbsp;
-        {{- else if .Site.Params.busuanzi.enable | and .Site.Params.busuanzi.pageViews | and hugo.IsProduction -}}
-          <span id="busuanzi_container_page_pv" class="busuanzi_visitors comment-visitors" data-flag-title="{{ $title }}">
-            {{- $visitorIcon }}<span id="busuanzi_value_page_pv">-</span>&nbsp;{{ T "single.views" }}
-          </span>&nbsp;
-        {{- end -}}
-        {{- /* Comment Count */ -}}
-        {{- if $comment.enable -}}
-          {{- if $comment.artalk.enable -}}
-            <span class="comment-count" data-flag-title="{{ $title }}">
-              {{ $commentIcon }}<span class="artalk-comment-count" data-page-key="{{ .RelPermalink }}">-</span>&nbsp;{{ T "single.comments" }}
-            </span>&nbsp;
-          {{- else if $comment.valine.enable | and $comment.valine.commentCount -}}
-            <span class="comment-count" data-flag-title="{{ $title }}">
-              {{ $commentIcon }}<span data-xid="{{ .RelPermalink }}" class="valine-comment-count">-</span>&nbsp;{{ T "single.comments" }}
-            </span>&nbsp;
-          {{- else if $comment.waline.enable | and $comment.waline.comment -}}
-            <span class="comment-count" data-flag-title="{{ $title }}">
-              {{ $commentIcon }}<span data-path="{{ .RelPermalink }}" class="waline-comment-count">-</span>&nbsp;{{ T "single.comments" }}
-            </span>&nbsp;
-          {{- else if $comment.twikoo.enable | and $comment.twikoo.commentCount -}}
-            <span id="{{ .RelPermalink }}" class="comment-count" data-flag-title="{{ $title }}">
-              {{ $commentIcon }}<span id="twikoo-comment-count">-</span>&nbsp;{{ T "single.comments" }}
-            </span>&nbsp;
-          {{- end -}}
-        {{- end -}}
-      </div>
+      {{- /* Calendar icon */ -}}
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg>
+      {{- /* Date — human readable */ -}}
+      {{- with .PublishDate | dateFormat "2 Jan, 2006" -}}
+        <time datetime="{{ $.PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ . }}</time>
+      {{- end -}}
+      {{- /* Edit page link */ -}}
+      {{- if $params.linkToEdit -}}
+        <span aria-hidden="true">|</span>
+        <a href="https://github.com/L1nq0/L1nq0.github.io/edit/source/content/{{ .File.Path }}" target="_blank" rel="noopener noreferrer">Edit page</a>
+      {{- end -}}
     </div>
 
     {{- /* Featured image */ -}}
