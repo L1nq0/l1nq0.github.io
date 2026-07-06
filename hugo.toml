@@ -466,7 +466,7 @@ avatar = "/1.jpg"
 # FixIt 0.3.0 | NEW public Git repository information only then enableGitInfo is true
 [params.gitInfo]
 # e.g. "https://github.com/hugo-fixit/docs"
-repo = ""
+repo = "https://github.com/L1nq0/L1nq0.github.io"
 branch = "main"
 # the content directory path relative to the root of the repository
 dir = "content"
