@@ -329,7 +329,7 @@ table {
 // ==========================================================================
 
 // Title — accent color, large bold
-.page.single .single-title {
+article.page.single:not(.special) .single-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--fi-global-link-color);
@@ -340,7 +340,7 @@ table {
 }
 
 // Meta — clean one-line: calendar + date + edit link
-.page.single .post-meta {
+article.page.single:not(.special) .post-meta {
   display: flex;
   align-items: center;
   gap: 0.5rem;
