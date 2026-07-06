@@ -241,10 +241,10 @@ table {
 
   // Accent-colored title with dashed hover
   .single-title {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    line-height: 1.5;
-    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    margin: 0.4rem 0 0.25rem;
 
     a {
       color: var(--fi-global-link-color);
@@ -289,13 +289,15 @@ table {
   }
 }
 
-// Override FixIt's padding-block: 1rem on homepage summaries
-.home.posts .summary {
+// Override FixIt's padding-block: 1rem on homepage + posts section summaries
+.home.posts .summary,
+.posts-section .summary {
   padding: 0;
 }
 
-// Remove FixIt dashed separator between posts
-.home.posts .summary:not(:last-of-type)::after {
+// Remove FixIt dashed separator between posts (homepage + posts section)
+.home.posts .summary:not(:last-of-type)::after,
+.posts-section .summary:not(:last-of-type)::after {
   display: none;
 }
 
@@ -473,6 +475,6 @@ table {
   }
 
   .summary .single-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
 }
