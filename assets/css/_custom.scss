@@ -41,7 +41,7 @@ body {
 }
 
 // ==========================================================================
-// 2. Link Styles — dashed underline
+// 2. Link Styles — exp10it.io (foreground, dashed, accent on hover)
 // ==========================================================================
 
 .single-content,
@@ -50,22 +50,66 @@ body {
   p a,
   li a,
   td a {
+    color: var(--fi-primary);
     text-decoration: underline;
     text-decoration-style: dashed;
     text-underline-offset: 4px;
 
     &:hover {
+      color: var(--fi-global-link-color);
       text-decoration-style: solid;
     }
   }
 }
 
 // ==========================================================================
-// 3. Blockquote — left border
+// 3. Blockquote — left border + italic, exp10it.io style
 // ==========================================================================
 
 blockquote {
   border-left-width: 3px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+// ==========================================================================
+// 3b. Content headings — exp10it.io spacing
+// ==========================================================================
+
+.single-content h2,
+.content h2,
+.page.single .content h2 {
+  margin-top: 2em;
+}
+
+.single-content h3,
+.content h3,
+.page.single .content h3 {
+  font-style: italic;
+}
+
+// ==========================================================================
+// 3c. List markers — accent color
+// ==========================================================================
+
+.single-content,
+.content,
+.page.single .content {
+  li::marker {
+    color: var(--fi-global-link-color);
+  }
+}
+
+// ==========================================================================
+// 3d. Images — border + centered
+// ==========================================================================
+
+.single-content img,
+.content img,
+.page.single .content img {
+  border: 1px solid var(--fi-global-border-color);
+  margin-inline: auto;
+  display: block;
 }
 
 // ==========================================================================
@@ -137,9 +181,14 @@ html {
   text-underline-offset: 4px;
 }
 
-// Back button on single posts
+// Back button wrapper — outside flex, matches content padding
+.back-button-wrapper {
+  padding: 0 1rem;
+}
+
+// Back button on single posts — exp10it.io style
 .back-button {
-  margin: 2rem 0 0.5rem;
+  margin: 2rem 0 0;
 
   a {
     display: inline-flex;
@@ -151,8 +200,8 @@ html {
     text-decoration: none;
 
     &:hover {
-      opacity: 1;
-      color: var(--fi-global-link-color);
+      opacity: 0.6;
+      color: var(--fi-primary);
     }
 
     svg {

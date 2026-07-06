@@ -3,6 +3,32 @@
   {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
 {{- end -}}
 
+{{- define "pre-main" -}}
+  <div class="back-button-wrapper">
+    <div class="back-button">
+      <a href="/" id="back-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M15 6l-6 6l6 6"/>
+        </svg>
+        <span>Go back</span>
+      </a>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var btn = document.getElementById('back-button');
+    var ref = document.referrer;
+    if (ref) {
+      var refUrl = new URL(ref);
+      if (refUrl.origin === location.origin) {
+        btn.href = refUrl.pathname + refUrl.search;
+      }
+    }
+  })();
+  </script>
+{{- end -}}
+
 {{- define "content" -}}
   {{- $title := cond (.Param "capitalizeTitles") (title .Title) .Title -}}
   {{- $params := partial "function/params.html" -}}
@@ -22,17 +48,6 @@
     {{- /* Custom Aside */ -}}
     {{- block "custom-aside" . }}{{ end -}}
   </aside>
-
-  {{- /* Back button — exp10it.io style */ -}}
-  <div class="back-button">
-    <a href="/">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M15 6l-6 6l6 6"/>
-      </svg>
-      <span>Go back</span>
-    </a>
-  </div>
 
   <article class="page single"{{ with .Params.fromAdapters }} data-adapters="{{ . }}"{{ end }}>
     <div class="header">
