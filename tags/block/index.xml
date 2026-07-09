@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Block - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/block/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:37:37 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/block/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>强网杯 2024 初赛 Web Challenge Walkthrough</title>
+      <link>https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/</link>
+      <pubDate>Wed, 05 Mar 2025 20:44:03 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>强网杯 2024 初赛 Web Challenge Walkthrough</description>
+    </item>
+  </channel>
+</rss>

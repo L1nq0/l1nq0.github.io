@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MVC - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/mvc/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:34:46 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/mvc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PHPCMSv9 MVC模式学习</title>
+      <link>https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sat, 28 Jun 2025 20:22:44 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>PHPCMSV9 MVC模式学习记录</description>
+    </item>
+  </channel>
+</rss>

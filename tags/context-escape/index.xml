@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Context Escape - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/context-escape/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:34:45 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/context-escape/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</title>
+      <link>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</link>
+      <pubDate>Sat, 02 Aug 2025 21:30:04 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>浅析 PHPCMSv9.6.3 转义失效导致RCE</description>
+    </item>
+  </channel>
+</rss>

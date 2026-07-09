@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deserialization - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/deserialization/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Wed, 08 Jul 2026 16:11:28 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/deserialization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pdfminer Vulnerability Research</title>
+      <link>https://sw1mblu3.fun/posts/pdfminer-vulnerability-research/</link>
+      <pubDate>Thu, 02 Oct 2025 21:58:12 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/pdfminer-vulnerability-research/</guid>
+      <category domain="https://sw1mblu3.fun/categories/python/">Python</category>
+      <description>Pdfminer Vulnerability Research</description>
+    </item>
+  </channel>
+</rss>

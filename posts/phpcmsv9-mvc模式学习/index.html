@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>PHPCMSv9 MVC模式学习 - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="PHPCMSV9 MVC模式学习记录"><meta name="keywords" content='MVC'>
+  <meta itemprop="name" content="PHPCMSv9 MVC模式学习">
+  <meta itemprop="description" content="PHPCMSV9 MVC模式学习记录">
+  <meta itemprop="datePublished" content="2025-06-28T20:22:44+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:46+08:00">
+  <meta itemprop="wordCount" content="786">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="MVC"><meta property="og:url" content="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="PHPCMSv9 MVC模式学习">
+  <meta property="og:description" content="PHPCMSV9 MVC模式学习记录">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-28T20:22:44+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:46+08:00">
+    <meta property="article:tag" content="MVC">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="PHPCMSv9 MVC模式学习" /><meta name="twitter:description" content="PHPCMSV9 MVC模式学习记录" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="PHPCMSv9 MVC模式学习 - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/" title="Dedecms SP2 前后台审计" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" title="PHPCMSv9.6.0 SQL注入漏洞分析" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/index.md" title="PHPCMSv9 MVC模式学习 - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "PHPCMSv9 MVC模式学习",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "MVC","wordcount":  786 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0\/","datePublished": "2025-06-28T20:22:44+00:00","dateModified": "2026-07-09T18:34:46+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>PHPCMSv9 MVC模式学习</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-06-28T20:22:44Z">28 Jun, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#全局分析">全局分析</a>
+      <ul>
+        <li><a href="#路由机制">路由机制</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>这次学习了其他优秀文章的风格，将许多分析直接嵌在代码块内，这是我实际阅读文章得到的体验，截图不如代码块直观简洁好读</p>
+<h1 class="heading-element" id="全局分析"><span>全局分析</span>
+  <a href="#%e5%85%a8%e5%b1%80%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>项目结构</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">api 接口文件目录
+</span></span><span class="line"><span class="cl">caches 缓存文件目录
+</span></span><span class="line"><span class="cl">	– configs 系统配置文件目录
+</span></span><span class="line"><span class="cl">    – caches_* 系统缓存目录
+</span></span><span class="line"><span class="cl">phpcms  phpcms框架主目录
+</span></span><span class="line"><span class="cl">    – languages 框架语言包目录
+</span></span><span class="line"><span class="cl">    – libs 框架主类库、主函数库目录
+</span></span><span class="line"><span class="cl">    – model 框架数据库模型目录
+</span></span><span class="line"><span class="cl">    – modules 框架模块目录
+</span></span><span class="line"><span class="cl">    – templates 框架系统模板目录
+</span></span><span class="line"><span class="cl">phpsso_server  phpsso主目录
+</span></span><span class="line"><span class="cl">statics 系统附件包
+</span></span><span class="line"><span class="cl">    – css 系统css包
+</span></span><span class="line"><span class="cl">    – images 系统图片包
+</span></span><span class="line"><span class="cl">    – js 系统js包
+</span></span><span class="line"><span class="cl">uploadfile 网站附件目录
+</span></span><span class="line"><span class="cl">admin.php 后台管理入口
+</span></span><span class="line"><span class="cl">index.php 程序主入口
+</span></span><span class="line"><span class="cl">crossdomain.xml FLASH跨域传输文件
+</span></span><span class="line"><span class="cl">robots.txt 搜索引擎蜘蛛限制配置文件
+</span></span><span class="line"><span class="cl">favicon.ico 系统icon图标</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="路由机制"><span>路由机制</span>
+  <a href="#%e8%b7%af%e7%94%b1%e6%9c%ba%e5%88%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>PHPCMS 使用的是 MVC 模式，这是一种现代化的设计思想，借鉴了 Java 的设计模式。首先理解一下 MVC 与传统 PHP 模式的区别
+传统 PHP 模式，直接访问文件并执行文件中的函数，外部传参通常携在指定文件路径中进行操作，文件即代表路由，并没有专门路由控制机制，任何人都可以直接访问对应的文件和功能。。
+MVC 模式(Model-View-Controller)，采用一个入口文件来进行统一的路由控制。所有的请求必须通过这个入口文件才能访问相应的页面。用户传参时携带规范化的参数，入口文件作为统一的访问点，程序通过 Controller（控制器）进行请求转发，控制器调用 Model（模型）来处理请求，模型处理完请求后返回数据，最后控制器将数据传递给 View（视图）进行格式化并展示给用户
+PHPCMS 是通过如下方式来实现路由限制：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">defined(&#39;IN_PHPCMS&#39;) or exit(&#39;No permission resources.&#39;);
+</span></span><span class="line"><span class="cl">//IN_PHPCMS 在访问入口文件后会被定义，defined 检查是否被定义，如果没有则终止程序
+</span></span><span class="line"><span class="cl">//该代码通常位于每个业务文件的开头，以防止直接访问内部文件</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>先从入口文件开始读起</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#index.php
+</span></span><span class="line"><span class="cl">define(&#39;PHPCMS_PATH&#39;, dirname(__FILE__).DIRECTORY_SEPARATOR);
+</span></span><span class="line"><span class="cl">include PHPCMS_PATH.&#39;/phpcms/base.php&#39;;
+</span></span><span class="line"><span class="cl">pc_base::creat_app();</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>define 包含 base.php 文件，index.php -&gt; base.php
+PHPCMS 整个内容管理系统有两大框架，PHPCMS(系统的核心框架，负责处理内容管理、前端展示、数据库交互等功能)、PHPSSO_SERVER（负责单点登录的功能，后面再了解），base.php 也是作为 PHPCMS 框架入口文件
+继续分析 base.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">define(&#39;IN_PHPCMS&#39;, true);  
+</span></span><span class="line"><span class="cl">//PHPCMS框架路径  
+</span></span><span class="line"><span class="cl">define(&#39;PC_PATH&#39;, dirname(__FILE__).DIRECTORY_SEPARATOR);  
+</span></span><span class="line"><span class="cl">define(//先定义一些系统环境变量...);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//然后加载公用函数库  
+</span></span><span class="line"><span class="cl">pc_base::load_sys_func(&#39;global&#39;);
+</span></span><span class="line"><span class="cl">  =&gt;public static function load_sys_func($func) {  
+</span></span><span class="line"><span class="cl">		return self::_load_func($func); 
+</span></span><span class="line"><span class="cl">		//调用类方法 _load_func，$func为要调用的函数名
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	  =&gt;private static function _load_func($func, $path = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">		static $funcs = array();  
+</span></span><span class="line"><span class="cl">		if (empty($path)) $path = &#39;libs&#39;.DIRECTORY_SEPARATOR.&#39;functions&#39;;
+</span></span><span class="line"><span class="cl">		// lib/functions 这个目录下存放着公用函数库  
+</span></span><span class="line"><span class="cl">		$path .= DIRECTORY_SEPARATOR.$func.&#39;.func.php&#39;;  
+</span></span><span class="line"><span class="cl">		$key = md5($path);  
+</span></span><span class="line"><span class="cl">		if (isset($funcs[$key])) return true;  
+</span></span><span class="line"><span class="cl">		if (file_exists(PC_PATH.$path)) {  
+</span></span><span class="line"><span class="cl">		   include PC_PATH.$path;  
+</span></span><span class="line"><span class="cl">		   // 最终包含公用函数库，这里包含的是 lib/functions/glocal.func.php
+</span></span><span class="line"><span class="cl">		} else {  
+</span></span><span class="line"><span class="cl">		   $funcs[$key] = false;  
+</span></span><span class="line"><span class="cl">		   return false;  
+</span></span><span class="line"><span class="cl">		}  
+</span></span><span class="line"><span class="cl">		$funcs[$key] = true;  
+</span></span><span class="line"><span class="cl">		return true;  
+</span></span><span class="line"><span class="cl">pc_base::load_sys_func(&#39;extention&#39;);  //同理包含 lib/functions/extention.func.php
+</span></span><span class="line"><span class="cl">pc_base::auto_load_func();
+</span></span><span class="line"><span class="cl">  =&gt;public static function auto_load_func($path=&#39;&#39;) {  
+</span></span><span class="line"><span class="cl">    return self::_auto_load_func($path);  
+</span></span><span class="line"><span class="cl">    // 调用私有方法
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	  =&gt;private static function _auto_load_func($path = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">		    if (empty($path)) $path = &#39;libs&#39;.DIRECTORY_SEPARATOR.&#39;functions&#39;.DIRECTORY_SEPARATOR.&#39;autoload&#39;;
+</span></span><span class="line"><span class="cl">		    // libs/functions/autoload 路径  
+</span></span><span class="line"><span class="cl">		    $path .= DIRECTORY_SEPARATOR.&#39;*.func.php&#39;;  
+</span></span><span class="line"><span class="cl">		    $auto_funcs = glob(PC_PATH.DIRECTORY_SEPARATOR.$path);
+</span></span><span class="line"><span class="cl">		    // 这里是包含 libs/functions/autoload 路径下的所有类方法文件
+</span></span><span class="line"><span class="cl">		    if(!empty($auto_funcs) &amp;&amp; is_array($auto_funcs)) {  
+</span></span><span class="line"><span class="cl">		       foreach($auto_funcs as $func_path) {  
+</span></span><span class="line"><span class="cl">		          include $func_path;  
+</span></span><span class="line"><span class="cl">		       }  
+</span></span><span class="line"><span class="cl">		    }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pc_base::load_config(&#39;system&#39;,&#39;errorlog&#39;) ? set_error_handler(&#39;my_error_handler&#39;) : error_reporting(E_ERROR | E_WARNING | E_PARSE);
+</span></span><span class="line"><span class="cl">//加载配置文件，并返回 key 的值</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>继续定义变量和加载配置文件</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">define(&#39;CHARSET&#39; ,pc_base::load_config(&#39;system&#39;,&#39;charset&#39;));
+</span></span><span class="line"><span class="cl">//输出页面字符集
+</span></span><span class="line"><span class="cl">header(&#39;Content-type: text/html; charset=&#39;.CHARSET);
+</span></span><span class="line"><span class="cl">define(//继续定义一些系统环境变量...);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if(pc_base::load_config(&#39;system&#39;,&#39;gzip&#39;) &amp;&amp; function_exists(&#39;ob_gzhandler&#39;)) {
+</span></span><span class="line"><span class="cl">	ob_start(&#39;ob_gzhandler&#39;);
+</span></span><span class="line"><span class="cl">} else {
+</span></span><span class="line"><span class="cl">	ob_start();
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>至此 include PHPCMS_PATH.&rsquo;/phpcms/base.php&rsquo;; 做的事情已经结束，继续看 index.php，静态调用 creat_app()，如下调用</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pc_base::creat_app();
+</span></span><span class="line"><span class="cl">  =&gt;public static function creat_app() {  
+</span></span><span class="line"><span class="cl">	    return self::load_sys_class(&#39;application&#39;);  
+</span></span><span class="line"><span class="cl">	    // creat_app 会调用 load_sys_class 方法，它负责加载并实例化系统类
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	  =&gt;public static function load_sys_class($classname, $path = &#39;&#39;, $initialize = 1) {  
+</span></span><span class="line"><span class="cl">		       return self::_load_class($classname, $path, $initialize);  
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">		  =&gt;private static function _load_class($classname, $path = &#39;&#39;, $initialize = 1) {
+</span></span><span class="line"><span class="cl">					static $classes = array();
+</span></span><span class="line"><span class="cl">					// 使用静态变量 $classes 来缓存已加载的类，避免重复加载
+</span></span><span class="line"><span class="cl">					if (empty($path)) $path = &#39;libs&#39;.DIRECTORY_SEPARATOR.&#39;classes&#39;;
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">					$key = md5($path.$classname);
+</span></span><span class="line"><span class="cl">					// 生成类文件的唯一标识符，以便缓存已加载的类
+</span></span><span class="line"><span class="cl">					if (isset($classes[$key])) {
+</span></span><span class="line"><span class="cl">						if (!empty($classes[$key])) {
+</span></span><span class="line"><span class="cl">							return $classes[$key];
+</span></span><span class="line"><span class="cl">						} else {
+</span></span><span class="line"><span class="cl">							return true;
+</span></span><span class="line"><span class="cl">						}
+</span></span><span class="line"><span class="cl">					}
+</span></span><span class="line"><span class="cl">					if (file_exists(PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.&#39;.class.php&#39;)) {
+</span></span><span class="line"><span class="cl">						// 如果类文件存在，则包含该类文件
+</span></span><span class="line"><span class="cl">						include PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.&#39;.class.php&#39;;
+</span></span><span class="line"><span class="cl">						$name = $classname;
+</span></span><span class="line"><span class="cl">						if ($my_path = self::my_path(PC_PATH.$path.DIRECTORY_SEPARATOR.$classname.&#39;.class.php&#39;)) {
+</span></span><span class="line"><span class="cl">							include $my_path;
+</span></span><span class="line"><span class="cl">							$name = &#39;MY_&#39;.$classname;
+</span></span><span class="line"><span class="cl">						}
+</span></span><span class="line"><span class="cl">						if ($initialize) {
+</span></span><span class="line"><span class="cl">							$classes[$key] = new $name;
+</span></span><span class="line"><span class="cl">							// 实例该类，PHP的spl_autoload_register()机制会自动找到路径下的类文件并实例对应类
+</span></span><span class="line"><span class="cl">						} else {
+</span></span><span class="line"><span class="cl">							$classes[$key] = true;
+</span></span><span class="line"><span class="cl">						}
+</span></span><span class="line"><span class="cl">						return $classes[$key];
+</span></span><span class="line"><span class="cl">					} else {
+</span></span><span class="line"><span class="cl">						return false;
+</span></span><span class="line"><span class="cl">					}
+</span></span><span class="line"><span class="cl">				}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>入口页代码到此就结束，但分析显然不止于此，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo></mrow><annotation encoding="application/x-tex">classes[</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal">sses</span><span class="mopen">[</span></span></span></span>key] = new $name; 这里看到实例化了 application 类，去看看它的构造函数</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">application</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">param</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_sys_class</span><span class="p">(</span><span class="s1">&#39;param&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">//</span><span class="n">加载类文件</span> <span class="n">param</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">php</span>
+</span></span><span class="line"><span class="cl">		<span class="n">define</span><span class="p">(</span><span class="s1">&#39;ROUTE_M&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">param</span><span class="o">-&gt;</span><span class="n">route_m</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">define</span><span class="p">(</span><span class="s1">&#39;ROUTE_C&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">param</span><span class="o">-&gt;</span><span class="n">route_c</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">define</span><span class="p">(</span><span class="s1">&#39;ROUTE_A&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">param</span><span class="o">-&gt;</span><span class="n">route_a</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>load_sys_class 加载类文件 param.class.php，并且调用类文件函数 route_m、route_c、route_a，仔细看看这个文件内功能实现做了什么</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">param</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span><span class="n">路由配置</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="err">$</span><span class="n">route_config</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span><span class="n">传统过滤方式</span><span class="err">，</span><span class="n">实例时对外部传参进行</span> <span class="n">addslashes</span> <span class="n">转义</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">get_magic_quotes_gpc</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_POST</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_POST</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_GET</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_REQUEST</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_REQUEST</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="err">$</span><span class="n">_COOKIE</span> <span class="o">=</span> <span class="n">new_addslashes</span><span class="p">(</span><span class="err">$</span><span class="n">_COOKIE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="n">SITE_URL</span><span class="p">)</span> <span class="err">?</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="n">SITE_URL</span><span class="p">)</span> <span class="p">:</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		  <span class="o">=&gt;</span><span class="c1">#route.php</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">				<span class="s1">&#39;default&#39;</span><span class="o">=&gt;</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;init&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">				<span class="o">//</span><span class="n">定义默认参数项</span><span class="err">，</span><span class="n">当用户没传参时会使用到</span>
+</span></span><span class="line"><span class="cl">			<span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">//</span><span class="n">加载配置文件route</span><span class="o">.</span><span class="n">php并将赋给</span> <span class="n">route_config</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;POST&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">foreach</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;POST&#39;</span><span class="p">]</span> <span class="k">as</span> <span class="err">$</span><span class="n">_key</span> <span class="o">=&gt;</span> <span class="err">$</span><span class="n">_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="err">$</span><span class="n">_key</span><span class="p">]))</span> <span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="err">$</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="err">$</span><span class="n">_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">//</span><span class="n">定义POST全局变量</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;GET&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">foreach</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">route_config</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;GET&#39;</span><span class="p">]</span> <span class="k">as</span> <span class="err">$</span><span class="n">_key</span> <span class="o">=&gt;</span> <span class="err">$</span><span class="n">_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="err">$</span><span class="n">_key</span><span class="p">]))</span> <span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="err">$</span><span class="n">_key</span><span class="p">]</span> <span class="o">=</span> <span class="err">$</span><span class="n">_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">//</span><span class="n">定义GET全局变量</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]))</span> <span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">intval</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]),</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>构造函数先对外部传参进行转义处理，然后赋值给程序全局变量
+再看调用的三个类函数，功能很简单就是获取外部规划化的三个参数 m、c、a 值并返回
+那么 param.class.php 类文件功能也就清晰了，就是对外部传参进行转义处理，并处理外部请求的路由参数（<code>m</code>、<code>c</code>、<code>a</code>），同时根据配置文件提供默认值。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function route_m() {
+</span></span><span class="line"><span class="cl">	$m = isset($_GET[&#39;m&#39;]) &amp;&amp; !empty($_GET[&#39;m&#39;]) ? $_GET[&#39;m&#39;] : (isset($_POST[&#39;m&#39;]) &amp;&amp; !empty($_POST[&#39;m&#39;]) ? $_POST[&#39;m&#39;] : &#39;&#39;);
+</span></span><span class="line"><span class="cl">	if (empty($m)) {
+</span></span><span class="line"><span class="cl">		return $this-&gt;route_config[&#39;m&#39;];
+</span></span><span class="line"><span class="cl">	} else {
+</span></span><span class="line"><span class="cl">		return $m;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	//获取外部传参 m
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public function route_c() {
+</span></span><span class="line"><span class="cl">	$c = isset($_GET[&#39;c&#39;]) &amp;&amp; !empty($_GET[&#39;c&#39;]) ? $_GET[&#39;c&#39;] : (isset($_POST[&#39;c&#39;]) &amp;&amp; !empty($_POST[&#39;c&#39;]) ? $_POST[&#39;c&#39;] : &#39;&#39;);
+</span></span><span class="line"><span class="cl">	if (empty($c)) {
+</span></span><span class="line"><span class="cl">		return $this-&gt;route_config[&#39;c&#39;];
+</span></span><span class="line"><span class="cl">	} else {
+</span></span><span class="line"><span class="cl">		return $c;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	//获取外部传参 c
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public function route_a() {
+</span></span><span class="line"><span class="cl">	$a = isset($_GET[&#39;a&#39;]) &amp;&amp; !empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : (isset($_POST[&#39;a&#39;]) &amp;&amp; !empty($_POST[&#39;a&#39;]) ? $_POST[&#39;a&#39;] : &#39;&#39;);
+</span></span><span class="line"><span class="cl">	if (empty($a)) {
+</span></span><span class="line"><span class="cl">		return $this-&gt;route_config[&#39;a&#39;];
+</span></span><span class="line"><span class="cl">	} else {
+</span></span><span class="line"><span class="cl">		return $a;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	//获取外部传参 a
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>同时构造函数中也导入了配置文件 route.php，定义了 m、c、a 的默认值，默认 a = init，即若没有传入 a 则默认会调用指定类的 init 方法</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$this</span>-&gt;route_config <span class="o">=</span> pc_base::load_config<span class="o">(</span><span class="s1">&#39;route&#39;</span>, SITE_URL<span class="o">)</span> ? pc_base::load_config<span class="o">(</span><span class="s1">&#39;route&#39;</span>, SITE_URL<span class="o">)</span> : pc_base::load_config<span class="o">(</span><span class="s1">&#39;route&#39;</span>, <span class="s1">&#39;default&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">=</span>&gt;#route.php
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> array<span class="o">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;default&#39;</span><span class="o">=</span>&gt;array<span class="o">(</span><span class="s1">&#39;m&#39;</span><span class="o">=</span>&gt;<span class="s1">&#39;content&#39;</span>, <span class="s1">&#39;c&#39;</span><span class="o">=</span>&gt;<span class="s1">&#39;index&#39;</span>, <span class="s1">&#39;a&#39;</span><span class="o">=</span>&gt;<span class="s1">&#39;init&#39;</span><span class="o">)</span>,
+</span></span><span class="line"><span class="cl">        //定义默认参数项，当用户没传参时会使用到
+</span></span><span class="line"><span class="cl">    <span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">//加载配置文件route.php并将赋给 route_config</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>回到 application.class.php，来到 $this-&gt;init(); ，这里的控制器就是指要访问的 php 业务文件。</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>i</mi><mi>l</mi><mi>e</mi><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo>=</mo><mi>P</mi><msub><mi>C</mi><mi>P</mi></msub><mi>A</mi><mi>T</mi><mi>H</mi><msup><mi mathvariant="normal">.</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>m</mi><mi>o</mi><mi>d</mi><mi>u</mi><mi>l</mi><mi>e</mi><msup><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi mathvariant="normal">.</mi><mi>D</mi><mi>I</mi><mi>R</mi><mi>E</mi><mi>C</mi><mi>T</mi><mi>O</mi><mi>R</mi><msub><mi>Y</mi><mi>S</mi></msub><mi>E</mi><mi>P</mi><mi>A</mi><mi>R</mi><mi>A</mi><mi>T</mi><mi>O</mi><mi>R</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">filepath = PC_PATH.&#x27;modules&#x27;.DIRECTORY_SEPARATOR.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9019em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord"><span class="mord">.</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">m</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.00773em;">RECTOR</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.13889em;">EP</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.00773em;">TOR</span><span class="mord">.</span></span></span></span>m.DIRECTORY_SEPARATOR.$filename.&rsquo;.php&rsquo;; 这意味着用户从外部能调用的类文件业务服务仅包括 PC_PATH.&lsquo;modules&rsquo;. 文件夹的子文件</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function __construct() {  
+</span></span><span class="line"><span class="cl">    $this-&gt;init();  
+</span></span><span class="line"><span class="cl">}  
+</span></span><span class="line"><span class="cl">//调用 init()
+</span></span><span class="line"><span class="cl">  =&gt;private function init() {  
+</span></span><span class="line"><span class="cl">	    $controller = $this-&gt;load_controller();  
+</span></span><span class="line"><span class="cl">	    // 加载控制器
+</span></span><span class="line"><span class="cl">	    if (method_exists($controller, ROUTE_A)) {  
+</span></span><span class="line"><span class="cl">	       if (preg_match(&#39;/^[_]/i&#39;, ROUTE_A)) {  
+</span></span><span class="line"><span class="cl">	          exit(&#39;You are visiting the action is to protect the private action&#39;);  
+</span></span><span class="line"><span class="cl">	       } else {  
+</span></span><span class="line"><span class="cl">	          call_user_func(array($controller, ROUTE_A));  
+</span></span><span class="line"><span class="cl">	          // ROUTE_A 即传参 a，执行实例化对象内部类方法
+</span></span><span class="line"><span class="cl">	       }  
+</span></span><span class="line"><span class="cl">	    } else {  
+</span></span><span class="line"><span class="cl">	       exit(&#39;Action does not exist.&#39;);  
+</span></span><span class="line"><span class="cl">	    }  
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	  =&gt;private function load_controller($filename = &#39;&#39;, $m = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">		    if (empty($filename)) $filename = ROUTE_C;  
+</span></span><span class="line"><span class="cl">		    if (empty($m)) $m = ROUTE_M;  
+</span></span><span class="line"><span class="cl">		    $filepath = PC_PATH.&#39;modules&#39;.DIRECTORY_SEPARATOR.$m.DIRECTORY_SEPARATOR.$filename.&#39;.php&#39;;  
+</span></span><span class="line"><span class="cl">		    if (file_exists($filepath)) {  
+</span></span><span class="line"><span class="cl">		       $classname = $filename;  
+</span></span><span class="line"><span class="cl">		       include $filepath;  
+</span></span><span class="line"><span class="cl">		       // 包含指定控制器
+</span></span><span class="line"><span class="cl">		       if ($mypath = pc_base::my_path($filepath)) {  
+</span></span><span class="line"><span class="cl">		          $classname = &#39;MY_&#39;.$filename;  
+</span></span><span class="line"><span class="cl">		          include $mypath;  
+</span></span><span class="line"><span class="cl">		       }  
+</span></span><span class="line"><span class="cl">		       return new $classname;
+</span></span><span class="line"><span class="cl">		       //实例控制器，执行构造函数并返回实例化对象
+</span></span><span class="line"><span class="cl">		    } else {  
+</span></span><span class="line"><span class="cl">		       exit(&#39;Controller does not exist.&#39;);  
+</span></span><span class="line"><span class="cl">		    }  
+</span></span><span class="line"><span class="cl">		}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>首先根据路由信息确定控制器和方法，然后加载相应的控制器文件，最后通过 call_user_func 调用指定的方法进行处理。同时，程序还具有基本的访问保护和错误处理机制，确保只有符合条件的方法能够被访问。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">call_user_func(array($controller, ROUTE_A));  
+</span></span><span class="line"><span class="cl">  // ROUTE_A 即传参 a，执行实例化对象内部类方法</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>总结
+<figure>
+  <img src="file-20250628134505706.png" alt="" loading="lazy"></figure>
+
+调用链</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">index.php
+</span></span><span class="line"><span class="cl">	base.php::creat_app()
+</span></span><span class="line"><span class="cl">			base.php::load_sys_class()
+</span></span><span class="line"><span class="cl">				base.php::_load_class()
+</span></span><span class="line"><span class="cl">					application.class.php::__construt()
+</span></span><span class="line"><span class="cl">						application.class.php::init()
+</span></span><span class="line"><span class="cl">							application.class.php::call_user_func()</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>这就是 phpcms 的路由机制，假设我们想要访问 phpcms/modules/admin/index.php，即 phpcms 后台，那么则需要如下参数，实际 a=login 仅仅返回前端页面应该不需要，但为了调用内部方法，也加上演示</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://ip/?m=admin&amp;c=index&amp;a=login</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>此时就成功走进 admin/index.php#login() 了
+<figure>
+  <img src="file-20250628120658619.png" alt="" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250628120721212.png" alt="" loading="lazy"></figure>
+</p>
+<p>PS. phpcms 是一个非常经典的内容管理系统，在网上有很多分析和讨论，值得学习。</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/mvc/" class="post-footer-tag-link" title="Tags - MVC">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>MVC</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="PHPCMSv9 MVC模式学习" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="MVC"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-hashtag="MVC"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="PHPCMSv9 MVC模式学习"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">Dedecms SP2 前后台审计</div>
+          </div>
+        </a><a href="/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.0 SQL注入漏洞分析</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#全局分析">全局分析</a>
+      <ul>
+        <li><a href="#路由机制">路由机制</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/0d2a4c15bd44bf663baf26934e6da754.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

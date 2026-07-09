@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+	<meta name="generator" content="Hugo 0.160.1">
+    <meta name="theme" content='FixIt v0.4.5'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research"><meta name="keywords" content='Security, CTF, Pentest, Web Security, Code Audit, Vulnerability Research'>
+  <meta itemprop="name" content="L1nq Blog">
+  <meta itemprop="description" content="A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research">
+  <meta itemprop="datePublished" content="2026-07-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T19:41:48+08:00">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg"><meta property="og:url" content="https://sw1mblu3.fun/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="L1nq Blog">
+  <meta property="og:description" content="A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="L1nq Blog" /><meta name="twitter:description" content="A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/" title="L1nq Blog" /><link rel="alternate" type="application/rss+xml" href="https://sw1mblu3.fun/index.xml" title="L1nq Blog"><link rel="search" type="application/json" href="https://sw1mblu3.fun/search.json" title="L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "https:\/\/sw1mblu3.fun\/","inLanguage": "en","author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": "A Security Enthusiast's Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research","image": "https:\/\/sw1mblu3.fun\/1.jpg","thumbnailUrl": "https:\/\/sw1mblu3.fun\/1.jpg","license": "2026","name": "L1nq Blog"
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><div class="page home posts"><div class="home-profile"><div class="home-avatar"><a href="/categories/" title="Categories"><img src='/1.jpg' alt="Home avatar" height="96" width="96"></a></div><h1 class="home-title">L1nq</h1><p class="home-subtitle"><span class="d-none">A Security Enthusiast</span><span class="typeit"><template>A Security Enthusiast</template></span></p><div class="links"><a href="https://github.com/L1nq0" title="GitHub" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-brands fa-github" aria-hidden="true"></i>
+    </a><a href="https://x.com/L1nq1_" title="X" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+    </a><a href="mailto:cryp71csec@gmail.com" title="Email" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-regular fa-envelope" aria-hidden="true"></i>
+    </a><a href="/index.xml" title="RSS" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-solid fa-rss" aria-hidden="true"></i>
+    </a></div></div>
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline">
+    <a href="/posts/ai-cybersecurity-challenge-2026-web-writeup/">AI X Cybersecurity Challenge 2026 Web Writeup</a>
+  </h2><div class="post-meta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="calendar-icon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M7 14h.013"/>
+      <path d="M10.01 14h.005"/>
+      <path d="M13.01 14h.005"/>
+      <path d="M16.015 14h.005"/>
+      <path d="M13.015 17h.005"/>
+      <path d="M7.01 17h.005"/>
+      <path d="M10.01 17h.005"/>
+    </svg><time datetime="2026-07-05T00:00:00Z">2026-07-05</time></div><div class="content">AI x Cybersecurity Challenge 2026 Web Writeup</div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline">
+    <a href="/posts/%E7%BE%8A%E5%9F%8E%E6%9D%AF-2025-web-writeup/">羊城杯 2025 Web Writeup</a>
+  </h2><div class="post-meta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="calendar-icon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M7 14h.013"/>
+      <path d="M10.01 14h.005"/>
+      <path d="M13.01 14h.005"/>
+      <path d="M16.015 14h.005"/>
+      <path d="M13.015 17h.005"/>
+      <path d="M7.01 17h.005"/>
+      <path d="M10.01 17h.005"/>
+    </svg><time datetime="2025-10-13T09:54:58Z">2025-10-13</time></div><div class="content">羊城杯 2025 Web Writeup</div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline">
+    <a href="/posts/pdfminer-vulnerability-research/">Pdfminer Vulnerability Research</a>
+  </h2><div class="post-meta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="calendar-icon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M7 14h.013"/>
+      <path d="M10.01 14h.005"/>
+      <path d="M13.01 14h.005"/>
+      <path d="M16.015 14h.005"/>
+      <path d="M13.015 17h.005"/>
+      <path d="M7.01 17h.005"/>
+      <path d="M10.01 17h.005"/>
+    </svg><time datetime="2025-10-02T21:58:12Z">2025-10-02</time></div><div class="content">Pdfminer Vulnerability Research</div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline">
+    <a href="/posts/wmctf-2025-web-writeup/">WMCTF 2025 Web Writeup</a>
+  </h2><div class="post-meta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="calendar-icon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+      <path d="M16 3v4"/>
+      <path d="M8 3v4"/>
+      <path d="M4 11h16"/>
+      <path d="M7 14h.013"/>
+      <path d="M10.01 14h.005"/>
+      <path d="M13.01 14h.005"/>
+      <path d="M16.015 14h.005"/>
+      <path d="M13.015 17h.005"/>
+      <path d="M7.01 17h.005"/>
+      <path d="M10.01 17h.005"/>
+    </svg><time datetime="2025-09-23T14:35:54Z">2025-09-23</time></div><div class="content">WMCTF 2025 Web Writeup</div>
+</article><div class="all-posts-link">
+        <a href="/posts/">
+          All Posts
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/>
+          </svg>
+        </a>
+      </div></div></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script>window.config={"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"print":{"expandAdmonition":true,"expandCode":true,"expandDetails":true,"expandFileTree":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":30,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"tooltip":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"duration":-1,"loop":false,"speed":100},"version":"v0.4.5"};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

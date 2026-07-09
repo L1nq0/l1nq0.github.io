@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CMapDB - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/cmapdb/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:27:18 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/cmapdb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WMCTF 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/wmctf-2025-web-writeup/</link>
+      <pubDate>Tue, 23 Sep 2025 14:35:54 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/wmctf-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>WMCTF 2025 Web Writeup</description>
+    </item>
+  </channel>
+</rss>

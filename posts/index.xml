@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>All Posts - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/posts/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:38:23 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI x Cybersecurity Challenge 2026 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/</link>
+      <pubDate>Sun, 05 Jul 2026 00:00:00 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/ai-cybersecurity-challenge-2026-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>AI x Cybersecurity Challenge 2026 Web Writeup</description>
+    </item>
+    <item>
+      <title>羊城杯 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/%E7%BE%8A%E5%9F%8E%E6%9D%AF-2025-web-writeup/</link>
+      <pubDate>Mon, 13 Oct 2025 09:54:58 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E7%BE%8A%E5%9F%8E%E6%9D%AF-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>羊城杯 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>Pdfminer Vulnerability Research</title>
+      <link>https://sw1mblu3.fun/posts/pdfminer-vulnerability-research/</link>
+      <pubDate>Thu, 02 Oct 2025 21:58:12 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/pdfminer-vulnerability-research/</guid>
+      <category domain="https://sw1mblu3.fun/categories/python/">Python</category>
+      <description>Pdfminer Vulnerability Research</description>
+    </item>
+    <item>
+      <title>WMCTF 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/wmctf-2025-web-writeup/</link>
+      <pubDate>Tue, 23 Sep 2025 14:35:54 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/wmctf-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>WMCTF 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>LILCTF 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/lilctf-2025-web-writeup/</link>
+      <pubDate>Mon, 25 Aug 2025 13:54:50 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/lilctf-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>LILCTF 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>NSSCTF4th 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/</link>
+      <pubDate>Sun, 24 Aug 2025 23:40:38 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/nssctf4th-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>NSSCTF4th 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>天一永安杯 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/</link>
+      <pubDate>Mon, 18 Aug 2025 22:54:32 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E5%AE%81%E6%B3%A2%E8%B5%9B-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>天一永安杯 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析</title>
+      <link>https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/</link>
+      <pubDate>Fri, 08 Aug 2025 17:10:19 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E5%9F%BA%E4%BA%8E-nepctf-2025-jsonpickle-safe-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E-waf-%E7%BB%95%E8%BF%87%E5%88%86%E6%9E%90/</guid>
+      <category domain="https://sw1mblu3.fun/categories/python/">Python</category>
+      <description>基于 NEPCTF 2025 JsonPickle Safe 模式反序列化与 WAF 绕过分析</description>
+    </item>
+    <item>
+      <title>第十届 “磐石行动” 初赛 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/</link>
+      <pubDate>Wed, 06 Aug 2025 23:13:18 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E7%A3%90%E7%9F%B3%E8%A1%8C%E5%8A%A8-2025-web-writeup/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>第十届 “磐石行动” 初赛 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</title>
+      <link>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</link>
+      <pubDate>Sat, 02 Aug 2025 21:30:04 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>浅析 PHPCMSv9.6.3 转义失效导致RCE</description>
+    </item>
+    <item>
+      <title>PHPCMSv9.6.3 文件包含漏洞分析</title>
+      <link>https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sat, 02 Aug 2025 18:04:07 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/phpcms-v9-6-3-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>PHPCMSV9.6.3 文件包含漏洞分析</description>
+    </item>
+    <item>
+      <title>PHPCMSv9.6.1-2 任意文件下载漏洞分析</title>
+      <link>https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
+      <pubDate>Fri, 01 Aug 2025 11:15:02 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/phpcmsv9-6-1-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>PHPCMSV9.6.1-2 任意文件下载漏洞分析</description>
+    </item>
+    <item>
+      <title>PHPCMSv9.6.0 SQL注入漏洞分析</title>
+      <link>https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/</link>
+      <pubDate>Tue, 29 Jul 2025 12:41:54 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/phpcmsv9-6-0-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>PHPCMSV9.6.0 SQL注入漏洞分析</description>
+    </item>
+    <item>
+      <title>PHPCMSv9 MVC模式学习</title>
+      <link>https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sat, 28 Jun 2025 20:22:44 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/phpcmsv9-mvc%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>PHPCMSV9 MVC模式学习记录</description>
+    </item>
+    <item>
+      <title>Dedecms SP2 前后台审计</title>
+      <link>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/</link>
+      <pubDate>Sat, 21 Jun 2025 17:43:17 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>Dedecms SP2 前后台审计</description>
+    </item>
+    <item>
+      <title>ZZCMS2023SQL注入/帝国EmpireBak任意文件上传漏洞分析</title>
+      <link>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%88%9D%E5%AD%A602-zzcms2023/</link>
+      <pubDate>Fri, 13 Jun 2025 17:20:36 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%88%9D%E5%AD%A602-zzcms2023/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>ZZCMS2023SQL注入/帝国EmpireBak任意文件上传漏洞分析</description>
+    </item>
+    <item>
+      <title>借助 Bluecms v1.6 初试PHP代码审计</title>
+      <link>https://sw1mblu3.fun/posts/php%E5%AE%89%E5%85%A8-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 11 Jun 2025 20:10:28 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/php%E5%AE%89%E5%85%A8-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>借助 Bluecms v1.6 初试PHP代码审计</description>
+    </item>
+    <item>
+      <title>Java CC1 &amp;&amp; CC6 链</title>
+      <link>https://sw1mblu3.fun/posts/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-cc1-cc6/</link>
+      <pubDate>Mon, 02 Jun 2025 20:12:50 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-cc1-cc6/</guid>
+      <category domain="https://sw1mblu3.fun/categories/java/">Java</category>
+      <description>Java CC1 &amp;amp;&amp;amp; CC6 链</description>
+    </item>
+    <item>
+      <title>轩辕杯 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/%E8%BD%A9%E8%BE%95%E6%9D%AF/</link>
+      <pubDate>Thu, 22 May 2025 11:51:50 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E8%BD%A9%E8%BE%95%E6%9D%AF/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>轩辕杯云盾砺剑CTF挑战赛 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>XYCTF 2025 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/xyctf/</link>
+      <pubDate>Thu, 22 May 2025 11:30:32 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/xyctf/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>XYCTF 2025 Web Writeup</description>
+    </item>
+    <item>
+      <title>初识 Python 原型链污染</title>
+      <link>https://sw1mblu3.fun/posts/%E5%88%9D%E8%AF%86python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</link>
+      <pubDate>Thu, 10 Apr 2025 20:42:22 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E5%88%9D%E8%AF%86python%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</guid>
+      <category domain="https://sw1mblu3.fun/categories/python/">Python</category>
+      <description>初识 Python 原型链污染</description>
+    </item>
+    <item>
+      <title>Cyberstrikelab Diamond Writeup</title>
+      <link>https://sw1mblu3.fun/posts/cslab-diamond/</link>
+      <pubDate>Mon, 31 Mar 2025 15:49:59 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/cslab-diamond/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>Cyberstrikelab Diamond Writeup</description>
+    </item>
+    <item>
+      <title>Cyberstrikelab Pearl Writeup</title>
+      <link>https://sw1mblu3.fun/posts/cslab-pearl/</link>
+      <pubDate>Thu, 27 Mar 2025 16:40:24 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/cslab-pearl/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>Cyberstrikelab Pearl Writeup</description>
+    </item>
+    <item>
+      <title>Cyberstrikelab Thunder Writeup</title>
+      <link>https://sw1mblu3.fun/posts/cslab-thunder/</link>
+      <pubDate>Tue, 25 Mar 2025 10:24:03 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/cslab-thunder/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>Cyberstrikelab Thunder Writeup</description>
+    </item>
+    <item>
+      <title>PolarCTF 2025 春季个人赛 Web Writeup</title>
+      <link>https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/</link>
+      <pubDate>Mon, 24 Mar 2025 16:42:59 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/polarctf-2025%E6%98%A5%E5%AD%A3%E4%B8%AA%E4%BA%BA%E8%B5%9B/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>PolarCTF 2025 春季个人赛 Web Writeup</description>
+    </item>
+    <item>
+      <title>NCTF 2025 Web Writeup&amp;Challenge Walkthrough</title>
+      <link>https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/</link>
+      <pubDate>Mon, 24 Mar 2025 10:34:28 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>NCTF 2025 Web Writeup&amp;amp;Challenge Walkthrough</description>
+    </item>
+    <item>
+      <title>强网杯 2024 初赛 Web Challenge Walkthrough</title>
+      <link>https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/</link>
+      <pubDate>Wed, 05 Mar 2025 20:44:03 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/</guid>
+      <category domain="https://sw1mblu3.fun/categories/ctf/">CTF</category>
+      <description>强网杯 2024 初赛 Web Challenge Walkthrough</description>
+    </item>
+    <item>
+      <title>资产侦察系统灯塔ARL优化</title>
+      <link>https://sw1mblu3.fun/posts/%E8%B5%84%E4%BA%A7%E4%BE%A6%E5%AF%9F%E7%B3%BB%E7%BB%9F%E7%81%AF%E5%A1%94arl%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 05 Mar 2025 19:48:28 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E8%B5%84%E4%BA%A7%E4%BE%A6%E5%AF%9F%E7%B3%BB%E7%BB%9F%E7%81%AF%E5%A1%94arl%E4%BC%98%E5%8C%96/</guid>
+      <category domain="https://sw1mblu3.fun/categories/development/">Development</category>
+      <description>来自 C4 安全团队的二开手记，学着自己也优化一下</description>
+    </item>
+    <item>
+      <title>HackTheBox EscapeTwo Writeup</title>
+      <link>https://sw1mblu3.fun/posts/hackthebox-escapetwo/</link>
+      <pubDate>Wed, 05 Mar 2025 19:28:03 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/hackthebox-escapetwo/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>HackTheBox EscapeTwo Writeup</description>
+    </item>
+    <item>
+      <title>HackTheBox Editorial Writeup</title>
+      <link>https://sw1mblu3.fun/posts/hackthebox-editorial/</link>
+      <pubDate>Wed, 05 Mar 2025 19:07:23 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/hackthebox-editorial/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>HackTheBox Editorial Writeup</description>
+    </item>
+    <item>
+      <title>Cyberstrikelab lab1-7 Writeup</title>
+      <link>https://sw1mblu3.fun/posts/cslab-lab1-7/</link>
+      <pubDate>Wed, 05 Mar 2025 16:04:17 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/cslab-lab1-7/</guid>
+      <category domain="https://sw1mblu3.fun/categories/pentest-lab/">Pentest Lab</category>
+      <description>Cyberstrikelab lab1-7 Writeup</description>
+    </item>
+  </channel>
+</rss>

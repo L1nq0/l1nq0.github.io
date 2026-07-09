@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Audit - Tag - L1nq Blog</title>
+    <link>https://sw1mblu3.fun/tags/code-audit/</link>
+    <description>A Security Enthusiast&#39;s Blog - CTF Writeups, Pentest Labs, Code Audit and Web Security Research</description>
+    <generator>Hugo 0.160.1 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <managingEditor>cryp71csec@gmail.com (L1nq)</managingEditor>
+    <webMaster>cryp71csec@gmail.com (L1nq)</webMaster>
+    <copyright>2026</copyright>
+    <lastBuildDate>Thu, 09 Jul 2026 18:36:09 +0800</lastBuildDate>
+    <atom:link href="https://sw1mblu3.fun/tags/code-audit/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>浅析 PHPCMSv9.6.3 上下文逃逸导致RCE</title>
+      <link>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</link>
+      <pubDate>Sat, 02 Aug 2025 21:30:04 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/%E6%B5%85%E6%9E%90-phpcmsv9-6-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E9%80%83%E9%80%B8%E5%AF%BC%E8%87%B4rce/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>浅析 PHPCMSv9.6.3 转义失效导致RCE</description>
+    </item>
+    <item>
+      <title>Dedecms SP2 前后台审计</title>
+      <link>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/</link>
+      <pubDate>Sat, 21 Jun 2025 17:43:17 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-dedecms/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>Dedecms SP2 前后台审计</description>
+    </item>
+    <item>
+      <title>借助 Bluecms v1.6 初试PHP代码审计</title>
+      <link>https://sw1mblu3.fun/posts/php%E5%AE%89%E5%85%A8-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 11 Jun 2025 20:10:28 +0000</pubDate><author>cryp71csec@gmail.com (L1nq)</author>
+      <guid>https://sw1mblu3.fun/posts/php%E5%AE%89%E5%85%A8-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <category domain="https://sw1mblu3.fun/categories/php/">PHP</category>
+      <description>借助 Bluecms v1.6 初试PHP代码审计</description>
+    </item>
+  </channel>
+</rss>

